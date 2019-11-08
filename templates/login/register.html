@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Registro</title>
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+</head>
+
+<body class="text-center">
+  <div class="card" style="max-width:70%;margin-left:15%;background-color:rgba(218, 214, 214, 0.795);margin-top: 3%;">
+      
+
+    <form>
+        <h1 style="color: black;">Registro</h1>
+      <div class="form-row" style="margin-top: 5%;">
+          
+         
+        <div class="form-group col-md-6">
+            
+          <label for="inputEmail4" style="font-family: Helvetica, sans-serif;font-size: 130%;">Email</label>
+          <input type="email" class="form-control" id="inputEmail4" placeholder="Email"
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4" style="font-family: Helvetica, sans-serif;font-size: 130%;">Contraseña</label>
+          <input type="password" class="form-control" id="inputPassword4" placeholder="Contraseña"
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+      </div>
+      <fieldset class="form-group">
+        <div class="row" style="margin:auto;width:90%;">
+          <legend class="col-form-label col-sm-5"
+            style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">¿Toma médicamentos?</legend>
+          <div class="col-sm-1">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+              <label class="form-check-label" style="font-family: Helvetica, sans-serif;font-size: 130%"
+                for="gridRadios1">
+                Sí
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+              <label class="form-check-label" for="gridRadios2"
+                style="font-family: Helvetica, sans-serif;font-size: 130%">
+                No
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-1">
+
+          </div>
+          <div class="form-group col-sm-5">
+            <label for="inputAddress2" style="font-family: Helvetica, sans-serif;font-size: 130%;">Su nivel de
+              glucosa</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Digite su nivel de glucosa">
+          </div>
+        </div>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Registrarse</a>
+    </form>
+
+
+
+</body>
+
+
+</html>

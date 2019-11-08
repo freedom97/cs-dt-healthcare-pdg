@@ -1,0 +1,32 @@
+h1{
+    color: cornsilk;
+    font-family: 'Lobster';
+    text-align: center;
+}
+body{
+background-image:url('img/loginImage.jpg');
+background-size: cover; 
+}
+
+#loginForm{
+    justify-content: center;
+    height: 50%;
+    width: 50%;
+    margin-left:25% ;
+    margin-top: 5%;
+    background-color:rgba(0,0,0, 0.5)
+    
+}
+#email-login{
+    height: 50%;
+    width: 70%;
+    margin-left:15% ;
+}
+#password-login{
+    height: 50%;
+    width: 70%;
+    margin-left:15% ;
+}
+.container{
+    background-color: gainsboro;
+}
