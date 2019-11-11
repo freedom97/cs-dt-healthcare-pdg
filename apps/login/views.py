@@ -9,6 +9,7 @@ from django.contrib.auth import login
 from django.http import HttpResponseRedirect
 from .forms import FormularioLogin
 import fitbit
+import django.http.response
 import pandas as pd 
 from fontawesome.fields import IconField
 import datetime
@@ -57,16 +58,12 @@ def Patient(request):
 def Doctor(request):
     return render(request,'login/doctor.html')    
 
-def initategatherin():
+
+def initategatherin(request):
     CLIENT_ID = '22B57B'
     CLIENT_SECRET = 'a22948cb93e1a4d745d0c4a9d29ce698'
-    
-    print('AHUEVOOOOO')
     server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
-    
-    print('AHUEVOOOOOx2')
     server.browser_authorize()
-    print('AHUEVOOOOOx3')
     ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
     REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
 

@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-STATICFILES_DIRS=(BASE_DIR, 'static')
+STATICFILES_DIRS=["/Users/croos/OneDrive/Escritorio/DT/cs-dt-healthcare-pdg/static",]
 """  
 STATICFILES_DIRS=[
      "/Users/ASUS/ICESI/PDG/PDG2/paginaWeb/dt-healthcare-pdg-webPage/proyecto-login/webPageDigitalTwin/static",

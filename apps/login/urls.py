@@ -7,4 +7,7 @@ urlpatterns = [
      path('login/',views.Patient,name='patient'),
      path('login/',views.Doctor,name='doctor'),
      #  path('login/', include(('apps.login.urls','login'))),
+
+    # functions from the Doctor.html
+     path('doctor/generate-report/', views.initategatherin),
 ]

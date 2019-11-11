@@ -23,18 +23,21 @@ from apps.login.views import Profile
 from apps.login.views import Register
 from apps.login.views import Patient
 from apps.login.views import Doctor
+from apps.login.views import initategatherin
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
      #  path('login/', include(('apps.login.urls','login'))),
-   
- path('',LoginView.as_view(template_name='login/login.html'), name='login'),
- path('index/',Profile, name='Profile'),
- path('register/', Register, name='Register'),
- path('patient/', Patient, name='Patient'),
- path('doctor/', Doctor, name='Doctor'),
-#    path('',include('login.urls')),
+    path('',LoginView.as_view(template_name='login/login.html'), name='login'),
+    path('index/',Profile, name='Profile'),
+    path('register/', Register, name='Register'),
+    path('patient/', Patient, name='Patient'),
+    path('doctor/', Doctor, name='Doctor'),
     #path('accounts/login/',LoginHome.as_view(),name='login')
+    
+    # functions from the Doctor.html
+    path('doctor/generate-report/', initategatherin),
+
 ]
