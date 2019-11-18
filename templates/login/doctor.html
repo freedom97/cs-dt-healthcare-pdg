@@ -13,7 +13,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/fee31191c0.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
- </head>
+</head>
 
 <body id="page-top" style="background-color: lightgrey;">
 
@@ -103,7 +103,7 @@
 
                 </nav>
                 <!-- End of Topbar -->
-                
+
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -125,29 +125,17 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Actividad Fisica</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">mostrar por:</div>
-                                            <a class="dropdown-item" href="#">dias</a>
-                                            <a class="dropdown-item" href="#">horas</a>
-                                            <a class="dropdown-item" href="#">minutos</a>
-                                        </div>
-                                    </div>
+                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Actividad Fisica</h6>
+
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
+                                <div class="card-body" style="height: 100%;">
                                     <div class="chart-area">
-                                        <img    id="loadingScheme" src="{% static 'img/load.jpg' %}">
+                                        <img id="loadingScheme" src="{% static 'img/load.jpg' %}">
                                         <canvas id="HRate" style="display: none;"></canvas>
-                                        <canvas id="nrStp" style="display: none;" ></canvas>
-                                        <canvas id="weght" style="display: none;" ></canvas>
-                                        <canvas id="foods" style="display: none;" ></canvas>
+                                        <canvas id="nrStp" style="display: none;"></canvas>
+                                        <div id="weght" style="display: none;"></div>
+                                        <div id="foods" style="display: none;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +143,7 @@
                         <!-- Color System -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-primary text-white shadow"onclick="showWeight();">
+                                <div class="card bg-primary text-white shadow" onclick="showWeight();">
                                     <div class="card-body">
                                         Peso:
                                         <div class="text-white-50 small">ideal</div>
@@ -163,26 +151,78 @@
                                 </div>
                             </div>
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-success text-white shadow" onclick="showHR();">
+                                <div class="card bg-success text-white shadow">
                                     <div class="card-body">
                                         Actividad Cardiaca
                                         <div class="text-white-50 small">saludable</div>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header" >mostrando el ritmo cardiaco de:</div>
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showHR('day');"
+                                                    href="#">Hoy</a>                                                    
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showHR('yesterday');"
+                                                href="#">Ayer</a>
+                                                <a class="dropdown-item" id="optionsChartB" onclick="showHR('week');"
+                                                    href="#">Última semana</a>
+                                                <a class="dropdown-item" id="optionsChartC" onclick="showHR('month');"
+                                                    href="#">Último mes</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-danger text-white shadow" onclick="showSteps();">
-                                    <div class="card-body" >
+                                <div class="card bg-danger text-white shadow">
+                                    <div class="card-body">
                                         Actividad Fisica
                                         <div class="text-white-50 small">en Riesgo</div>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header" >mostrando la cantidad de pasos de:</div>
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showSteps('day');"
+                                                    href="#">Hoy</a>                                                    
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showSteps('yesterday');"
+                                                href="#">Ayer</a>
+                                                <a class="dropdown-item" id="optionsChartB" onclick="showSteps('week');"
+                                                    href="#">Última semana</a>
+                                                <a class="dropdown-item" id="optionsChartC" onclick="showSteps('month');"
+                                                    href="#">Último mes</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-info text-white shadow" onclick="showFood();">
+                                <div class="card bg-info text-white shadow">
                                     <div class="card-body">
                                         Comidas
                                         <div class="text-white-50 small">normal</div>
+                                             <div class="dropdown no-arrow">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                    aria-labelledby="dropdownMenuLink">
+                                                    <div class="dropdown-header" >mostrando la Comida de </div>
+                                                    <a class="dropdown-item" id="optionsChartA" onclick=showFood("day")
+                                                        href="#">hoy</a>
+                                                    <a class="dropdown-item" id="optionsChartB" onclick=showFood("week")
+                                                        href="#">ayer</a>
+                                                    <a class="dropdown-item" id="optionsChartC" onclick=showFood("month")
+                                                        href="#">Última semana</a>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -224,36 +264,122 @@
             </div>
         </div>
     </div>
-  <!-- Bootstrap core JavaScript-->
-  <script type="text/javascript" src="/static/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script type="text/javascript" src="/static/js/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script type="text/javascript" src="/static/js/jquery.easing.min.js"></script>
 
-  <!--chart Page level plugins -->
-  <script type="text/javascript" src="/static/js/Chart.min.js"></script>
+    <!--chart Page level plugins -->
+    <script type="text/javascript" src="/static/js/Chart.min.js"></script>
 
-  <script type="text/javascript" src="/static/js/chart-area-demo.js"></script>
-  
-  <script type="text/javascript" src="/static/js/main.js"></script>
-  
-  <script >
+    <script type="text/javascript" src="/static/js/chart-area-demo.js"></script>
 
-    function raise() {
-        $.ajax({
-            type: "POST",
-            url: '{{ 'generate-report/ ' }}',
-            data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
-            success: function callback(response) {
-                /* do whatever with the response */
-                alert(response);
-            }});}
+    <script type="text/javascript" src="/static/js/main.js"></script>
 
+    <script>
+
+
+        function raise() {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'generate-report/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
+                success: function callback(response) {
+                    /* do whatever with the response */
+                    alert(response);
+                }});}
+
+
+        function getDataFitbitCharts(type, labels) {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'get-data-fitbit/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', dataType: type, dataTime: labels },
+                success: function callback(response) {
+                    if (type == "HR") {
+                        ChartsHR.data.datasets[0].data = response[0]    
+                        ChartsHR.data.labels = response[1] 
+                        ChartsHR.update()
+                    } else if (type == "ST") {
+                        ChartsNS.data.datasets[0].data = response[0]
+                        ChartsNS.data.labels = response[1]
+                        ChartsNS.update()
+                    }
+                }});}
+
+        function getDataFitbitFoods(type, labels) {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'get-data-fitbit-food/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', dataType: type, dataTime: labels },
+
+                success: function callback(response) {
+                    datas = response
+                    document.getElementById("foods").remove();
+                    divFoods = document.createElement("div");
+                    divFoods.id = "foods";
+                    for (i = 0; i < datas.length; i++) {
+                        var foodsFitbit = document.createElement("div");
+                        foodsFitbit.id = datas[i][0] + i; //name
+                        foodsFitbit.textContent = datas[i][0] + ": " + datas[i][1]; //name: quantity  
+                        foodsFitbit.className = "card bg-primary text-white shadow";
+                        foodsFitbit.style.width = "45%";
+                        foodsFitbit.style.cssFloat = "left";
+                        foodsFitbit.style.margin = "1%";
+                        foodsFitbit.style.padding = "1%";
+                        var innerFoodsFitbit= document.createElement("div");
+                        innerFoodsFitbit.style.width ="100%";
+                        foodsFitbit.append(innerFoodsFitbit)
+                        for (j = 3; j < datas[i].length; j += 2) {
+                            if (datas[i][j] != 0) {
+                                var valueFoodsFitbit = document.createElement("div");
+                                valueFoodsFitbit.id = datas[i][j - 1] + j;//name
+                                valueFoodsFitbit.textContent = datas[i][j - 1] + ": " + datas[i][j];
+                                valueFoodsFitbit.style.width = "25%";
+                                valueFoodsFitbit.style.cssFloat = "left";
+                                valueFoodsFitbit.style.margin = "4%";
+                                valueFoodsFitbit.style.strokeWidth = "1%";
+                                valueFoodsFitbit.className = "cardbg-info text-white shadow";
+                                innerFoodsFitbit.appendChild(valueFoodsFitbit);
+                            }
+                        }
+                        divFoods.appendChild(foodsFitbit);
+                    }
+                    document.getElementsByClassName("chart-area")[0].appendChild(divFoods);
+                }});}
+
+        function getDataFitbitWeight(stra) {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'get-data-fitbit-weight/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: stra },
+                success: function callback(response) {
+                    datas = response
+                    document.getElementById("weght").remove();
+                    divWeight = document.createElement("div");
+                    divWeight.id = "weght";
+                    var imgWeight = document.createElement("div");
+                    imgWeight.id = "image-weight"; //name                    
+                    imgWeight.style.width = "45%";
+                    imgWeight.style.height = "100%";
+                    imgWeight.style.backgroundColor = "#F0F";
+                    imgWeight.style.cssFloat = "left";
+                    imgWeight.style.margin = "1%";
+                    imgWeight.style.padding = "1%";
+                    divWeight.appendChild(imgWeight)
+                    for (i = 0; i < datas.length; i++) {
+
+                    }
+                    document.getElementsByClassName("chart-area")[0].appendChild(divWeight);
+                }});
             
+        }
 
-</script>
-  
+
+    </script>
+
 </body>
 
 

@@ -24,6 +24,9 @@ from apps.login.views import Register
 from apps.login.views import Patient
 from apps.login.views import Doctor
 from apps.login.views import initategatherin
+from apps.login.views import getDataFitbitCharts
+from apps.login.views import getDataFitbitFoods
+from apps.login.views import getDataFitbitWeight
 
 
 
@@ -35,9 +38,11 @@ urlpatterns = [
     path('register/', Register, name='Register'),
     path('patient/', Patient, name='Patient'),
     path('doctor/', Doctor, name='Doctor'),
-    #path('accounts/login/',LoginHome.as_view(),name='login')
     
-    # functions from the Doctor.html
+    # functions from the Doctor.html    
     path('doctor/generate-report/', initategatherin),
+    path('doctor/get-data-fitbit/', getDataFitbitCharts),
+    path('doctor/get-data-fitbit-food/', getDataFitbitFoods),
+    path('doctor/get-data-fitbit-weight/', getDataFitbitWeight),
 
 ]

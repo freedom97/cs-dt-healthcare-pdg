@@ -10,4 +10,7 @@ urlpatterns = [
 
     # functions from the Doctor.html
      path('doctor/generate-report/', views.initategatherin),
+     path('doctor/get-data-fitbit/', views.getDataFitbitCharts),
+     path('doctor/get-data-fitbit-food/', views.getDataFitbitFoods),
+     path('doctor/get-data-fitbit-weight/', views.getDataFitbitWeight),
 ]
