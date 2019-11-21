@@ -17,30 +17,80 @@
 </head>
 
 <body class="text-center">
-  <div class="card" style="max-width:70%;margin-left:15%;background-color:rgba(218, 214, 214, 0.795);margin-top: 3%;">
-      
+  <div class="card" style="max-width:70%;margin-left:15%;background-color:#7FB1D3 ;">
+
 
     <form>
-        <h1 style="color: black;">Registro</h1>
+      <h1 style="color: black;">Registro</h1>
       <div class="form-row" style="margin-top: 5%;">
-          
-         
+
+
         <div class="form-group col-md-6">
-            
-          <label for="inputEmail4" style="font-family: Helvetica, sans-serif;font-size: 130%;">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Email"
+
+          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Usuario</label>
+          <input type="text" class="form-control" id="user" placeholder=" "
             style="max-width: 65%;margin-left: 20%;">
         </div>
         <div class="form-group col-md-6">
-          <label for="inputPassword4" style="font-family: Helvetica, sans-serif;font-size: 130%;">Contraseña</label>
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Contraseña"
+
+          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;"> contraseña</label>
+          <input type="text" class="form-control" id="pswr" placeholder=" "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+
+          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Nombres</label>
+          <input type="text" class="form-control" id="name" placeholder=" "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+
+          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Apellidos</label>
+          <input type="text" class="form-control" id="lstN" placeholder=" "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">E-mail</label>
+          <input type="text" class="form-control" id="mail" placeholder=" "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+
+          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Peso</label>
+          <input type="text" class="form-control" id="wght" placeholder=" "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">estatura</label>
+          <input type="text" class="form-control" id="hght" placeholder="   "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">Talla</label>
+          <input type="text" class="form-control" id="size" placeholder="   "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">identificacion</label>
+          <input type="text" class="form-control" id="iCrd" placeholder="   "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">Edad</label>
+          <input type="text" class="form-control" id="ageU" placeholder="   "
+            style="max-width: 65%;margin-left: 20%;">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="text" style="font-family: Helvetica, sans-serif;font-size: 130%;">Nivel de
+            glucosa</label>
+          <input    class="form-control" id="gluc" placeholder="   "
             style="max-width: 65%;margin-left: 20%;">
         </div>
       </div>
       <fieldset class="form-group">
         <div class="row" style="margin:auto;width:90%;">
-          <legend class="col-form-label col-sm-5"
-            style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">¿Toma médicamentos?</legend>
+          <legend class="col-form-label col-sm-5" style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">
+            ¿Toma médicamentos?</legend>
           <div class="col-sm-1">
             <div class="form-check">
               <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
@@ -60,16 +110,28 @@
           <div class="col-sm-1">
 
           </div>
-          <div class="form-group col-sm-5">
-            <label for="inputAddress2" style="font-family: Helvetica, sans-serif;font-size: 130%;">Su nivel de
-              glucosa</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Digite su nivel de glucosa">
-          </div>
+
         </div>
-        <a href="{% url 'login' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Registrarse</a>
+        <a class="btn btn-primary btn-lg active" role="button" onclick="registerUser()">Registrarse</a>
     </form>
 
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script type="text/javascript" src="/static/js/jquery.easing.min.js"></script>
+    <script>
+      function registerUser() {
+        $.ajax({
+          type: "POST",
+          url: '{{ 'register-user/ ' }}',
+          data: { csrfmiddlewaretoken: '{{ csrf_token }}', iCrd: document.getElementById("iCrd").value, user: document.getElementById("user").value,pswr: document.getElementById("pswr").value,name: document.getElementById("name").value,lstN: document.getElementById("lstN").value,mail: document.getElementById("mail").value,wght: document.getElementById("wght").value,hght: document.getElementById("hght").value,size: document.getElementById("size").value,gluc: document.getElementById("gluc").value, ageU: document.getElementById("ageU").value },
+          success: function callback(response) {
+          
+                      
+                  }});}
 
+    </script>
 
 </body>
 

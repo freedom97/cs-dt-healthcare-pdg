@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
-<body id="page-top" style="background-color: lightgrey;">
+<body id="page-top" onload="showPatient(13)">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -24,18 +24,18 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" >
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color: #DFDFDF;">
                     <!-- Topbar Search -->
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="buscar paciente..." id="searchForPatient"
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="button" onclick="showPatient(document.getElementById('searchForPatient').value)">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -57,11 +57,12 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
+                                            placeholder="Search for..." id="searchForPatient"
+                                            >
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
+                                            <button class="btn btn-primary" type="button" >
                                                 <i class="fas fa-search fa-sm"></i>
+
                                             </button>
                                         </div>
                                     </div>
@@ -76,7 +77,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil de usuario</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil del Doctor: {{user.username}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="https://web.whatsapp.com/2c67955e-7a60-4c41-a202-b811cc4c5a96">
                             </a>
@@ -93,7 +94,7 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" onclick="logout()"></i>
                                     Logout
                                 </a>
                             </div>
@@ -110,9 +111,13 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                            onclick="raise()"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h6 class="h3 m-0 font-weight-bold text-primary-1000" id=titlePatient style="color: #007bff ;">Paciente:</h1>
+                        <div>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generate Report CSV</a>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generate Report PDF</a>
+                        </div>
                     </div>
 
                     <!-- Content Row -->
@@ -121,16 +126,16 @@
 
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
+                            <div class="card shadow mb-4" style="background-color: #7FB1D3 ;">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Actividad Fisica</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Graficas:</h6>
 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body" style="height: 100%;">
-                                    <div class="chart-area">
+                                    <div class="chart-area" >
                                         <img id="loadingScheme" src="{% static 'img/load.jpg' %}">
                                         <canvas id="HRate" style="display: none;"></canvas>
                                         <canvas id="nrStp" style="display: none;"></canvas>
@@ -143,7 +148,7 @@
                         <!-- Color System -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-primary text-white shadow" onclick="showWeight();">
+                                <div class="card text-white shadow" onclick="showWeight();" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Peso:
                                         <div class="text-white-50 small">ideal</div>
@@ -151,14 +156,14 @@
                                 </div>
                             </div>
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-success text-white shadow">
-                                    <div class="card-body">
+                                <div class="card  text-white shadow" style="background-color: #8FC1E3 ;">
+                                    <div class="card-body"  >
                                         Actividad Cardiaca
                                         <div class="text-white-50 small">saludable</div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" ></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
@@ -177,7 +182,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-danger text-white shadow">
+                                <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Actividad Fisica
                                         <div class="text-white-50 small">en Riesgo</div>
@@ -203,7 +208,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-9 mb-4">
-                                <div class="card bg-info text-white shadow">
+                                <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Comidas
                                         <div class="text-white-50 small">normal</div>
@@ -251,15 +256,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{% url 'login' %}">Logout</a>
+                <div class="modal-body">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="logYourselfOut()">Cerrar sesion</a>
                 </div>
             </div>
         </div>
@@ -278,10 +282,11 @@
 
     <script type="text/javascript" src="/static/js/main.js"></script>
 
-    <script>
+   <script>
+   
 
 
-        function raise() {
+   function raise() {
             $.ajax({
                 type: "POST",
                 url: '{{ 'generate-report/ ' }}',
@@ -291,6 +296,23 @@
                     alert(response);
                 }});}
 
+        function logYourselfOut() {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'log-out-user/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
+                success: function callback(response) {
+
+                }});}
+        function showPatient(id){
+            $.ajax({
+                type: "POST",
+                url: '{{ 'show-patient/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', idPatient: id },
+                success: function callback(response) {
+                    datas = response;
+                    document.getElementById("titlePatient").textContent ="Paciente: "+ datas[0] ;
+                }});}    
 
         function getDataFitbitCharts(type, labels) {
             $.ajax({
@@ -316,7 +338,7 @@
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', dataType: type, dataTime: labels },
 
                 success: function callback(response) {
-                    datas = response
+                    datas = response;
                     document.getElementById("foods").remove();
                     divFoods = document.createElement("div");
                     divFoods.id = "foods";
@@ -325,6 +347,13 @@
                         foodsFitbit.id = datas[i][0] + i; //name
                         foodsFitbit.textContent = datas[i][0] + ": " + datas[i][1]; //name: quantity  
                         foodsFitbit.className = "card bg-primary text-white shadow";
+                        if (i%2 == 0) {                                    
+                            foodsFitbit.style.cssFloat = "left";
+                            foodsFitbit.style.clear = "left";                                    
+                            } else {
+                            foodsFitbit.style.cssFloat = "right";
+                            foodsFitbit.style.clear = "right";
+                            }
                         foodsFitbit.style.width = "45%";
                         foodsFitbit.style.cssFloat = "left";
                         foodsFitbit.style.margin = "1%";
@@ -336,9 +365,9 @@
                             if (datas[i][j] != 0) {
                                 var valueFoodsFitbit = document.createElement("div");
                                 valueFoodsFitbit.id = datas[i][j - 1] + j;//name
-                                valueFoodsFitbit.textContent = datas[i][j - 1] + ": " + datas[i][j];
+                                valueFoodsFitbit.textContent = datas[i][j - 1] + ": " + datas[i][j];                                      
+                                valueFoodsFitbit.style.cssFloat = "left";                              
                                 valueFoodsFitbit.style.width = "25%";
-                                valueFoodsFitbit.style.cssFloat = "left";
                                 valueFoodsFitbit.style.margin = "4%";
                                 valueFoodsFitbit.style.strokeWidth = "1%";
                                 valueFoodsFitbit.className = "cardbg-info text-white shadow";
@@ -356,30 +385,33 @@
                 url: '{{ 'get-data-fitbit-weight/ ' }}',
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: stra },
                 success: function callback(response) {
-                    datas = response
+                    datas = response;
                     document.getElementById("weght").remove();
                     divWeight = document.createElement("div");
                     divWeight.id = "weght";
-                    var imgWeight = document.createElement("div");
+                    var imgWeight = document.createElement("img");
                     imgWeight.id = "image-weight"; //name                    
-                    imgWeight.style.width = "45%";
-                    imgWeight.style.height = "100%";
-                    imgWeight.style.backgroundColor = "#F0F";
+                    imgWeight.style.width = "25%";
+                    imgWeight.src = "{% static 'img/person-silhouette-outline-2.png' %}";
                     imgWeight.style.cssFloat = "left";
                     imgWeight.style.margin = "1%";
                     imgWeight.style.padding = "1%";
                     divWeight.appendChild(imgWeight)
-                    for (i = 0; i < datas.length; i++) {
+                    for (i = 1; i < datas.length; i+=2) {
+                                var valueWeightFitbit = document.createElement("div");
+                                valueWeightFitbit.id = datas[i] + i;//name
+                                valueWeightFitbit.textContent = datas[i - 1] + ": " + datas[i];
+                                valueWeightFitbit.style.width = "25%";
+                                valueWeightFitbit.style.cssFloat = "right";
+                                valueWeightFitbit.style.margin = "4%";
+                                valueWeightFitbit.style.strokeWidth = "1%";
+                                valueWeightFitbit.className = "cardbg-info text-white shadow";
+                                divWeight.appendChild(valueWeightFitbit);
 
                     }
                     document.getElementsByClassName("chart-area")[0].appendChild(divWeight);
-                }});
-            
-        }
-
-
-    </script>
-
+                }});}
+   </script>
 </body>
 
 

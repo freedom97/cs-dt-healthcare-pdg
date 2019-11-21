@@ -4,7 +4,7 @@ h1{
     text-align: center;
 }
 body{
-background-image:url('img/loginImage.jpg');
+background-color: whitesmoke;
 background-size: cover; 
 }
 
@@ -13,11 +13,11 @@ background-size: cover;
     height: 50%;
     width: 50%;
     margin-left:25% ;
-    margin-top: 5%;
-    background-color:rgba(0,0,0, 0.5)
+    margin-top: 20%;
+    background-color:#5F91A3 ;
     
 }
-#email-login{
+#username-login{
     height: 50%;
     width: 70%;
     margin-left:15% ;

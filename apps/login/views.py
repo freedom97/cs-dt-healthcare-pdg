@@ -5,7 +5,9 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
-from django.contrib.auth import login
+from django.contrib.auth import login,logout,get_user_model,authenticate
+from django.contrib.auth.models import Group,User
+from apps.login.models import Patient as patientUser
 from django.http import HttpResponseRedirect
 import requests as requis
 from .forms import FormularioLogin
@@ -23,9 +25,8 @@ from .python_fitbit_wapi import gather_keys_oauth2 as Oauth2
 
 # Create your views here.
 auth2_client = fitbit.api.Fitbit
+userpatient = User
 class LoginHome(FormView):
-
-
     template_name = 'login'
     form_class = FormularioLogin
     success_url = reverse_lazy('index')
@@ -41,33 +42,91 @@ class LoginHome(FormView):
     def form_valid(self,form):
         login(self.request,form.get_user())
         return super(LoginHome,self).form_valid(form)
+        
 
 def Profile(request):
-    R = render(request,'login/index.html') 
-    try:
-        threadData = threading.Thread(target=initategatherin, args = ())
-        threadData.start()
-    except :
-        print( 'error: unable to start')
-        
+    R = render(request,'login/index.html')         
     return R
     #template_name= 'index'
+
+def authUser(request):    
+    username = request.POST['username']
+    password = request.POST['password']
+    print(username)
+    print(password)
+    user = authenticate(request, username=username, password=password)
+    print(user)
+    if user is not None:
+        login(request, user)
+        print(user)
+        datas =[]
+        for g in Group.objects.filter(user = user):
+            if g.name == 'pacientes':
+                datas = ['patient']
+            elif g.name == 'doctores':
+                datas = ['doctor']
+        return JsonResponse(datas,safe=False)
+    else:
+         return JsonResponse([],safe=False)
+
+def logOutUser(request):
+    print("this kind of works")
+    logout(request)
+    render(request,'login/login.html')
+    return JsonResponse([],safe=False)
+
+def registerUser(request):
+    print( request.POST['user']+":"+request.POST['lstN']+":"+request.POST['name']+":"+request.POST['wght']+":"+request.POST['hght']+":"+request.POST['ageU']+":"+request.POST['size']+":"+request.POST['user']+":"+request.POST['pswr']+":"+ request.POST['mail'])
+    user = User.objects._create_user(username = request.POST['user'],password = request.POST['pswr'],email= request.POST['mail'])
+    patientusr = patientUser(user = user, identificationCard=request.POST['iCrd'],    name=request.POST['name'],  lastName =request.POST['lstN'],  weight=request.POST['wght'],    height=request.POST['hght'],    age=request.POST['ageU'],    size_patient=request.POST['size'])    
+    patientusr.save()
+    user.save()
+    return JsonResponse([],safe=False)
 
 def Register(request):
     return render(request,'login/register.html')
 
 def Patient(request):
-    return render(request,'login/patient.html')
-def Doctor(request):
-    CLIENT_ID = '22B57B'
-    CLIENT_SECRET = 'a22948cb93e1a4d745d0c4a9d29ce698'
-    server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
-    server.browser_authorize()
-    ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
-    REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
-    global auth2_client
-    auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
-    return render(request,'login/doctor.html')
+    if request.user.is_authenticated:
+        for g in Group.objects.filter(user = request.user):
+            if g.name == 'pacientes':
+                CLIENT_ID = '22B57B'
+                CLIENT_SECRET = 'a22948cb93e1a4d745d0c4a9d29ce698'
+                server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
+                server.browser_authorize()
+                ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
+                REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
+                global auth2_client
+                auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
+                print(request.user.username)
+                return render(request,'login/patient.html')    
+    return render(request,'login/login.html')
+
+def Doctor(request):    
+    if request.user.is_authenticated:
+        for g in Group.objects.filter(user = request.user):
+            if g.name == 'doctores':
+                CLIENT_ID = '22B57B'
+                CLIENT_SECRET = 'a22948cb93e1a4d745d0c4a9d29ce698'
+                server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
+                server.browser_authorize()
+                ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
+                REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
+                global auth2_client
+                auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN) 
+                return render(request,'login/doctor.html')   
+    return render(request,'login/login.html')
+
+def showPatient(request):
+    idpatient = request.POST['idPatient']
+    user = User.objects.get(id =idpatient) 
+    if user is None:
+        user = User.objects.get(username =idpatient) 
+    global userpatient
+    userpatient = user
+    print('el nombre del usuario es: '+request.user.username)    
+    return JsonResponse([user.username],safe=False)
+
 
 
 def getDataFitbitCharts(request):
@@ -100,16 +159,32 @@ def getDataFitbitCharts(request):
     elif(labels == "week"): 
         if   types== "HR":
             fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1w')
-            spectrum.append(fit_statsHrate)
+            roomie = fit_statsHrate['activities-heart']
+            for i in roomie['value']['heartRateZones']:
+                datalabel.append(i['name'])
+            datashet.append(roomie)
         elif types =="ST":                
-            fit_statsHrate = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1w')
-            spectrum.append(fit_statsHrate)
-
+            fit_statsnrStp = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1w')
+            roomie = fit_statsnrStp['activities-steps']
+            for i in roomie:
+                if i['value'] != 0:  
+                    datashet.append(i['value'])
+                    datalabel.append(str(i['dateTime']))
+            
     elif(labels == "month"):
         if   types== "HR":
             fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1m')
+            roomie = fit_statsHrate['activities-heart']
+            for i in roomie['value']['heartRateZones']:
+                datalabel.append(i['name'])
+            datashet.append(roomie)
         elif types =="ST":
-            fit_statsHrate = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1m')
+            fit_statsnrStp = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1m')
+            roomie = fit_statsnrStp['activities-steps']
+            for i in roomie:
+                if i['value'] != 0:  
+                    datashet.append(i['value'])
+                    datalabel.append(str(i['dateTime']))
     else:
         datashet = [650,820,230,330,550,123,440,550,650,100,100]
         datalabel    = ['A','a','q','w','e','r','t','y','u','i','o','p']
@@ -120,10 +195,12 @@ def getDataFitbitCharts(request):
 
 
 def getDataFitbitWeight(request):
-    global auth2_client
-    fit_statsWeight = auth2_client._get_body(type_="weight",base_date="2019-10-19")
-    print(fit_statsWeight)
-    datas=['sumit']
+    global userpatient
+    print(userpatient.patient.weight)
+    M2 = float(userpatient.patient.height)*float(userpatient.patient.height)
+    W = float(userpatient.patient.weight)
+    datas =['peso',userpatient.patient.weight,'altura',userpatient.patient.height,'indice de masa corporal:',(W/M2)]
+
     return JsonResponse(datas,safe=False)   
 
 def getDataFitbitFoods(request):

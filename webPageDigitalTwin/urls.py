@@ -27,22 +27,36 @@ from apps.login.views import initategatherin
 from apps.login.views import getDataFitbitCharts
 from apps.login.views import getDataFitbitFoods
 from apps.login.views import getDataFitbitWeight
+from apps.login.views import authUser
+from apps.login.views import logOutUser
+from apps.login.views import registerUser
+from apps.login.views import showPatient
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
      #  path('login/', include(('apps.login.urls','login'))),
-    path('',LoginView.as_view(template_name='login/login.html'), name='login'),
-    path('index/',Profile, name='Profile'),
+    path('login/',LoginView.as_view(template_name='login/login.html'), name='login'),
     path('register/', Register, name='Register'),
     path('patient/', Patient, name='Patient'),
-    path('doctor/', Doctor, name='Doctor'),
-    
+    path('doctor/', Doctor, name='Doctor'),    
+    path('login/authenticate-user/', authUser),
+    path('register/register-user/', registerUser),
+
+
     # functions from the Doctor.html    
     path('doctor/generate-report/', initategatherin),
     path('doctor/get-data-fitbit/', getDataFitbitCharts),
     path('doctor/get-data-fitbit-food/', getDataFitbitFoods),
     path('doctor/get-data-fitbit-weight/', getDataFitbitWeight),
+    path('doctor/log-out-user/', logOutUser),
+    path('doctor/show-patient/', showPatient),
 
+    # functions from the patient.html    
+    path('patient/generate-report/', initategatherin),
+    path('patient/get-data-fitbit/', getDataFitbitCharts),
+    path('patient/get-data-fitbit-food/', getDataFitbitFoods),
+    path('patient/get-data-fitbit-weight/', getDataFitbitWeight),
+    path('patient/log-out-user/', logOutUser),
 ]

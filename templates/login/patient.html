@@ -5,224 +5,382 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Perfil paciente</title>
+    <title>Perfil Paciente</title>
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
- 
-    <link rel="stylesheet" href="{% static 'css/main.css' %}"> 
-
+    <script src="https://kit.fontawesome.com/fee31191c0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
-<body id="page-top" style="background-color: lightgrey;">
+<body id="page-top">
 
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-      
-          <!-- Content Wrapper -->
-          <div id="content-wrapper" class="d-flex flex-column">
-      
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
             <!-- Main Content -->
-            <div id="content">
-      
-              <!-- Topbar -->
-              <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-      
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-      
-                  <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                  <li class="nav-item dropdown no-arrow d-sm-none">
-                    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-search fa-fw"></i>
-                    </a>
-                    <!-- Dropdown - Messages -->
-                    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                      <form class="form-inline mr-auto w-100 navbar-search">
-                        <div class="input-group">
-                          <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                          <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                              <i class="fas fa-search fa-sm"></i>
-                            </button>
-                          </div>
+            <div id="content" >
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color: #DFDFDF;">          
+
+                  <h6 class="h3 m-0 font-weight-bold text-primary-800" id=titlePatient style="color: #007bff ;">Paciente: {{user.username}}</h1>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil de {{user.username}}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="https://web.whatsapp.com/2c67955e-7a60-4c41-a202-b811cc4c5a96">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a href="#" class="dropdown-item"
+                                onclick="raise()"  ><i class="fas fa-download fa-sm fa-fw mr-2 text-gray-400" style="color: #000 ;"></i> Generar Reporte PDF</a>
+                            
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    perfil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4" style="background-color: #7FB1D3 ;">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Graficas:</h6>
+
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body" style="height: 100%;">
+                                    <div class="chart-area" >
+                                        <img id="loadingScheme" src="{% static 'img/load.jpg' %}">
+                                        <canvas id="HRate" style="display: none;"></canvas>
+                                        <canvas id="nrStp" style="display: none;"></canvas>
+                                        <div id="weght" style="display: none;"></div>
+                                        <div id="foods" style="display: none;"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </form>
+                        <!-- Color System -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="col-lg-9 mb-4">
+                                <div class="card text-white shadow" onclick="showWeight();" style="background-color: #8FC1E3 ;">
+                                    <div class="card-body">
+                                        Peso:
+                                        <div class="text-white-50 small">ideal</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 mb-4">
+                                <div class="card  text-white shadow" style="background-color: #8FC1E3 ;">
+                                    <div class="card-body"  >
+                                        Actividad Cardiaca
+                                        <div class="text-white-50 small">saludable</div>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" ></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header" >mostrando el ritmo cardiaco de:</div>
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showHR('day');"
+                                                    href="#">Hoy</a>                                                    
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showHR('yesterday');"
+                                                href="#">Ayer</a>
+                                                <a class="dropdown-item" id="optionsChartB" onclick="showHR('week');"
+                                                    href="#">Última semana</a>
+                                                <a class="dropdown-item" id="optionsChartC" onclick="showHR('month');"
+                                                    href="#">Último mes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 mb-4">
+                                <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
+                                    <div class="card-body">
+                                        Actividad Fisica
+                                        <div class="text-white-50 small">en Riesgo</div>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header" >mostrando la cantidad de pasos de:</div>
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showSteps('day');"
+                                                    href="#">Hoy</a>                                                    
+                                                <a class="dropdown-item" id="optionsChartA" onclick="showSteps('yesterday');"
+                                                href="#">Ayer</a>
+                                                <a class="dropdown-item" id="optionsChartB" onclick="showSteps('week');"
+                                                    href="#">Última semana</a>
+                                                <a class="dropdown-item" id="optionsChartC" onclick="showSteps('month');"
+                                                    href="#">Último mes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 mb-4">
+                                <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
+                                    <div class="card-body">
+                                        Comidas
+                                        <div class="text-white-50 small">normal</div>
+                                             <div class="dropdown no-arrow">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                    aria-labelledby="dropdownMenuLink">
+                                                    <div class="dropdown-header" >mostrando la Comida de </div>
+                                                    <a class="dropdown-item" id="optionsChartA" onclick=showFood("day")
+                                                        href="#">hoy</a>
+                                                    <a class="dropdown-item" id="optionsChartB" onclick=showFood("week")
+                                                        href="#">ayer</a>
+                                                    <a class="dropdown-item" id="optionsChartC" onclick=showFood("month")
+                                                        href="#">Última semana</a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </li>
-      
-      
-                  <div class="topbar-divider d-none d-sm-block"></div>
-      
-                  <!-- Nav Item - User Information -->
-                  <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil de usuario</span>
-                      <img class="img-profile rounded-circle" src="https://web.whatsapp.com/2c67955e-7a60-4c41-a202-b811cc4c5a96">
-                    </a>
-                    <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                      <a class="dropdown-item" href="#">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Sexo: Hombre
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Edad: 21
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                        medicamentos
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                      </a>
-                    </div>
-                  </li>
-      
-                </ul>
-      
-              </nav>
-              <!-- End of Topbar -->
-      
-              <!-- Begin Page Content -->
-              <div class="container-fluid">
-      
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
-      
-                <!-- Content Row -->
-      
-                <div class="row">
-      
-                  <!-- Area Chart -->
-                  <div class="col-xl-8 col-lg-7">
-                    <div class="card shadow mb-4">
-                      <!-- Card Header - Dropdown -->
-                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Actividad Fisica</h6>
-                        <div class="dropdown no-arrow">
-                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">mostrar por:</div>
-                            <a class="dropdown-item" href="#">dias</a>
-                            <a class="dropdown-item" href="#">horas</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">minutos</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Card Body -->
-                      <div class="card-body">
-                        <div class="chart-area">
-                          <canvas id="myAreaChart"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Color System -->
-                  <div class="col-xl-4 col-lg-5">
-                    <div class="col-lg-9 mb-4">
-                      <div class="card bg-primary text-white shadow">
-                        <div class="card-body">
-                          Peso:
-                          <div class="text-white-50 small">ideal</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-9 mb-4">
-                      <div class="card bg-success text-white shadow">
-                        <div class="card-body">
-                          Actividad Cardiaca
-                          <div class="text-white-50 small">saludable</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-9 mb-4">
-                      <div class="card bg-danger text-white shadow">
-                        <div class="card-body">
-                          Actividad Fisica
-                          <div class="text-white-50 small">en Riesgo</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-9 mb-4">
-                      <div class="card bg-info text-white shadow">
-                        <div class="card-body">
-                          Comidas
-                          <div class="text-white-50 small">normal</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.container-fluid -->
-      
+                <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
-      
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-              <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                  <span>Copyright &copy; Your Website 2019</span>
-                </div>
-              </div>
-            </footer>
-            <!-- End of Footer -->
-      
-          </div>
-          <!-- End of Content Wrapper -->
-      
+
         </div>
-        <!-- End of Page Wrapper -->
-      
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-          <i class="fas fa-angle-up"></i>
-        </a>
-      
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-              <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-              </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="logYourselfOut()">Cerrar sesion</a>
+                </div>
             </div>
-          </div>
         </div>
-      
-      </body>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script type="text/javascript" src="/static/js/jquery.easing.min.js"></script>
+
+    <!--chart Page level plugins -->
+    <script type="text/javascript" src="/static/js/Chart.min.js"></script>
+
+    <script type="text/javascript" src="/static/js/chart-area-demo.js"></script>
+
+    <script type="text/javascript" src="/static/js/main.js"></script>
+
+    <script>
+
+
+        function raise() {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'generate-report/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
+                success: function callback(response) {
+                    /* do whatever with the response */
+                    alert(response);
+                }});}
+
+        function logYourselfOut() {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'log-out-user/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
+                success: function callback(response) {
+                }});}
+
+
+
+        function getDataFitbitCharts(type, labels) {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'get-data-fitbit/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', dataType: type, dataTime: labels },
+                success: function callback(response) {
+                    if (type == "HR") {
+                        ChartsHR.data.datasets[0].data = response[0]    
+                        ChartsHR.data.labels = response[1] 
+                        ChartsHR.update()
+                    } else if (type == "ST") {
+                        ChartsNS.data.datasets[0].data = response[0]
+                        ChartsNS.data.labels = response[1]
+                        ChartsNS.update()
+                    }
+                }});}
+
+                function getDataFitbitFoods(type, labels) {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'get-data-fitbit-food/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', dataType: type, dataTime: labels },
+
+                success: function callback(response) {
+                    datas = response;
+                    document.getElementById("foods").remove();
+                    divFoods = document.createElement("div");
+                    divFoods.id = "foods";
+                    for (i = 0; i < datas.length; i++) {
+                        var foodsFitbit = document.createElement("div");
+                        foodsFitbit.id = datas[i][0] + i; //name
+                        foodsFitbit.textContent = datas[i][0] + ": " + datas[i][1]; //name: quantity  
+                        foodsFitbit.className = "card bg-primary text-white shadow";
+                        if (i%2 == 0) {                                    
+                            foodsFitbit.style.cssFloat = "left";
+                            foodsFitbit.style.clear = "left";                                    
+                            } else {
+                            foodsFitbit.style.cssFloat = "right";
+                            foodsFitbit.style.clear = "right";
+                            }
+                        foodsFitbit.style.width = "45%";
+                        foodsFitbit.style.cssFloat = "left";
+                        foodsFitbit.style.margin = "1%";
+                        foodsFitbit.style.padding = "1%";
+                        var innerFoodsFitbit= document.createElement("div");
+                        innerFoodsFitbit.style.width ="100%";
+                        foodsFitbit.append(innerFoodsFitbit)
+                        for (j = 3; j < datas[i].length; j += 2) {
+                            if (datas[i][j] != 0) {
+                                var valueFoodsFitbit = document.createElement("div");
+                                valueFoodsFitbit.id = datas[i][j - 1] + j;//name
+                                valueFoodsFitbit.textContent = datas[i][j - 1] + ": " + datas[i][j];                                      
+                                valueFoodsFitbit.style.cssFloat = "left";                              
+                                valueFoodsFitbit.style.width = "25%";
+                                valueFoodsFitbit.style.margin = "4%";
+                                valueFoodsFitbit.style.strokeWidth = "1%";
+                                valueFoodsFitbit.className = "cardbg-info text-white shadow";
+                                innerFoodsFitbit.appendChild(valueFoodsFitbit);
+                            }
+                        }
+                        divFoods.appendChild(foodsFitbit);
+                    }
+                    document.getElementsByClassName("chart-area")[0].appendChild(divFoods);
+                }});}
+
+                function getDataFitbitWeight(stra) {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'get-data-fitbit-weight/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: stra },
+                success: function callback(response) {
+                    datas = response;
+                    document.getElementById("weght").remove();
+                    divWeight = document.createElement("div");
+                    divWeight.id = "weght";
+                    var imgWeight = document.createElement("img");
+                    imgWeight.id = "image-weight"; //name                    
+                    imgWeight.style.width = "25%";
+                    imgWeight.src = "{% static 'img/person-silhouette-outline-2.png' %}";
+                    imgWeight.style.cssFloat = "left";
+                    imgWeight.style.margin = "1%";
+                    imgWeight.style.padding = "1%";
+                    divWeight.appendChild(imgWeight)
+                    for (i = 1; i < datas.length; i+=2) {
+                                var valueWeightFitbit = document.createElement("div");
+                                valueWeightFitbit.id = datas[i] + i;//name
+                                valueWeightFitbit.textContent = datas[i - 1] + ": " + datas[i];
+                                valueWeightFitbit.style.width = "25%";
+                                valueWeightFitbit.style.cssFloat = "right";
+                                valueWeightFitbit.style.margin = "4%";
+                                valueWeightFitbit.style.strokeWidth = "1%";
+                                valueWeightFitbit.className = "cardbg-info text-white shadow";
+                                divWeight.appendChild(valueWeightFitbit);
+
+                    }
+                    document.getElementsByClassName("chart-area")[0].appendChild(divWeight);
+                }});}
+
+
+    </script>
+
+</body>
 
 
 </html>

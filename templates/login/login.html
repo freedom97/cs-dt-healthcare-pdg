@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="text-center">
+<body class="text-center" >
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="login-form" id="loginForm">
 
@@ -27,19 +27,18 @@
                 {% csrf_token %}
                 <h1>Prototipo plataforma digital Digital Twin</h1>
                 <div class=" form-group">
-                    <input id="email-login" type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
+                    <input id="username-login" type="user" class="form-control" placeholder="usuario" required=""
                         autofocus="">
 
                 </div>
                 <div class="form-group">
-                    <input id="password-login" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                    <input id="password-login" type="password" class="form-control" placeholder="Password" required="">
 
 
                 </div>
 
 
-                <a href="{% url 'Doctor' %}" class="btn btn-success btn-flat m-b-30 m-t-30" role="button"
-                    aria-disabled="true">Iniciar
+                <a class="btn btn-success btn-flat m-b-30 m-t-30" role="button" onclick="autenticar();">Iniciar
                     sesión</a>
             <hr style="width: 50%" color="white"/>
             <div>
@@ -66,7 +65,32 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
+ <!-- Bootstrap core JavaScript-->
+ <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+ <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
+ <!-- Core plugin JavaScript-->
+ <script type="text/javascript" src="/static/js/jquery.easing.min.js"></script>
 
+ <script>
+     function autenticar() {
+             $.ajax({
+                 type: "POST",
+                 url: '{{ 'authenticate-user/ ' }}',
+                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', username: document.getElementById("username-login").value, password: document.getElementById("password-login").value  },
+                 success: function callback(response) {
+                     datas = response
+                     if (datas.length == 0) {
+                         alert("este Usuario no existe en el sistema o las credenciales no son las correctas")
+                     } else {
+                         if(datas == 'patient'){
+                            location.href = "{% url 'Patient' %}"
+                         }else if (datas == 'doctor'){
+                            location.href = "{% url 'Doctor' %}"
+                        }
+                     }  
+                 }});}
+     
+ </script>
 
 </body>
 
