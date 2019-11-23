@@ -16,79 +16,60 @@
 
 </head>
 
-<body class="text-center">
+<body>
   <div class="card" style="max-width:70%;margin-left:15%;background-color:#7FB1D3 ;">
 
 
     <form>
-      <h1 style="color: black;">Registro</h1>
-      <div class="form-row" style="margin-top: 5%;">
+      <h1 class="text-center" style="color: black;">Registro</h1>
+      <div style="margin-left: 25%; margin-top: 5%; align-content: left; ">
 
 
-        <div class="form-group col-md-6">
-
-          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Usuario</label>
-          <input type="text" class="form-control" id="user" placeholder=" "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%; text-align: left;">Usuario</label>
+          <input type="text" class="form-control" id="name" placeholder=" " style="width:75%;">
         </div>
-        <div class="form-group col-md-6">
-
-          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;"> contraseña</label>
-          <input type="text" class="form-control" id="pswr" placeholder=" "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%; text-align: left;">Nombres</label>
+          <input type="text" class="form-control" id="name" placeholder=" " style="width: 75%;">
         </div>
-        <div class="form-group col-md-6">
-
-          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Nombres</label>
-          <input type="text" class="form-control" id="name" placeholder=" "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Apellidos</label>
+          <input type="text" class="form-control" id="lstN" placeholder=" " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-
-          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Apellidos</label>
-          <input type="text" class="form-control" id="lstN" placeholder=" "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">E-mail</label>
+          <input type="text" class="form-control" id="mail" placeholder=" " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">E-mail</label>
-          <input type="text" class="form-control" id="mail" placeholder=" "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Peso</label>
+          <input type="text" class="form-control" id="wght" placeholder=" " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-
-          <label   style="font-family: Helvetica, sans-serif;font-size: 130%;">Peso</label>
-          <input type="text" class="form-control" id="wght" placeholder=" "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Estatura</label>
+          <input type="text" class="form-control" id="hght" placeholder="   " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">estatura</label>
-          <input type="text" class="form-control" id="hght" placeholder="   "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Talla</label>
+          <input type="text" class="form-control" id="size" placeholder="   " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">Talla</label>
-          <input type="text" class="form-control" id="size" placeholder="   "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Identificación</label>
+          <input type="text" class="form-control" id="iCrd" placeholder="   " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">identificacion</label>
-          <input type="text" class="form-control" id="iCrd" placeholder="   "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Edad</label>
+          <input type="text" class="form-control" id="ageU" placeholder="   " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-          <label    style="font-family: Helvetica, sans-serif;font-size: 130%;">Edad</label>
-          <input type="text" class="form-control" id="ageU" placeholder="   "
-            style="max-width: 65%;margin-left: 20%;">
+        <div>
+          <label for="text" style="font-family: Helvetica, sans-serif;font-size: 130%;">Nivel de glucosa</label>
+          <input class="form-control" id="gluc" placeholder="   " style="max-width:75%;">
+        </div>        
+        <div>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Contraseña</label>
+          <input type="password" class="form-control" id="PSWR" placeholder="   " style="max-width:75%;">
         </div>
-        <div class="form-group col-md-6">
-          <label for="text" style="font-family: Helvetica, sans-serif;font-size: 130%;">Nivel de
-            glucosa</label>
-          <input    class="form-control" id="gluc" placeholder="   "
-            style="max-width: 65%;margin-left: 20%;">
-        </div>
-      </div>
-      <fieldset class="form-group">
-        <div class="row" style="margin:auto;width:90%;">
+        <div class="row" style="margin-top:5%;width:90%;">
           <legend class="col-form-label col-sm-5" style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">
             ¿Toma médicamentos?</legend>
           <div class="col-sm-1">
@@ -106,13 +87,31 @@
                 No
               </label>
             </div>
-          </div>
-          <div class="col-sm-1">
-
-          </div>
-
+          </div>          
         </div>
-        <a class="btn btn-primary btn-lg active" role="button" onclick="registerUser()">Registrarse</a>
+        <div class="row" style="margin-top:5%;width:90%;">
+          <legend class="col-form-label col-sm-5" style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">
+            Tipo de Usuario</legend>
+          <div class="col-sm-1">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gridRadios1" id="gridRadios3" value="option3" checked>
+              <label class="form-check-label" style="font-family: Helvetica, sans-serif;font-size: 130%"
+                for="gridRadios3">
+                Paciente
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gridRadios1" id="gridRadios4" value="option4">
+              <label class="form-check-label" for="gridRadios4"
+                style="font-family: Helvetica, sans-serif;font-size: 130%">
+                Doctor
+              </label>
+            </div>
+          </div>
+        </div>        
+        <a class="btn btn-primary btn-lg active" style="margin-top:5%; width:75%; align-self: center;" role="button"
+        onclick="registerUser()">Registrarse</a>
+      </div>
     </form>
 
     <!-- Bootstrap core JavaScript-->

@@ -99,6 +99,8 @@ def Patient(request):
                 global auth2_client
                 auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
                 print(request.user.username)
+                global userpatient
+                userpatient = request.user
                 return render(request,'login/patient.html')    
     return render(request,'login/login.html')
 
@@ -119,9 +121,12 @@ def Doctor(request):
 
 def showPatient(request):
     idpatient = request.POST['idPatient']
-    user = User.objects.get(id =idpatient) 
-    if user is None:
-        user = User.objects.get(username =idpatient) 
+    try:
+        user = User.objects.get(id =idpatient) 
+    except ValueError as verr:
+        user = User.objects.get(username =idpatient)
+    except Exception as exc:
+        user = User.objects.get(username =idpatient)
     global userpatient
     userpatient = user
     print('el nombre del usuario es: '+request.user.username)    
