@@ -112,6 +112,7 @@
                                         <div id="loadingScheme" style="width: 400px; height: 400px;"></div>
                                         <canvas id="HRate" style="display: none;"></canvas>
                                         <canvas id="nrStp" style="display: none;"></canvas>
+                                        <canvas id="fdChr" style="display: none;"></canvas>
                                         <div id="weght" style="display: none;"></div>
                                         <div id="foods" style="display: none;"></div>
                                     </div>
@@ -274,6 +275,32 @@
                 url: '{{ 'log-out-user/ ' }}',
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
                 success: function callback(response) {
+                    window.location.href = "/login"
+                }});}
+
+                function getDataFitbitFoodsChart(type, labels) {
+            $.ajax({
+                type: "POST",
+                url: '{{ 'get-data-fitbit-food/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}', dataType: type, dataTime: labels },
+                success: function callback(response) { 
+                    data = [];
+                    time = [];
+                    timeD = response[0][3];
+                    calDay = response[0][5];
+                    for (i = 1; i < response.length; i++) { 
+                        if(response[i][3] == timeD){
+                            calDay += response[i][5];
+                        }else{                                      
+                            data.unshift(calDay);
+                            time.unshift(timeD);
+                            timeD = response[i][3];
+                            calDay = response[i][5];
+                        }
+                    }                 
+                    ChartsFd.data.datasets[0].data = data;
+                    ChartsFd.data.labels = time;
+                    ChartsFd.update();
                 }});}
 
 
@@ -326,7 +353,6 @@
                         innerFoodsFitbit.style.width ="100%";
                         foodsFitbit.append(innerFoodsFitbit)
                         for (j = 3; j < datas[i].length; j += 2) {
-                            if (datas[i][j] != 0) {
                                 var valueFoodsFitbit = document.createElement("div");
                                 valueFoodsFitbit.id = datas[i][j - 1] + j;//name
                                 valueFoodsFitbit.textContent = datas[i][j - 1] + ": " + datas[i][j];                                      
@@ -336,7 +362,7 @@
                                 valueFoodsFitbit.style.strokeWidth = "1%";
                                 valueFoodsFitbit.className = "cardbg-info text-white shadow";
                                 innerFoodsFitbit.appendChild(valueFoodsFitbit);
-                            }
+                            
                         }
                         divFoods.appendChild(foodsFitbit);
                     }

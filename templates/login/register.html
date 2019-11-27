@@ -16,8 +16,8 @@
 
 </head>
 
-<body>
-  <div class="card" style="max-width:70%;margin-left:15%;background-color:#7FB1D3 ;">
+<body >
+  <div class="card" style="max-width:50%;margin-left:25%; background-color:rgba(243, 235, 235, 0.465)">
 
 
     <form>
@@ -26,35 +26,35 @@
 
 
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%; text-align: left;">Usuario</label>
-          <input type="text" class="form-control" id="name" placeholder=" " style="width:75%;">
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%; text-align: left;">Usuario*</label>
+          <input type="text" class="form-control" id="user" placeholder=" " style="width:75%;">
         </div>
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%; text-align: left;">Nombres</label>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%; text-align: left;">Nombres*</label>
           <input type="text" class="form-control" id="name" placeholder=" " style="width: 75%;">
         </div>
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Apellidos</label>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Apellidos*</label>
           <input type="text" class="form-control" id="lstN" placeholder=" " style="max-width:75%;">
         </div>
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">E-mail</label>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">E-mail*</label>
           <input type="text" class="form-control" id="mail" placeholder=" " style="max-width:75%;">
         </div>
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Peso</label>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Peso*</label>
           <input type="text" class="form-control" id="wght" placeholder=" " style="max-width:75%;">
         </div>
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Estatura</label>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Estatura*</label>
           <input type="text" class="form-control" id="hght" placeholder="   " style="max-width:75%;">
         </div>
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Talla</label>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Talla*</label>
           <input type="text" class="form-control" id="size" placeholder="   " style="max-width:75%;">
         </div>
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Identificación</label>
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Identificación*</label>
           <input type="text" class="form-control" id="iCrd" placeholder="   " style="max-width:75%;">
         </div>
         <div>
@@ -66,8 +66,8 @@
           <input class="form-control" id="gluc" placeholder="   " style="max-width:75%;">
         </div>        
         <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Contraseña</label>
-          <input type="password" class="form-control" id="PSWR" placeholder="   " style="max-width:75%;">
+          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Contraseña*</label>
+          <input type="password" class="form-control" id="pswr" placeholder="   " style="max-width:75%;">
         </div>
         <div class="row" style="margin-top:5%;width:90%;">
           <legend class="col-form-label col-sm-5" style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">
@@ -88,27 +88,9 @@
               </label>
             </div>
           </div>          
-        </div>
-        <div class="row" style="margin-top:5%;width:90%;">
-          <legend class="col-form-label col-sm-5" style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">
-            Tipo de Usuario</legend>
-          <div class="col-sm-1">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="gridRadios1" id="gridRadios3" value="option3" checked>
-              <label class="form-check-label" style="font-family: Helvetica, sans-serif;font-size: 130%"
-                for="gridRadios3">
-                Paciente
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="gridRadios1" id="gridRadios4" value="option4">
-              <label class="form-check-label" for="gridRadios4"
-                style="font-family: Helvetica, sans-serif;font-size: 130%">
-                Doctor
-              </label>
-            </div>
-          </div>
-        </div>        
+        </div>       
+        <div><label>* Datos obligatorios</label></div>
+        
         <a class="btn btn-primary btn-lg active" style="margin-top:5%; width:75%; align-self: center;" role="button"
         onclick="registerUser()">Registrarse</a>
       </div>
@@ -126,7 +108,11 @@
           url: '{{ 'register-user/ ' }}',
           data: { csrfmiddlewaretoken: '{{ csrf_token }}', iCrd: document.getElementById("iCrd").value, user: document.getElementById("user").value,pswr: document.getElementById("pswr").value,name: document.getElementById("name").value,lstN: document.getElementById("lstN").value,mail: document.getElementById("mail").value,wght: document.getElementById("wght").value,hght: document.getElementById("hght").value,size: document.getElementById("size").value,gluc: document.getElementById("gluc").value, ageU: document.getElementById("ageU").value },
           success: function callback(response) {
-          
+                  if (response[0] != 'none'){
+                      alert("datos no válidos debido a: " + response[0])
+                  }else{
+                    window.location.href = "/login"
+                  }
                       
                   }});}
 

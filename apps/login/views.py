@@ -77,11 +77,29 @@ def logOutUser(request):
 
 def registerUser(request):
     print( request.POST['user']+":"+request.POST['lstN']+":"+request.POST['name']+":"+request.POST['wght']+":"+request.POST['hght']+":"+request.POST['ageU']+":"+request.POST['size']+":"+request.POST['user']+":"+request.POST['pswr']+":"+ request.POST['mail'])
-    user = User.objects._create_user(username = request.POST['user'],password = request.POST['pswr'],email= request.POST['mail'])
-    patientusr = patientUser(user = user, identificationCard=request.POST['iCrd'],    name=request.POST['name'],  lastName =request.POST['lstN'],  weight=request.POST['wght'],    height=request.POST['hght'],    age=request.POST['ageU'],    size_patient=request.POST['size'])    
-    patientusr.save()
+    datas = []
+    user= None
+    patientusr = None
+    try:
+        user = User.objects._create_user(username = request.POST['user'],password = request.POST['pswr'],email= request.POST['mail'])        
+    except Exception as ex:
+        datas.append(str(ex))
+        return JsonResponse(datas,safe=False)
+    try:
+        patientusr = patientUser(user = user, identificationCard=request.POST['iCrd'],    name=request.POST['name'],  lastName =request.POST['lstN'],  weight=request.POST['wght'],    height=request.POST['hght'],    age=request.POST['ageU'],    size_patient=request.POST['size'])        
+        
+    except Exception as ex1:
+        datas.append(str(ex1))
+        return JsonResponse(datas,safe=False)     
+    
     user.save()
-    return JsonResponse([],safe=False)
+    patientusr.check()        
+    myGroup = Group.objects.get(name='pacientes')
+    myGroup.user_set.add(user)    
+    request.user = user
+    datas.append('none')
+            
+    return JsonResponse(datas,safe=False)
 
 def Register(request):
     return render(request,'login/register.html')
