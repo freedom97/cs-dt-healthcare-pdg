@@ -26,6 +26,7 @@ from .python_fitbit_wapi import gather_keys_oauth2 as Oauth2
 # Create your views here.
 auth2_client = fitbit.api.Fitbit
 userpatient = User
+urlCSV =""
 class LoginHome(FormView):
     template_name = 'login'
     form_class = FormularioLogin
@@ -303,8 +304,10 @@ def initategatherin(request):
         cont+=1
     data = {'timeHR':time_listHR,'heart_Rate':val_listHR,'time':time_listSTP,'step_Count':val_listSTP,'full Name':val_listName,'weight':val_listWeig,'height':val_listHeig,'age':valu_listAge,'gender':val_listGndr,'waterLvl':val_listWatr}       
     profileFitUsr = pd.DataFrame(data)
-    profileFitUsr.to_csv('/Users/croos/Onedrive/Escritorio/'+ \
-                today+'profile.csv', \
+
+    global urlCSV
+    urlCSV = '/Users/croos/Onedrive/Escritorio/'+today+'profile.csv'
+    profileFitUsr.to_csv(urlCSV, \
                 columns=['time','timeHR','heart_Rate','step_Count','full Name','waterLvl','weight','height','age','gender'], \
                 header=True, \
                 sep=';', \
