@@ -94,66 +94,61 @@ def plot_oneclass_svm(svm):
     print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(dataSetOutliers())))
     print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers()))))
     
-    # Calculamos accuracy del training, test positivos y negativos
-    y_pred_train = clf.predict(a_train)
-    y_pred_test = clf.predict(a2_test)
-    y_pred_outliers = clf.predict(X_outliers2)
-    n_error_train = y_pred_train[y_pred_train == -1].size
-    n_error_test = y_pred_test[y_pred_test == -1].size
-    n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    
-    print("Accuracy del training set: "+str(1-n_error_train/len(a_train )))
-    print("Recall (normales) del test set: "+str(1-n_error_test/len(a2_test)))
-    print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(X_outliers2)))
-    print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(a2_test)+len(X_outliers2))))
+   
 
 
 
 def accuracyDataTraining():
      # Calculamos accuracy del training, test positivos y negativos
-    y_pred_train = clf.predict(a_train)
-    y_pred_test = clf.predict(a2_test)
-    y_pred_outliers = clf.predict(X_outliers2)
+    y_pred_train = clf.predict(dataSetTrain())
+    y_pred_test = clf.predict(dataSetTest())
+    y_pred_outliers = clf.predict(dataSetOutliers())
     n_error_train = y_pred_train[y_pred_train == -1].size
     n_error_test = y_pred_test[y_pred_test == -1].size
     n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    accuracyTrainingSet= str(1-n_error_train/len(a_train ))
+    accuracyTrainingSet= str(1-n_error_train/len(dataSetTrain() ))
    # print("Accuracy del training set: "+str(1-n_error_train/len(a_train ))),print("Recall (normales) del test set: "+str(1-n_error_test/len(a2_test))),print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(X_outliers2))),print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(a2_test)+len(X_outliers2))))
     return accuracyTrainingSet
 def recallDataTestNormales():
-    y_pred_train = clf.predict(a_train)
-    y_pred_test = clf.predict(a2_test)
-    y_pred_outliers = clf.predict(X_outliers2)
+    y_pred_train = clf.predict(dataSetTrain())
+    y_pred_test = clf.predict(dataSetTest())
+    y_pred_outliers = clf.predict(dataSetOutliers())
     n_error_train = y_pred_train[y_pred_train == -1].size
     n_error_test = y_pred_test[y_pred_test == -1].size
     n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    recallNormalesTestSet=str(1-n_error_test/len(a2_test))
+    recallNormalesTestSet=str(1-n_error_test/len(dataSetTest()))
     return recallDataTestNormales
 
 def especificidadDataTestAnomalias():
-    y_pred_train = clf.predict(a_train)
-    y_pred_test = clf.predict(a2_test)
-    y_pred_outliers = clf.predict(X_outliers2)
+    y_pred_train = clf.predict(dataSetTrain())
+    y_pred_test = clf.predict(dataSetTest())
+    y_pred_outliers = clf.predict(dataSetOutliers())
     n_error_train = y_pred_train[y_pred_train == -1].size
     n_error_test = y_pred_test[y_pred_test == -1].size
     n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    especificidadAnomaliasTestSet=str(1-n_error_outliers/len(X_outliers2))
+    especificidadAnomaliasTestSet=str(1-n_error_outliers/len(dataSetOutliers()))
     return especificidadAnomaliasTestSet
 
 def accuracyGlobalDataTest():
-    y_pred_train = clf.predict(a_train)
-    y_pred_test = clf.predict(a2_test)
-    y_pred_outliers = clf.predict(X_outliers2)
+    y_pred_train = clf.predict(dataSetTrain())
+    y_pred_test = clf.predict(dataSetTest())
+    y_pred_outliers = clf.predict(dataSetOutliers())
     n_error_train = y_pred_train[y_pred_train == -1].size
     n_error_test = y_pred_test[y_pred_test == -1].size
     n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(a2_test)+len(X_outliers2)))
+    accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers())))
     return accuracyTestGlobal
    
 def modelOneClassSVM():
     nu=random.uniform(0,1)
     gamma=random.uniform(0,5)
-   clf = OneClassSVM(nu,gamma)
-   return clf.fit(dataSetTrain())
+    accuracyTraining= accuracyDataTraining()
+    recal= recallDataTestNormales()
+    especificidad=especificidadDataTestAnomalias()
+    accuracyGlobal= accuracyGlobalDataTest()
+    clf = OneClassSVM(nu,gamma)
+    if(accuracyTraining=>0.99 and recal=>0.99 and especificidad=>0.99 and accuracyGlobal=>0.99):
+        clf.fit(dataSetTrain())
+    return clf.fit(dataSetTrain())
 
 plot_oneclass_svm(modelOneClassSVM())
