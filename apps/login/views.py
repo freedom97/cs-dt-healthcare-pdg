@@ -19,6 +19,7 @@ from fontawesome.fields import IconField
 import datetime
 import sys
 import threading
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
@@ -27,9 +28,10 @@ import pandas as pd #tratamiento de datos
 import seaborn as sns
 from sklearn.svm import OneClassSVM
 import random
-
 import warnings
 warnings.filterwarnings('ignore')
+
+"""
 sys.path.insert(1, '/python_fitbit_wapi/')
 from .python_fitbit_wapi import gather_keys_oauth2 as Oauth2
 
@@ -132,7 +134,7 @@ def Patient(request):
                 global userpatient
                 userpatient = request.user
                 return render(request,'login/patient.html')    
-    return render(request,'login/login.html')
+    return HttpResponseRedirect('/login')
 
 def Doctor(request):    
     if request.user.is_authenticated:
@@ -147,8 +149,7 @@ def Doctor(request):
                 global auth2_client
                 auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN) 
                 return render(request,'login/doctor.html')   
-    return render(request,'login/login.html')
-
+    return HttpResponseRedirect('/login')
 def showPatient(request):
     idpatient = request.POST['idPatient']
     try:
@@ -195,9 +196,14 @@ def getDataFitbitCharts(request):
         if   types== "HR":
             fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1w')
             roomie = fit_statsHrate['activities-heart']
-            for i in roomie['value']['heartRateZones']:
-                datalabel.append(i['name'])
-            datashet.append(roomie)
+            for i in roomie:
+                DayHeart = []
+                for j in range(len(i['value']['heartRateZones'])):
+                    print(i['value']['heartRateZones'][j]['minutes'])
+                    DayHeart.append(i['value']['heartRateZones'][j]['minutes'])
+                datashet.append(DayHeart)
+                datalabel.append(i['dateTime'])
+            print(datashet)    
         elif types =="ST":                
             fit_statsnrStp = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1w')
             roomie = fit_statsnrStp['activities-steps']
@@ -208,11 +214,17 @@ def getDataFitbitCharts(request):
             
     elif(labels == "month"):
         if   types== "HR":
-            fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1m')
+            fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1w')
             roomie = fit_statsHrate['activities-heart']
-            for i in roomie['value']['heartRateZones']:
-                datalabel.append(i['name'])
-            datashet.append(roomie)
+            for i in roomie:
+                DayHeart = []
+                try:
+                    for j in range(len(i['value']['heartRateZones'])):
+                        DayHeart.append(i['value']['heartRateZones'][j]['minutes'])
+                    datashet.append(DayHeart)
+                    datalabel.append(i['dateTime'])
+                except Exception as e:
+                    print(e.__cause__)
         elif types =="ST":
             fit_statsnrStp = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1m')
             roomie = fit_statsnrStp['activities-steps']
@@ -226,6 +238,7 @@ def getDataFitbitCharts(request):
         pass 
     datas.append(datashet)
     datas.append(datalabel)
+    print(datas)
     return JsonResponse(datas,safe=False)
 
 
@@ -324,6 +337,9 @@ def initategatherin(request):
                 sep=';', \
                 index = False)
     return HttpResponseRedirect("hellow there")
+    
+
+"""       
     # ANOMALY DETECTION
 def dataClean():
     data=pd.read_csv(urlCSV, sep=";")
@@ -448,7 +464,6 @@ def accuracyGlobalDataTest():
     n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
     accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers())))
     return accuracyTestGlobal
-   
 def modelOneClassSVM():
     nu=random.uniform(0,1)
     gamma=random.uniform(0,5)
@@ -462,3 +477,4 @@ def modelOneClassSVM():
     return clf.fit(dataSetTrain())
 
 plot_oneclass_svm(modelOneClassSVM())
+"""
