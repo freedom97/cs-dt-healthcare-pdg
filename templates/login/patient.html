@@ -113,6 +113,7 @@
                                         <canvas id="HRate" style="display: none;"></canvas>
                                         <canvas id="nrStp" style="display: none;"></canvas>
                                         <canvas id="fdChr" style="display: none;"></canvas>
+                                        <canvas id="HBigD" style="display: none;"></canvas>
                                         <div id="weght" style="display: none;"></div>
                                         <div id="foods" style="display: none;"></div>
                                     </div>
@@ -312,10 +313,21 @@
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', dataType: type, dataTime: labels },
                 success: function callback(response) {
                     if (type == "HR") {
-                        ChartsHR.data.datasets[0].data = response[0]    
-                        ChartsHR.data.labels = response[1] 
-                        ChartsHR.update()
-                    } else if (type == "ST") {
+                        if (labels == "week" || labels == "month"){
+                            ChartsHB.data.labels = response[1] 
+                            for (i = 0; i < response[0][0].length; i++){
+                                datus =[]
+                                for (j = 0; j < response[0].length; j++){
+                                    datus.push(response[0][j][i])
+                                }
+                                ChartsHB.data.datasets[i].data = datus
+                            }
+                            ChartsHB.update()
+                        }else{                            
+                            ChartsHR.data.datasets[0].data = response[0]    
+                            ChartsHR.data.labels = response[1] 
+                            ChartsHR.update()
+                        }} else if (type == "ST") {
                         ChartsNS.data.datasets[0].data = response[0]
                         ChartsNS.data.labels = response[1]
                         ChartsNS.update()
