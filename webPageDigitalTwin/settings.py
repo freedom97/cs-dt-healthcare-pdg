@@ -29,11 +29,11 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-STATICFILES_DIRS=["/Users/croos/OneDrive/Escritorio/DT/cs-dt-healthcare-pdg/static",]
-"""  
+# STATICFILES_DIRS=["/Users/croos/OneDrive/Escritorio/DT/cs-dt-healthcare-pdg/static",]
+  
 STATICFILES_DIRS=[
-     "/Users/ASUS/ICESI/PDG/PDG2/paginaWeb/dt-healthcare-pdg-webPage/proyecto-login/webPageDigitalTwin/static",
- ] """
+     "/Users/ASUS/ICESI/PDG/PDG2/cs-dt-healthcare-plataform/Platform/cs-dt-healthcare-pdg/static",
+ ] 
 
 
 # Application definition
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'es-col'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
