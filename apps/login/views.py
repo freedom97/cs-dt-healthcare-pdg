@@ -19,7 +19,7 @@ from fontawesome.fields import IconField
 import datetime
 import sys
 import threading
-"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
@@ -31,7 +31,7 @@ import random
 import warnings
 warnings.filterwarnings('ignore')
 
-"""
+
 sys.path.insert(1, '/python_fitbit_wapi/')
 from .python_fitbit_wapi import gather_keys_oauth2 as Oauth2
 
@@ -40,6 +40,12 @@ from .python_fitbit_wapi import gather_keys_oauth2 as Oauth2
 auth2_client = fitbit.api.Fitbit
 userpatient = User
 urlCSV =""
+fit_statsHR=[]
+fit_statsSteps=[]
+notificationAnomaly=[]
+
+profileFitUsr=pd.DataFrame({}) 
+
 class LoginHome(FormView):
     template_name = 'login'
     form_class = FormularioLogin
@@ -147,6 +153,11 @@ def Doctor(request):
                 ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
                 REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
                 global auth2_client
+                global fit_statsHR
+                global fit_statsSteps
+                fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
+                fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
+                
                 auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN) 
                 return render(request,'login/doctor.html')   
     return HttpResponseRedirect('/login')
@@ -303,8 +314,9 @@ def initategatherin(request):
     val_listWatr=[]
     val_listGndr=[]
     valu_listAge=[]
-
+    global fit_statsHR
     fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
+    global fit_statsSteps
     fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
     fit_statsWater = auth2_client.water_goal()
     fit_statsUsr = auth2_client.user_profile_get()
@@ -327,10 +339,14 @@ def initategatherin(request):
         val_listHR.insert(cont, i['value'])
         cont+=1
     data = {'timeHR':time_listHR,'heart_Rate':val_listHR,'time':time_listSTP,'step_Count':val_listSTP,'full Name':val_listName,'weight':val_listWeig,'height':val_listHeig,'age':valu_listAge,'gender':val_listGndr,'waterLvl':val_listWatr}       
+    global profileFitUsr
     profileFitUsr = pd.DataFrame(data)
+    
+
 
     global urlCSV
-    urlCSV = '/Users/croos/Onedrive/Escritorio/'+today+'profile.csv'
+    urlCSV ='/Users/ASUS/ICESI/PDG/PDG2/cs-dt-healthcare-plataform/Platform/cs-dt-healthcare-pdg/'+today+'profile.csv' 
+    # '/Users/croos/Onedrive/Escritorio/'+today+'profile.csv'
     profileFitUsr.to_csv(urlCSV, \
                 columns=['time','timeHR','heart_Rate','step_Count','full Name','waterLvl','weight','height','age','gender'], \
                 header=True, \
@@ -339,17 +355,49 @@ def initategatherin(request):
     return HttpResponseRedirect("hellow there")
     
 
-"""       
+       
     # ANOMALY DETECTION
-def dataClean():
-    data=pd.read_csv(urlCSV, sep=";")
+""" def dataClean(DataFrame=profileFitUsr):
+    data=profileFitUsr
+    print(profileFitUsr)
     data=data.drop(['full Name', 'waterLvl', 'weight','height','age','gender'], axis=1)
     df=data
     df=df.drop(['time', 'timeHR'], axis=1)
+    df=df[df.heart_Rate!=0]
     return df
+
+
+def getAnomaly():
+    global profileFitUsr
+  
+    resultDF=dataClean(profileFitUsr)
+    # test=101
+    heartInteger=0
+    stepInteger=0
+    step="" 
+    heart=""   
+    data=[]
+
+    
+    accuracyResult=accuracyGlobalDataTest()
+    especificidadResult=especificidadDataTestAnomalias()
+    modelResult=modelOneClassSVM()
+
+    for i in range(len(resultDF.heart_Rate)):
+        if resultDF.heart_Rate[i]>=101:
+            heartInteger=resultDF.heart_Rate[i]
+            stepInteger=resultDF.step_Count[i]
+    heart=str(heartInteger)
+    step=str(stepInteger)
+    data.append(heart)
+    data.append(step)
+    return JsonResponse(data,safe=False) 
+    
 def dataSetTrain():
     heart1=[]
-    resultDF=dataClean()
+    global profileFitUsr
+   
+    resultDF=dataClean(profileFitUsr)
     for i in range(math.floor(len(resultDF.heart_Rate)/2)):
         if (resultDF.heart_Rate[i]<=94):
             heart1.insert(len(heart1),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
@@ -359,7 +407,9 @@ def dataSetTrain():
     return a_train
 def dataSetTest():
     heart2=[]
-    resultDF=dataClean()
+    global profileFitUsr
+    dataFrame=profileFitUsr
+    resultDF=dataClean(dataFrame)
     for i in range(math.floor(len(resultDF.heart_Rate)/2)):
         if (resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i]<=94):
             heart2.insert(len(heart2),[resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i],resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i]])
@@ -368,19 +418,27 @@ def dataSetTest():
     a2_test[0:3]
     return a2_test
 def dataSetOutliers():
-    resultDF=dataClean()
+    global profileFitUsr
+    dataFrame=profileFitUsr
+    resultDF=dataClean(dataFrame)
     heart3=[]
+    global notificationAnomaly
        
     for i in range(len(resultDF.heart_Rate)):
         if resultDF.heart_Rate[i]>=99:
             heart3.insert(len(heart3),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
+            notificationAnomaly.insert(len(notificationAnomaly),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
     X_outliers=np.array(heart3)
     X_outliers2=np.r_[X_outliers + 4, X_outliers + 2]
     return X_outliers2
 
-clf = OneClassSVM()
-clf.fit(dataSetTrain())
+def getCLF():
+    clf = OneClassSVM()
+    clf.fit(dataSetTrain())
+    return clf
+
 def plot_oneclass_svm(svm):
+    clf=getCLF()
     # Definimos una grilla de puntos sobre la cual vamos a determinar la frontera de detección de anomalías:
     xx, yy = np.meshgrid(np.linspace(-200, 200, 500), np.linspace(-200, 200, 500))
 
@@ -425,6 +483,7 @@ def plot_oneclass_svm(svm):
     
 
 def accuracyDataTraining():
+    clf=getCLF()
      # Calculamos accuracy del training, test positivos y negativos
     y_pred_train = clf.predict(dataSetTrain())
     y_pred_test = clf.predict(dataSetTest())
@@ -436,6 +495,7 @@ def accuracyDataTraining():
    # print("Accuracy del training set: "+str(1-n_error_train/len(a_train ))),print("Recall (normales) del test set: "+str(1-n_error_test/len(a2_test))),print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(X_outliers2))),print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(a2_test)+len(X_outliers2))))
     return accuracyTrainingSet
 def recallDataTestNormales():
+    clf=getCLF()
     y_pred_train = clf.predict(dataSetTrain())
     y_pred_test = clf.predict(dataSetTest())
     y_pred_outliers = clf.predict(dataSetOutliers())
@@ -446,6 +506,7 @@ def recallDataTestNormales():
     return recallDataTestNormales
 
 def especificidadDataTestAnomalias():
+    clf=getCLF()
     y_pred_train = clf.predict(dataSetTrain())
     y_pred_test = clf.predict(dataSetTest())
     y_pred_outliers = clf.predict(dataSetOutliers())
@@ -456,6 +517,7 @@ def especificidadDataTestAnomalias():
     return especificidadAnomaliasTestSet
 
 def accuracyGlobalDataTest():
+    clf=getCLF()
     y_pred_train = clf.predict(dataSetTrain())
     y_pred_test = clf.predict(dataSetTest())
     y_pred_outliers = clf.predict(dataSetOutliers())
@@ -465,6 +527,7 @@ def accuracyGlobalDataTest():
     accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers())))
     return accuracyTestGlobal
 def modelOneClassSVM():
+    clf=getCLF()
     nu=random.uniform(0,1)
     gamma=random.uniform(0,5)
     accuracyTraining= accuracyDataTraining()
@@ -472,9 +535,8 @@ def modelOneClassSVM():
     especificidad=especificidadDataTestAnomalias()
     accuracyGlobal= accuracyGlobalDataTest()
     clf = OneClassSVM(nu,gamma)
-    if(accuracyTraining=>0.99 and recal=>0.99 and especificidad=>0.99 and accuracyGlobal=>0.99):
+    if(accuracyTraining>=0.99 and recal>=0.99 and especificidad>=0.99 and accuracyGlobal>=0.99):
         clf.fit(dataSetTrain())
     return clf.fit(dataSetTrain())
 
-plot_oneclass_svm(modelOneClassSVM())
-"""
+plot_oneclass_svm(modelOneClassSVM()) """

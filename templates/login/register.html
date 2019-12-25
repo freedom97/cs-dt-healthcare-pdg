@@ -16,13 +16,13 @@
 
 </head>
 
-<body >
-  <div class="card" style="max-width:50%;margin-left:25%; background-color:rgba(243, 235, 235, 0.465)">
+<body class="register">
+  <div class="card">
 
 
-    <form>
-      <h1 class="text-center" style="color: black;">Registro</h1>
-      <div style="margin-left: 25%; margin-top: 5%; align-content: left; ">
+    <form class="container_register" style="width: 122%;">
+      <h1 class="text-center-register" id="txt_register" style="color: black; margin-right: 18%;" >Registro</h1>
+      <div style="margin-left: 8%; margin-top: 2%; align-content: left;">
 
 
         <div>
@@ -72,7 +72,7 @@
         <div class="row" style="margin-top:5%;width:90%;">
           <legend class="col-form-label col-sm-5" style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">
             ¿Toma médicamentos?</legend>
-          <div class="col-sm-1">
+          <div class="col-md-sm-1">
             <div class="form-check">
               <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
               <label class="form-check-label" style="font-family: Helvetica, sans-serif;font-size: 130%"
@@ -91,10 +91,11 @@
         </div>       
         <div><label>* Datos obligatorios</label></div>
         
-        <a class="btn btn-primary btn-lg active" style="margin-top:5%; width:75%; align-self: center;" role="button"
-        onclick="registerUser()">Registrarse</a>
+         <a class="btn btn-primary btn-lg active" id="btn_register"  role="button"
+        onclick="registerUser()">Registrarse</a> 
       </div>
-    </form>
+      
+    </form >
 
     <!-- Bootstrap core JavaScript-->
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>

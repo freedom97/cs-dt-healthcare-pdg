@@ -305,7 +305,7 @@
                 success: function callback(response) {
                     window.location.href = "/login"
                 }});}
-        function showPatient(id){
+         function showPatient(id){
             $.ajax({
                 type: "POST",
                 url: '{{ 'show-patient/ ' }}',
@@ -315,6 +315,19 @@
                     document.getElementById("titlePatient").textContent ="Paciente: "+ datas[0] ;
                 }});}    
 
+
+     /*    function getAnomalyHTML(){
+            $.ajax({
+                type: "POST",
+                url: '{{ 'show-anomaly/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success: function callback(response) {
+                    alert("Su ritmo cardiaco es de "+response[0]+"y la cantidad de pasos que ha realizado es de "+response[1]);
+                }});}
+ */
+       
+
+        
         function getDataFitbitCharts(type, labels) {
             $.ajax({
                 type: "POST",

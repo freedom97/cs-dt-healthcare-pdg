@@ -31,6 +31,8 @@ from apps.login.views import authUser
 from apps.login.views import logOutUser
 from apps.login.views import registerUser
 from apps.login.views import showPatient
+# from apps.login.views import getAnomaly
+
 
 
 
@@ -52,6 +54,7 @@ urlpatterns = [
     path('doctor/get-data-fitbit-weight/', getDataFitbitWeight),
     path('doctor/log-out-user/', logOutUser),
     path('doctor/show-patient/', showPatient),
+    # path('doctor/show-anomaly/',getAnomaly),
 
     # functions from the patient.html    
     path('patient/generate-report/', initategatherin),
@@ -59,4 +62,5 @@ urlpatterns = [
     path('patient/get-data-fitbit-food/', getDataFitbitFoods),
     path('patient/get-data-fitbit-weight/', getDataFitbitWeight),
     path('patient/log-out-user/', logOutUser),
+    # path('patient/show-anomaly/',getAnomaly),
 ]

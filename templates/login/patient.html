@@ -75,12 +75,12 @@
                             
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    perfil
+                                    Perfil
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Cerrar sesión
                                 </a>
                             </div>
                         </li>
@@ -99,11 +99,11 @@
 
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4" style="background-color: #7FB1D3 ;">
+                            <div class="card shadow mb-4" style="background-color: #7FB1D3;width:100%;height: 80%">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Graficas:</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Gráficas:</h6>
 
                                 </div>
                                 <!-- Card Body -->
@@ -121,20 +121,20 @@
                             </div>
                         </div>
                         <!-- Color System -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-4 col-lg-2">
                             <div class="col-lg-9 mb-4">
                                 <div class="card text-white shadow" onclick="showWeight();" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Peso:
-                                        <div class="text-white-50 small">ideal</div>
+                                        <div class="text-white-50 small">Ideal</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-9 mb-4">
                                 <div class="card  text-white shadow" style="background-color: #8FC1E3 ;">
                                     <div class="card-body"  >
-                                        Actividad Cardiaca
-                                        <div class="text-white-50 small">saludable</div>
+                                        Actividad Cardíaca
+                                        <div class="text-white-50 small">Saludable</div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -142,7 +142,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-header" >mostrando el ritmo cardiaco de:</div>
+                                                <div class="dropdown-header" >Mostrando el ritmo cardiaco de:</div>
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showHR('day');"
                                                     href="#">Hoy</a>                                                    
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showHR('yesterday');"
@@ -159,8 +159,8 @@
                             <div class="col-lg-9 mb-4">
                                 <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
-                                        Actividad Fisica
-                                        <div class="text-white-50 small">en Riesgo</div>
+                                        Actividad Física
+                                        <div class="text-white-50 small">En riesgo</div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -168,7 +168,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-header" >mostrando la cantidad de pasos de:</div>
+                                                <div class="dropdown-header" >Mostrando la cantidad de pasos de:</div>
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showSteps('day');"
                                                     href="#">Hoy</a>                                                    
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showSteps('yesterday');"
@@ -186,7 +186,7 @@
                                 <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Comidas
-                                        <div class="text-white-50 small">normal</div>
+                                        <div class="text-white-50 small">Normal</div>
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -194,7 +194,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                     aria-labelledby="dropdownMenuLink">
-                                                    <div class="dropdown-header" >mostrando la Comida de </div>
+                                                    <div class="dropdown-header" >Mostrando la comida de: </div>
                                                     <a class="dropdown-item" id="optionsChartA" onclick=showFood("day")
                                                         href="#">hoy</a>
                                                     <a class="dropdown-item" id="optionsChartB" onclick=showFood("week")
@@ -231,14 +231,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">¿Desea cerrar sesión?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" onclick="logYourselfOut()">Cerrar sesion</a>
+                    <a class="btn btn-primary" onclick="logYourselfOut()">Cerrar sesión</a>
                 </div>
             </div>
         </div>
@@ -278,8 +278,18 @@
                 success: function callback(response) {
                     window.location.href = "/login"
                 }});}
+/* 
+        function getAnomalyHTML(){
+            $.ajax({
+                type: "POST",
+                url: '{{ 'show-anomaly/ ' }}',
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success: function callback(response) {
+                    alert("Su ritmo cardiaco es de "+response[0]+"y la cantidad de pasos que ha realizado es de "+response[1]);
+                }});}
+  */
 
-                function getDataFitbitFoodsChart(type, labels) {
+        function getDataFitbitFoodsChart(type, labels) {
             $.ajax({
                 type: "POST",
                 url: '{{ 'get-data-fitbit-food/ ' }}',
@@ -334,7 +344,7 @@
                     }
                 }});}
 
-                function getDataFitbitFoods(type, labels) {
+        function getDataFitbitFoods(type, labels) {
             $.ajax({
                 type: "POST",
                 url: '{{ 'get-data-fitbit-food/ ' }}',

@@ -60,7 +60,7 @@ function showFood(spectrum){
     document.getElementById("nrStp").style.display = "none";
     document.getElementById("weght").style.display = "none";
     document.getElementById("foods").style.display = "block";
-    document.getElementById("HBigD").style.display = "none"; q
+    document.getElementById("HBigD").style.display = "none"; 
     getDataFitbitFoods("alers",spectrum);    
     }
     title.textContent ="Comidas";
