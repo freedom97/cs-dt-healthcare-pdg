@@ -139,6 +139,8 @@ def Patient(request):
                 print(request.user.username)
                 global userpatient
                 userpatient = request.user
+                initategatherin(fit_statsHR)
+                print(profileFitUsr)
                 return render(request,'login/patient.html')    
     return HttpResponseRedirect('/login')
 
@@ -159,6 +161,9 @@ def Doctor(request):
                 fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
                 
                 auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN) 
+                initategatherin(fit_statsHR)
+                
+
                 return render(request,'login/doctor.html')   
     return HttpResponseRedirect('/login')
 def showPatient(request):

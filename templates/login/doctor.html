@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="no-js" lang="es">
+<html class="no-js" id="principalDoctor" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
-<body id="page-top" onload="showPatient(13)">
+<body id="page-top-doctor" onload="showPatient(13)">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -77,7 +77,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil del Doctor: {{user.username}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil del profesional de la salud: {{user.username}}</span>
                                 <img class="img-profile  fas fa-user rounded-circle">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -89,12 +89,12 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    perfil
+                                    Perfil
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" onclick="logout()"></i>
-                                    Logout
+                                    Cerrar sesión
                                 </a>
                             </div>
                         </li>
@@ -106,36 +106,36 @@
 
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluidDoctor">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h6 class="h3 m-0 font-weight-bold text-primary-1000" id=titlePatient style="color: #007bff ;">Paciente:</h1>
                         <div>
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generate Report CSV</a>
+                                onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generar reporte CSV</a>
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generate Report PDF</a>
+                                onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generar reporte PDF</a>
                         </div>
                     </div>
 
                     <!-- Content Row -->
 
-                    <div class="row">
+                    <div class="row my-rowDoctor">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4" style="background-color: #7FB1D3 ;">
+                        <div class="col col-chatAreaDoctor">
+                            <div class="card shadow" id="cardShadow-doctor" style="background-color: #7FB1D3 ;">
                                 <!-- Card Header - Dropdown -->
                                 <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Graficas:</h6>
+                                    class="card-header align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary" id="titleCharts">Gráficas:</h6>
 
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body" style="height: 100%;">
+                                <div class="card-body" id="body-chartAreaDoctor>
                                     <div class="chart-area" >
-                                        <div id="loadingScheme" style="width: 400px; height: 400px;"></div>
+                                        <div id="loadingScheme"></div>
                                         <canvas id="HRate" style="display: none;"></canvas>
                                         <canvas id="HBigD" style="display: none;"></canvas>
                                         <canvas id="fdChr" style="display: none;"></canvas>
@@ -147,20 +147,20 @@
                             </div>
                         </div>
                         <!-- Color System -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="col-lg-9 mb-4">
-                                <div class="card text-white shadow" onclick="showWeight();" style="background-color: #8FC1E3 ;">
+                        <div class="col col-optionsDoctor">
+                            
+                                <div class="card text-white shadow" id="item-weightDoctor" onclick="showWeight();" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Peso:
-                                        <div class="text-white-50 small">ideal</div>
+                                        <div class="text-white-50 small">Ideal</div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9 mb-4">
-                                <div class="card  text-white shadow" style="background-color: #8FC1E3 ;">
+                            
+                            
+                                <div class="card  text-white shadow" id="item-HRDoctor" style="background-color: #8FC1E3 ;">
                                     <div class="card-body"  >
                                         Actividad Cardiaca
-                                        <div class="text-white-50 small">saludable</div>
+                                        <div class="text-white-50 small">Saludable</div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -168,7 +168,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-header" >mostrando el ritmo cardiaco de:</div>
+                                                <div class="dropdown-header" >Mostrando el ritmo cardiaco de:</div>
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showHR('day');"
                                                     href="#">Hoy</a>                                                    
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showHR('yesterday');"
@@ -181,12 +181,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9 mb-4">
-                                <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
+                            
+                            
+                                <div class="card text-white shadow" id="item-stepsDoctor" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Actividad Fisica
-                                        <div class="text-white-50 small">en Riesgo</div>
+                                        <div class="text-white-50 small">En riesgo</div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -194,7 +194,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                 aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-header" >mostrando la cantidad de pasos de:</div>
+                                                <div class="dropdown-header" >Mostrando la cantidad de pasos de:</div>
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showSteps('day');"
                                                     href="#">Hoy</a>                                                    
                                                 <a class="dropdown-item" id="optionsChartA" onclick="showSteps('yesterday');"
@@ -207,12 +207,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9 mb-4">
-                                <div class="card text-white shadow" style="background-color: #8FC1E3 ;">
+                            
+                            
+                                <div class="card text-white shadow"  id="item-foodsDoctor" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Comidas
-                                        <div class="text-white-50 small">normal</div>
+                                        <div class="text-white-50 small">Normal</div>
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -220,19 +220,19 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                     aria-labelledby="dropdownMenuLink">
-                                                    <div class="dropdown-header" >mostrando la Comida de </div>
+                                                    <div class="dropdown-header" >Mostrando la Comida de </div>
                                                     <a class="dropdown-item" id="optionsChartA" onclick=showFood("day")
-                                                        href="#">hoy</a>
+                                                        href="#">Hoy</a>
                                                     <a class="dropdown-item" id="optionsChartB" onclick=showFood("week")
-                                                        href="#">ayer</a>
+                                                        href="#">Ayer</a>
                                                     <a class="dropdown-item" id="optionsChartC" onclick=showFood("month")
                                                         href="#">Última semana</a>
                                                 </div>
                                             </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            
+                        </d>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -257,14 +257,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">¿Desea cerrar sesión?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" onclick="logYourselfOut()">Cerrar sesion</a>
+                    <a class="btn btn-primary" onclick="logYourselfOut()">Cerrar sesión</a>
                 </div>
             </div>
         </div>
