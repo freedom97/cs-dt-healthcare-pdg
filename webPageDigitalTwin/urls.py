@@ -21,6 +21,7 @@ from django.contrib.auth.views import LoginView,logout_then_login
 from apps.login.views import LoginHome
 from apps.login.views import Profile
 from apps.login.views import Register
+from apps.login.views import EditProfile
 from apps.login.views import Patient
 from apps.login.views import Doctor
 from apps.login.views import initategatherin
@@ -41,6 +42,7 @@ urlpatterns = [
      #  path('login/', include(('apps.login.urls','login'))),
     path('login/',LoginView.as_view(template_name='login/login.html'), name='login'),
     path('register/', Register, name='Register'),
+    path('editprofile/', EditProfile, name='EditProfile'),
     path('patient/', Patient, name='Patient'),
     path('doctor/', Doctor, name='Doctor'),    
     path('login/authenticate-user/', authUser),

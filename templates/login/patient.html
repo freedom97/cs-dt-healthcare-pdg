@@ -70,7 +70,7 @@
                                 <a href="#" class="dropdown-item"
                                 onclick="raise()"  ><i class="fas fa-download fa-sm fa-fw mr-2 text-gray-400" style="color: #000 ;"></i> Generar Reporte PDF</a>
                             
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'EditProfile' %}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
@@ -267,15 +267,15 @@
                     alert(response);
                 }});}
 
-        function logYourselfOut() {
+        /* function logYourselfOut() {
             $.ajax({
                 type: "POST",
                 url: '{{ 'log-out-user/ ' }}',
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
                 success: function callback(response) {
                     window.location.href = "/login"
-                }});}
-/* 
+                }});} */
+ 
         function getAnomalyHTML(){
             $.ajax({
                 type: "POST",
@@ -284,7 +284,7 @@
                 success: function callback(response) {
                     alert("Su ritmo cardiaco es de "+response[0]+"y la cantidad de pasos que ha realizado es de "+response[1]);
                 }});}
-  */
+  
 
         function getDataFitbitFoodsChart(type, labels) {
             $.ajax({

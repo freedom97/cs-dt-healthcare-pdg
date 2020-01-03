@@ -42,7 +42,7 @@ userpatient = User
 urlCSV =""
 fit_statsHR=[]
 fit_statsSteps=[]
-notificationAnomaly=[]
+contador=0
 
 profileFitUsr=pd.DataFrame({}) 
 
@@ -124,6 +124,9 @@ def registerUser(request):
 def Register(request):
     return render(request,'login/register.html')
 
+def EditProfile(request):
+    return render(request,'login/profile.html')
+
 def Patient(request):
     if request.user.is_authenticated:
         for g in Group.objects.filter(user = request.user):
@@ -141,6 +144,9 @@ def Patient(request):
                 userpatient = request.user
                 initategatherin(fit_statsHR)
                 print(profileFitUsr)
+                if(not profileFitUsr.empty):
+                    print("no es vacio")
+                    # getAnomaly(profileFitUsr)
                 return render(request,'login/patient.html')    
     return HttpResponseRedirect('/login')
 
@@ -176,7 +182,7 @@ def showPatient(request):
         user = User.objects.get(username =idpatient)
     global userpatient
     userpatient = user
-    print('el nombre del usuario es: '+request.user.username)    
+    print('El nombre del usuario es: '+request.user.username)    
     return JsonResponse([user.username],safe=False)
 
 
@@ -372,7 +378,7 @@ def initategatherin(request):
     return df
 
 
-def getAnomaly():
+def getAnomaly(DataFrame=profileFitUsr):
     global profileFitUsr
   
     resultDF=dataClean(profileFitUsr)
@@ -382,20 +388,37 @@ def getAnomaly():
     step="" 
     heart=""   
     data=[]
-
+    contadorAnomaly= 0
     
-    accuracyResult=accuracyGlobalDataTest()
-    especificidadResult=especificidadDataTestAnomalias()
-    modelResult=modelOneClassSVM()
+    i=range(len(resultDF.heart_Rate))
+   
+    while contadorAnomaly<1:
+        if resultDF.heart_Rate[i]<101 and resultDF.step_Count[i]<=100:
+            if(len(resultDF)>=2):
+                dataSetTrain()
+                dataSetTest()
+            else:
+                dataSetTrain()
+        elif resultDF.heart_Rate[i]>=101 and resultDF.step_Count[i]<=100:
+            contadorAnomaly=1
+            global contador
+            contador=contadorAnomaly
+            dataSetOutliers()
 
-    for i in range(len(resultDF.heart_Rate)):
-        if resultDF.heart_Rate[i]>=101:
             heartInteger=resultDF.heart_Rate[i]
             stepInteger=resultDF.step_Count[i]
-    heart=str(heartInteger)
-    step=str(stepInteger)
+    getCLF()
+    accuracyResult=accuracyGlobalDataTest()
+    especificidadResult=especificidadDataTestAnomalias()
+    recall=recallDataTestNormales()
+    if(accuracyResult>=0.8 and especificidadResult>=0.8 and recall>=0.8):
+        heart=str(heartInteger)
+        step=str(stepInteger)
+   
     data.append(heart)
     data.append(step)
+    
+    
     return JsonResponse(data,safe=False) 
     
 def dataSetTrain():
@@ -404,7 +427,7 @@ def dataSetTrain():
    
     resultDF=dataClean(profileFitUsr)
     for i in range(math.floor(len(resultDF.heart_Rate)/2)):
-        if (resultDF.heart_Rate[i]<=94):
+        if (resultDF.heart_Rate[i]<=94 and resultDF.step_Count[i]<=100):
             heart1.insert(len(heart1),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
     a1=np.array(heart1)
     a_train = np.r_[a1+4, a1+2]
@@ -416,7 +439,7 @@ def dataSetTest():
     dataFrame=profileFitUsr
     resultDF=dataClean(dataFrame)
     for i in range(math.floor(len(resultDF.heart_Rate)/2)):
-        if (resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i]<=94):
+        if (resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i]<=94 and resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i]<=100):
             heart2.insert(len(heart2),[resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i],resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i]])
     a2 =np.array(heart2)
     a2_test = np.r_[a2 + 4, a2 + 2]
@@ -426,13 +449,13 @@ def dataSetOutliers():
     global profileFitUsr
     dataFrame=profileFitUsr
     resultDF=dataClean(dataFrame)
+    global contador
+    contadorOutliers=contador
     heart3=[]
-    global notificationAnomaly
-       
     for i in range(len(resultDF.heart_Rate)):
-        if resultDF.heart_Rate[i]>=99:
+        if resultDF.heart_Rate[i]>=99 and resultDF.step_Count[i]<=100 and contadorOutliers==1:
             heart3.insert(len(heart3),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
-            notificationAnomaly.insert(len(notificationAnomaly),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
+            contadorOutliers=0
     X_outliers=np.array(heart3)
     X_outliers2=np.r_[X_outliers + 4, X_outliers + 2]
     return X_outliers2
@@ -544,4 +567,5 @@ def modelOneClassSVM():
         clf.fit(dataSetTrain())
     return clf.fit(dataSetTrain())
 
-plot_oneclass_svm(modelOneClassSVM()) """
+plot_oneclass_svm(modelOneClassSVM()) 
+ """

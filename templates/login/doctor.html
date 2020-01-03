@@ -87,7 +87,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Sexo: Hombre
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'EditProfile' %}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
@@ -316,7 +316,7 @@
                 }});}    
 
 
-     /*    function getAnomalyHTML(){
+         /* function getAnomalyHTML(){
             $.ajax({
                 type: "POST",
                 url: '{{ 'show-anomaly/ ' }}',
@@ -324,7 +324,7 @@
                 success: function callback(response) {
                     alert("Su ritmo cardiaco es de "+response[0]+"y la cantidad de pasos que ha realizado es de "+response[1]);
                 }});}
- */
+  */
        
 
         
