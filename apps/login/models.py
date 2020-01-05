@@ -11,7 +11,7 @@ class Patient(models.Model):
     weight=models.IntegerField(blank=False,default=0, null=False)
     height=models.DecimalField(decimal_places=2,max_digits=3,blank=False, null=False)
     size_patient=models.DecimalField(decimal_places=2,max_digits=4,blank=False, null=False)
-    age=models.IntegerField(blank=False,default=0, null=False)
+
 
 
 #class Doctor(models.Model):

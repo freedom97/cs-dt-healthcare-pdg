@@ -72,13 +72,9 @@ def Profile(request):
 def authUser(request):    
     username = request.POST['username']
     password = request.POST['password']
-    print(username)
-    print(password)
     user = authenticate(request, username=username, password=password)
-    print(user)
     if user is not None:
         login(request, user)
-        print(user)
         datas =[]
         for g in Group.objects.filter(user = user):
             if g.name == 'pacientes':
@@ -90,7 +86,6 @@ def authUser(request):
          return JsonResponse([],safe=False)
 
 def logOutUser(request):
-    print("this kind of works")
     logout(request)
     render(request,'login/login.html')
     return JsonResponse([],safe=False)
@@ -134,7 +129,7 @@ def Patient(request):
                 CLIENT_ID = '22B57B'
                 CLIENT_SECRET = 'a22948cb93e1a4d745d0c4a9d29ce698'
                 server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
-                server.browser_authorize()
+                server.browser_authorize()  
                 ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
                 REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
                 global auth2_client
@@ -142,14 +137,27 @@ def Patient(request):
                 print(request.user.username)
                 global userpatient
                 userpatient = request.user
-                initategatherin(fit_statsHR)
+                #initategatherin(fit_statsHR)
                 print(profileFitUsr)
                 if(not profileFitUsr.empty):
                     print("no es vacio")
                     # getAnomaly(profileFitUsr)
                 return render(request,'login/patient.html')    
     return HttpResponseRedirect('/login')
-
+def InfoProfile(request):
+    if request.user.is_authenticated:
+        render(request,'login/doctor.html')
+        global userpatient
+        datas =[request.user.username
+        ,userpatient.patient.identificationCard
+        ,userpatient.patient.name
+        ,userpatient.patient.lastName
+        ,userpatient.patient.weight
+        ,userpatient.patient.height
+        ,userpatient.patient.size_patient
+        ,]
+        return JsonResponse(datas, safe=False)
+    return HttpResponseRedirect('/login')
 def Doctor(request):    
     if request.user.is_authenticated:
         for g in Group.objects.filter(user = request.user):
@@ -181,8 +189,7 @@ def showPatient(request):
     except Exception as exc:
         user = User.objects.get(username =idpatient)
     global userpatient
-    userpatient = user
-    print('El nombre del usuario es: '+request.user.username)    
+    userpatient = user  
     return JsonResponse([user.username],safe=False)
 
 
@@ -220,12 +227,13 @@ def getDataFitbitCharts(request):
             roomie = fit_statsHrate['activities-heart']
             for i in roomie:
                 DayHeart = []
-                for j in range(len(i['value']['heartRateZones'])):
-                    print(i['value']['heartRateZones'][j]['minutes'])
-                    DayHeart.append(i['value']['heartRateZones'][j]['minutes'])
-                datashet.append(DayHeart)
-                datalabel.append(i['dateTime'])
-            print(datashet)    
+                try:
+                    for j in range(len(i['value']['heartRateZones'])):
+                        DayHeart.append(i['value']['heartRateZones'][j]['minutes'])
+                    datashet.append(DayHeart)
+                    datalabel.append(i['dateTime'])
+                except Exception as e:
+                    print(e.__cause__)  
         elif types =="ST":                
             fit_statsnrStp = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1w')
             roomie = fit_statsnrStp['activities-steps']
@@ -236,7 +244,7 @@ def getDataFitbitCharts(request):
             
     elif(labels == "month"):
         if   types== "HR":
-            fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1w')
+            fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1m')
             roomie = fit_statsHrate['activities-heart']
             for i in roomie:
                 DayHeart = []
@@ -260,13 +268,11 @@ def getDataFitbitCharts(request):
         pass 
     datas.append(datashet)
     datas.append(datalabel)
-    print(datas)
     return JsonResponse(datas,safe=False)
 
 
 def getDataFitbitWeight(request):
     global userpatient
-    print(userpatient.patient.weight)
     M2 = float(userpatient.patient.height)*float(userpatient.patient.height)
     W = float(userpatient.patient.weight)
     datas =['peso',userpatient.patient.weight,'altura',userpatient.patient.height,'indice de masa corporal:',(W/M2)]
@@ -284,13 +290,11 @@ def getDataFitbitFoods(request):
         days.append(fit_statsFood)
     elif(labels == "week"): 
         yesterday  = str((datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
-        print(yesterday)
         fit_statsFood = auth2_client._food_stats(qualifier='date/'+yesterday)
         days.append(fit_statsFood)
     elif(labels == "month"):
         for k in range(8):
             yesterday  = str((datetime.datetime.now() - datetime.timedelta(days=(k))).strftime("%Y-%m-%d"))
-            print(yesterday)
             fit_statsFood = auth2_client._food_stats(qualifier='date/'+yesterday)
             days.append(fit_statsFood)
     for j in days:

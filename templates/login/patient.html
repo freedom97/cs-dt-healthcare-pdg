@@ -61,7 +61,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil de {{user.username}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil de {{user.weight}}</span>
                                 <img class="img-profile fa fa-user rounded-circle">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -374,7 +374,8 @@
                         for (j = 3; j < datas[i].length; j += 2) {
                                 var valueFoodsFitbit = document.createElement("div");
                                 valueFoodsFitbit.id = datas[i][j - 1] + j;//name
-                                valueFoodsFitbit.textContent = datas[i][j - 1] + ": " + datas[i][j];                                      
+                                valueFoodsFitbit.textContent = datas[i][j - 1] + ": " + datas[i][j];  
+                                valueFoodsFitbit.style.fontSize = "1 vw";
                                 valueFoodsFitbit.style.cssFloat = "left";                              
                                 valueFoodsFitbit.style.width = "25%";
                                 valueFoodsFitbit.style.margin = "4%";

@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="register">
+<body class="register" onload="loadInfo()">
   <div class="card">
 
     <form class="container_register" style="width: 122%;">
@@ -105,10 +105,10 @@
     <!-- Core plugin JavaScript-->
     <script type="text/javascript" src="/static/js/jquery.easing.min.js"></script>
     <script>
-      function registerUser() {
+      function modifyUser() {
         $.ajax({
           type: "POST",
-          url: '{{ 'register-user/ ' }}',
+          url: '{{ 'modify-user/ ' }}',
           data: { csrfmiddlewaretoken: '{{ csrf_token }}', iCrd: document.getElementById("iCrd").value, user: document.getElementById("user").value,pswr: document.getElementById("pswr").value,name: document.getElementById("name").value,lstN: document.getElementById("lstN").value,mail: document.getElementById("mail").value,wght: document.getElementById("wght").value,hght: document.getElementById("hght").value,size: document.getElementById("size").value,gluc: document.getElementById("gluc").value, ageU: document.getElementById("ageU").value },
           success: function callback(response) {
                   if (response[0] != 'none'){
@@ -118,7 +118,21 @@
                   }
                       
                   }});}
+      function loadInfo(){
+        $.ajax({
+          type: "POST",
+          url: '{{ 'load-user/ ' }}',
+          data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+          success: function callback(response) {
+            document.getElementById("user").placeholder = response[0]
+            document.getElementById("iCrd").placeholder = response[1]
+            document.getElementById("name").placeholder = response[2]
+            document.getElementById("lstN").placeholder = response[3]
+            document.getElementById("wght").placeholder = response[4]
+            document.getElementById("hght").placeholder = response[5]
+            document.getElementById("ageU").placeholder = response[6]
 
+          }});}
     </script>
 
 </body>
