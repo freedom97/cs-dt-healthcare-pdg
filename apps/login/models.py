@@ -10,7 +10,9 @@ class Patient(models.Model):
     lastName=models.CharField(max_length=25,default='blank',blank=False, null=False)
     weight=models.IntegerField(blank=False,default=0, null=False)
     height=models.DecimalField(decimal_places=2,max_digits=3,blank=False, null=False)
+    age = models.IntegerField(max_length=3,default=20,null=False,blank=False)
     size_patient=models.DecimalField(decimal_places=2,max_digits=4,blank=False, null=False)
+    glucose = models.DecimalField(decimal_places=2,max_digits=4,blank=False, null = False)
 
 
 

@@ -63,11 +63,7 @@
         <div>
           <label for="text" style="font-family: Helvetica, sans-serif;font-size: 130%;">Nivel de glucosa</label>
           <input class="form-control" id="gluc" placeholder="   " style="max-width:75%;">
-        </div>        
-        <div>
-          <label style="font-family: Helvetica, sans-serif;font-size: 130%;">Contraseña</label>
-          <input type="password" class="form-control" id="pswr" placeholder="   " style="max-width:75%;">
-        </div>
+        </div>      
         <div class="row" style="margin-top:5%;width:90%;">
           <legend class="col-form-label col-sm-5" style="font-family: Arial, Helvetica, sans-serif;font-size: 130%;">
             ¿Toma médicamentos?</legend>
@@ -89,7 +85,7 @@
           </div>          
         </div>       
          <a class="btn btn-primary btn-lg active" id="btn_register"  role="button"
-        onclick="registerUser()">Guardar cambios</a> 
+        onclick="modifyUser()">Guardar cambios</a> 
         <a class="btn btn-primary btn-lg active" id="btn_backProfile"  role="button"
         href="{% url 'Patient' %}">Volver</a> 
        
@@ -109,12 +105,23 @@
         $.ajax({
           type: "POST",
           url: '{{ 'modify-user/ ' }}',
-          data: { csrfmiddlewaretoken: '{{ csrf_token }}', iCrd: document.getElementById("iCrd").value, user: document.getElementById("user").value,pswr: document.getElementById("pswr").value,name: document.getElementById("name").value,lstN: document.getElementById("lstN").value,mail: document.getElementById("mail").value,wght: document.getElementById("wght").value,hght: document.getElementById("hght").value,size: document.getElementById("size").value,gluc: document.getElementById("gluc").value, ageU: document.getElementById("ageU").value },
+          data: { csrfmiddlewaretoken: '{{ csrf_token }}',
+           iCrd: document.getElementById("iCrd").value,
+            user: document.getElementById("user").value,
+            name: document.getElementById("name").value,
+            lstN: document.getElementById("lstN").value,
+            mail: document.getElementById("mail").value,
+            wght: document.getElementById("wght").value,
+            hght: document.getElementById("hght").value,
+            size: document.getElementById("size").value,
+            gluc: document.getElementById("gluc").value,
+            ageU: document.getElementById("ageU").value },
           success: function callback(response) {
                   if (response[0] != 'none'){
                       alert("datos no válidos debido a: " + response[0])
                   }else{
-                    window.location.href = "/login"
+                    alert("datos modificados")
+                    window.location.href = "/editprofile"
                   }
                       
                   }});}
@@ -124,13 +131,17 @@
           url: '{{ 'load-user/ ' }}',
           data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
           success: function callback(response) {
-            document.getElementById("user").placeholder = response[0]
-            document.getElementById("iCrd").placeholder = response[1]
-            document.getElementById("name").placeholder = response[2]
-            document.getElementById("lstN").placeholder = response[3]
-            document.getElementById("wght").placeholder = response[4]
-            document.getElementById("hght").placeholder = response[5]
-            document.getElementById("ageU").placeholder = response[6]
+            document.getElementById("user").value = response[0]
+            document.getElementById("user").readonly = "readonly"
+            document.getElementById("iCrd").value = response[1]
+            document.getElementById("name").value = response[2]
+            document.getElementById("lstN").value = response[3]
+            document.getElementById("wght").value = response[4]
+            document.getElementById("hght").value = response[5]
+            document.getElementById("size").value = response[6]
+            document.getElementById("mail").value = response[7]
+            document.getElementById("ageU").value = response[8]
+            document.getElementById("gluc").value = response[9]
 
           }});}
     </script>

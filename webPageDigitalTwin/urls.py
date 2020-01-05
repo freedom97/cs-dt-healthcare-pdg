@@ -33,6 +33,7 @@ from apps.login.views import logOutUser
 from apps.login.views import registerUser
 from apps.login.views import showPatient
 from apps.login.views import InfoProfile
+from apps.login.views import modifyProfile
 # from apps.login.views import getAnomaly
 
 
@@ -66,5 +67,6 @@ urlpatterns = [
     path('patient/get-data-fitbit-weight/', getDataFitbitWeight),
     path('patient/log-out-user/', logOutUser),
     path('editprofile/load-user/', InfoProfile),
+    path('editprofile/modify-user/', modifyProfile),
     # path('patient/show-anomaly/',getAnomaly),
 ]

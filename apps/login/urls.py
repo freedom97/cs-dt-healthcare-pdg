@@ -28,6 +28,7 @@ urlpatterns = [
      path('patient/get-data-fitbit-weight/', views.getDataFitbitWeight),
      path('patient/log-out-user/', views.logOutUser),
      path('editprofile/load-user/', views.InfoProfile),
+     path('editprofile/modify-user/', views.modifyProfile),
      # path('patient/show-anomaly/',views.getAnomaly),
    
 ]

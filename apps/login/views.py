@@ -155,9 +155,24 @@ def InfoProfile(request):
         ,userpatient.patient.weight
         ,userpatient.patient.height
         ,userpatient.patient.size_patient
-        ,]
+        ,request.user.email
+        ,userpatient.patient.age
+        ,userpatient.patient.glucose]
         return JsonResponse(datas, safe=False)
     return HttpResponseRedirect('/login')
+def modifyProfile(request):
+        usa = patientUser.objects.get(identificationCard = request.POST['iCrd'])
+        usa.identificationCard = request.POST['iCrd']        
+        usa.name = request.POST['name']
+        usa.lastName = request.POST['lstN']
+        usa.weight = int(request.POST['wght'])
+        usa.height = request.POST['hght']
+        usa.size_patient = request.POST['size']
+        usa.age = int(request.POST['ageU'])
+        usa.glucose = request.POST['gluc']
+        usa.save()
+        return JsonResponse(['none'],safe=False)
+
 def Doctor(request):    
     if request.user.is_authenticated:
         for g in Group.objects.filter(user = request.user):
