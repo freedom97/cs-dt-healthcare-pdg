@@ -17,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -34,6 +35,7 @@ ALLOWED_HOSTS = ['*']
 STATICFILES_DIRS=[
      "/Users/ASUS/ICESI/PDG/PDG2/cs-dt-healthcare-plataform/Platform/cs-dt-healthcare-pdg/static",
  ] 
+
 
 
 # Application definition

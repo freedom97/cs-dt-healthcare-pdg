@@ -879,11 +879,6 @@ background-size: cover;
 
 }
 
-#navbar-body{
-    
-    background-color: #DFDFDF;
-}
-
 .col-chatAreaDoctor{
    
    position: relative;
@@ -897,7 +892,7 @@ background-size: cover;
     height: 70%;
     background-color: #7FB1D3;
 }
-#body-chartArea{
+#body-chartAreaDoctor{
     width: 100%;
     height: 60%;
     position: relative;
@@ -985,13 +980,13 @@ background-size: cover;
         left: -8%;
         top: -8%;
      }
-     .col-optionsDoctor{
+     .col-options{
         position: relative;
         left: -36%;
         top:50  1%;
        
     }
-    #item-weightDoctor{
+    #item-weight{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -999,7 +994,7 @@ background-size: cover;
         height: 25%;
      
     }
-    #item-HRDoctor{
+    #item-HR{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1008,7 +1003,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-stepsDoctor{
+    #item-steps{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -1017,7 +1012,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-foodsDoctor{
+    #item-foods{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1036,7 +1031,7 @@ background-size: cover;
         height: 100%;
        
     }
-    #principalDoctor{
+    #principal{
         width: 100%;
         height: 110%;
     }
@@ -1072,14 +1067,14 @@ background-size: cover;
          top: -8%;
      }
     
-     .col-optionsDoctor{
+     .col-options{
         
         position: relative;
         left: -38%;
         top:60%;
        
     }
-    #item-weightDoctor{
+    #item-weight{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -1087,7 +1082,7 @@ background-size: cover;
         height: 25%;
      
     }
-    #item-HRDoctor{
+    #item-HR{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1096,7 +1091,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-stepsDoctor{
+    #item-steps{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -1105,7 +1100,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-foodsDoctor{
+    #item-foods{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1125,7 +1120,7 @@ background-size: cover;
         height: 100%;
        
     }
-    #principalDoctor{
+    #principal{
         width: 100%;
         height: 110%;
     }
@@ -1161,14 +1156,14 @@ background-size: cover;
          top: -8%;
      }
     
-     .col-optionsDoctor{
+     .col-options{
         
         position: relative;
         left: -38%;
         top:60%;
        
     }
-    #item-weightDoctor{
+    #item-weight{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -1176,7 +1171,7 @@ background-size: cover;
         height: 25%;
      
     }
-    #item-HRDoctor{
+    #item-HR{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1185,7 +1180,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-stepsDoctor{
+    #item-steps{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -1194,7 +1189,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-foodsDoctor{
+    #item-foods{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1214,7 +1209,7 @@ background-size: cover;
         height: 100%;
        
     }
-    #principalDoctor{
+    #principal{
         width: 100%;
         height: 130%;
     }
@@ -1250,13 +1245,13 @@ background-size: cover;
          top: -8%;
      }
 
-     .col-optionsDoctor{
+     .col-options{
         position: relative;
         left: -35%;
         top:65%;
         
     }
-    #item-weightDoctor{
+    #item-weight{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -1264,7 +1259,7 @@ background-size: cover;
         height: 25%;
      
     }
-    #item-HRDoctor{
+    #item-HR{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1273,7 +1268,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-stepsDoctor{
+    #item-steps{
         margin-top: 2%;
         position: relative;
         left: -35%;
@@ -1282,7 +1277,7 @@ background-size: cover;
         height: 25%;
         
     }
-    #item-foodsDoctor{
+    #item-foods{
         margin-top: 2%;
         position: relative;
         left: 20%;
@@ -1302,7 +1297,7 @@ background-size: cover;
         height: 100%;
        
     }
-    #principalDoctor{
+    #principal{
         width: 100%;
         height: 110%;
     }
@@ -1338,14 +1333,14 @@ background-size: cover;
          top: -8%;
      }
 
-     .col-optionsDoctor{
+     .col-options{
         width: 50%;
         position: relative;
         left: -21%;
         top: 26%;
         
     }
-    #item-weightDoctor{
+    #item-weight{
         margin-top: 2%;
         position: relative;
         left: -26%;
@@ -1354,7 +1349,7 @@ background-size: cover;
         height: 20%;
      
     }
-    #item-HRDoctor{
+    #item-HR{
         margin-top: 2%;
         position: relative;
         top:-1%;
@@ -1363,7 +1358,7 @@ background-size: cover;
         height: 20%;
         
     }
-    #item-stepsDoctor{
+    #item-steps{
         margin-top: 2%;
         position: relative;
         left: -26%;
@@ -1372,7 +1367,7 @@ background-size: cover;
         height: 20%;
         
     }
-    #item-foodsDoctor{
+    #item-foods{
         margin-top: 2%;
         position: relative;
         top:-2%;
@@ -1392,7 +1387,7 @@ background-size: cover;
         height: 100%;
       
     }
-    #principalDoctor{
+    #principal{
         width: 100%;
         height: 110%;
     }
@@ -1427,14 +1422,14 @@ background-size: cover;
          top: -8%;
      }
 
-     .col-optionsDoctor{
+     .col-options{
         width: 50%;
         position: relative;
         left: -21%;
         top: 26%;
         
     }
-    #item-weightDoctor{
+    #item-weight{
         margin-top: 2%;
         position: relative;
         left: -26%;
@@ -1443,7 +1438,7 @@ background-size: cover;
         height: 20%;
      
     }
-    #item-HRDoctor{
+    #item-HR{
         margin-top: 2%;
         position: relative;
         top:-1%;
@@ -1452,7 +1447,7 @@ background-size: cover;
         height: 20%;
         
     }
-    #item-stepsDoctor{
+    #item-steps{
         margin-top: 2%;
         position: relative;
         left: -26%;
@@ -1461,7 +1456,7 @@ background-size: cover;
         height: 20%;
         
     }
-    #item-foodsDoctor{
+    #item-foods{
         margin-top: 2%;
         position: relative;
         top:-2%;
@@ -1471,6 +1466,9 @@ background-size: cover;
         
     }
 }
+
+
+
 
 
 #username-login{

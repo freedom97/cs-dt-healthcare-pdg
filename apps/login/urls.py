@@ -18,7 +18,7 @@ urlpatterns = [
      path('doctor/get-data-fitbit-weight/', views.getDataFitbitWeight),
      path('doctor/log-out-user/', views.logOutUser),     
      path('doctor/show-patient/', views.showPatient),
-     # path('doctor/show-anomaly/',views.getAnomaly),
+     path('doctor/show-anomaly/',views.getAnomaly),
      
 
      # functions from the patient.html
@@ -27,6 +27,6 @@ urlpatterns = [
      path('patient/get-data-fitbit-food/', views.getDataFitbitFoods),
      path('patient/get-data-fitbit-weight/', views.getDataFitbitWeight),
      path('patient/log-out-user/', views.logOutUser),
-     # path('patient/show-anomaly/',views.getAnomaly),
+     path('patient/show-anomaly/',views.getAnomaly),
    
 ]

@@ -267,14 +267,14 @@
                     alert(response);
                 }});}
 
-        /* function logYourselfOut() {
+        function logYourselfOut() {
             $.ajax({
                 type: "POST",
                 url: '{{ 'log-out-user/ ' }}',
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: "text" },
                 success: function callback(response) {
                     window.location.href = "/login"
-                }});} */
+                }});}
  
         function getAnomalyHTML(){
             $.ajax({
