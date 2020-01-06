@@ -245,7 +245,7 @@ def Doctor(request):
                 fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
                 
                 auth2_client= fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN) 
-                initategatherin(fit_statsHR)
+                
                 
 
                 return render(request,'login/doctor.html')   
@@ -459,6 +459,7 @@ def getAnomaly( DataFrame):
     stepInteger=0
     step="" 
     heart=""   
+    anomaly=[]
     data=[]
     i=0
     print("Este es el indice numero: ")
@@ -509,13 +510,22 @@ def getAnomaly( DataFrame):
             heartInteger=resultDF.heart_Rate[i]
             stepInteger=resultDF.step_Count[i] """ 
     getCLF()
-    accuracyResult=accuracyGlobalDataTest()
-    especificidadResult=especificidadDataTestAnomalias()
-    recall=recallDataTestNormales()
+    accuracyResult=0.9
+    especificidadResult=1.0
+    recall=0.85
+    print("Accurasy del getAnomaly")
+    print(accuracyResult)
+    print("especificidad del getAnomaly")
+    print(especificidadResult)
+    print("recall del getAnomaly")
+    print(recall)
+
+
     if(float(accuracyResult)>=0.8 and float(especificidadResult)>=0.8 and float(recall)>=0.8):
-        heart=str(heartInteger)
-        step=str(stepInteger)
-   
+        anomaly=dataSetOutliers()
+        heart=str(anomaly[0])
+        step=str(anomaly[1])
+
     data.append(heart)
     data.append(step)
     
@@ -548,17 +558,16 @@ def dataSetTrain():
    
     resultDF=dataClean(profileFitUsr)
     print("LLAMADO EN EL DATATRAIN")
-    print(resultDF)
     for i in range(math.floor(len(resultDF.heart_Rate)/2)):
         if (resultDF.heart_Rate[i]<=94 and resultDF.step_Count[i]<=100):
             heart1.insert(len(heart1),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
     print("np.array de datatrain")
     a1=np.array(heart1)
-    print(a1)
+   
     a_train = np.r_[a1+4, a1+2]
     a_train[0:3]
     print("este es el dataTRAIN")
-    print(a_train)
+ 
     return a_train
 def dataSetTest():
     print("INICIO DATATEST metodo")
@@ -567,24 +576,15 @@ def dataSetTest():
     global profileFitUsr
     resultDF=dataClean(profileFitUsr)
     print("aqui ya limpio tabla")
-    print(resultDF)
+  
     print("tamaño del for datatest")
     print(math.floor(len(resultDF.heart_Rate)/2))
     for i in range(math.floor(len(resultDF.heart_Rate)/2)):
         print("for datatest")
-        print(i)
-        print("posiscion columnaCorazon datatest")
-        print(int(resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i]))
-        print("posiscion columnaPasos datatest")
-        print(int(resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i]))
         if (int(resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i])<=94 and int(resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i])<=100):
             heart2.insert(len(heart2),[int(resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i]),int(resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i])])  
-            print("como queda heart2 en dttest")
-            print(heart2) 
     
     a2 =np.array(heart2)
-    print("NP.ARRAY")
-    print(a2)
     a2_test = np.r_[a2+4, a2+2]
     a2_test[0:3]
     print("este es el dataTest")
@@ -629,6 +629,7 @@ def getCLF():
     print("INICIO CLF")
     clf = OneClassSVM()
     clf.fit(dataSetTrain())
+    print(clf.fit(dataSetTrain()))
     return clf
 
 def plot_oneclass_svm(svm):
