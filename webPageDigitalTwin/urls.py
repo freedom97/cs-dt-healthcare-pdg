@@ -32,7 +32,13 @@ from apps.login.views import authUser
 from apps.login.views import logOutUser
 from apps.login.views import registerUser
 from apps.login.views import showPatient
+<<<<<<< HEAD
 from apps.login.views import getAnomaly
+=======
+from apps.login.views import InfoProfile
+from apps.login.views import modifyProfile
+# from apps.login.views import getAnomaly
+>>>>>>> fa597f9781076345d847d4cd44ab196a488ffa3c
 
 
 
@@ -64,5 +70,11 @@ urlpatterns = [
     path('patient/get-data-fitbit-food/', getDataFitbitFoods),
     path('patient/get-data-fitbit-weight/', getDataFitbitWeight),
     path('patient/log-out-user/', logOutUser),
+<<<<<<< HEAD
     path('patient/show-anomaly/',getAnomaly),
+=======
+    path('editprofile/load-user/', InfoProfile),
+    path('editprofile/modify-user/', modifyProfile),
+    # path('patient/show-anomaly/',getAnomaly),
+>>>>>>> fa597f9781076345d847d4cd44ab196a488ffa3c
 ]
