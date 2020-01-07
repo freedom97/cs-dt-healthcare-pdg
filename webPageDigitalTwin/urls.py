@@ -27,7 +27,7 @@ from apps.login.views import Doctor
 from apps.login.views import initategatherin
 from apps.login.views import getDataFitbitCharts
 from apps.login.views import getDataFitbitFoods
-from apps.login.views import getDataFitbitWeight
+from apps.login.views import getDataFitbitInfo
 from apps.login.views import authUser
 from apps.login.views import logOutUser
 from apps.login.views import registerUser
@@ -56,7 +56,7 @@ urlpatterns = [
     path('doctor/generate-report/', initategatherin),
     path('doctor/get-data-fitbit/', getDataFitbitCharts),
     path('doctor/get-data-fitbit-food/', getDataFitbitFoods),
-    path('doctor/get-data-fitbit-weight/', getDataFitbitWeight),
+    path('doctor/get-data-fitbit-weight/', getDataFitbitInfo),
     path('doctor/log-out-user/', logOutUser),
     path('doctor/show-patient/', showPatient),
     path('doctor/show-anomaly/',getAnomaly),
@@ -65,7 +65,7 @@ urlpatterns = [
     path('patient/generate-report/', initategatherin),
     path('patient/get-data-fitbit/', getDataFitbitCharts),
     path('patient/get-data-fitbit-food/', getDataFitbitFoods),
-    path('patient/get-data-fitbit-weight/', getDataFitbitWeight),
+    path('patient/get-data-fitbit-weight/', getDataFitbitInfo),
     path('patient/log-out-user/', logOutUser),
     path('patient/show-anomaly/',getAnomaly),
     path('editprofile/load-user/', InfoProfile),

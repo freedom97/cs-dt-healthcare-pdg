@@ -13,7 +13,7 @@ function showWeight(){
     document.getElementById("fdChr").style.display = "none";
     document.getElementById("HBigD").style.display = "none";
     title.textContent ="Peso";
-    getDataFitbitWeight("sum text Weight");
+    getDataFitbitInfo("sum text Weight");
 }
 function showHR(spectrum){    
     im.style.display = "none";

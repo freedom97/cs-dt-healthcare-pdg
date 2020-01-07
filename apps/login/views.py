@@ -163,9 +163,9 @@ def Patient(request):
                 valu_listAge=[]
                 print("Inicializar variables")
                 global fit_statsHR
-                fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
+                fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date=yesterday2, detail_level='1min',start_time='00:00',end_time='23:59')
                 global fit_statsSteps
-                fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date='today', detail_level='1min',start_time='00:00',end_time='23:59')
+                fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date=yesterday2, detail_level='1min',start_time='00:00',end_time='23:59')
                 fit_statsWater = auth2_client.water_goal()
                 fit_statsUsr = auth2_client.user_profile_get()
                 for i in fit_statsSteps['activities-steps-intraday']['dataset']:
@@ -191,13 +191,9 @@ def Patient(request):
                 print("AQUI LLEENO EL DATAFRAME")
                 global profileFitUsr
                 profileFitUsr = pd.DataFrame(data)
-
-                print(profileFitUsr)
-                if(not profileFitUsr.empty):
-                    print("no es vacio")
-                    getAnomaly(profileFitUsr)
                 return render(request,'login/patient.html')    
     return HttpResponseRedirect('/login')
+
 def InfoProfile(request):
     if request.user.is_authenticated:
         render(request,'login/doctor.html')
@@ -214,6 +210,7 @@ def InfoProfile(request):
         ,userpatient.patient.glucose]
         return JsonResponse(datas, safe=False)
     return HttpResponseRedirect('/login')
+
 def modifyProfile(request):
         usa = patientUser.objects.get(identificationCard = request.POST['iCrd'])
         usa.identificationCard = request.POST['iCrd']        
@@ -250,6 +247,7 @@ def Doctor(request):
 
                 return render(request,'login/doctor.html')   
     return HttpResponseRedirect('/login')
+
 def showPatient(request):
     print("INICIO IDENTIFICA TIPO USUARIO")
     idpatient = request.POST['idPatient']
@@ -262,8 +260,6 @@ def showPatient(request):
     global userpatient
     userpatient = user  
     return JsonResponse([user.username],safe=False)
-
-
 
 def getDataFitbitCharts(request):
     print("INICIO CANVAS")
@@ -342,14 +338,16 @@ def getDataFitbitCharts(request):
     datas.append(datalabel)
     return JsonResponse(datas,safe=False)
 
-
-def getDataFitbitWeight(request):
+def getDataFitbitInfo(request):
     print("INICIO DATOS PESO")
     global userpatient
     M2 = float(userpatient.patient.height)*float(userpatient.patient.height)
     W = float(userpatient.patient.weight)
-    datas =['peso',userpatient.patient.weight,'altura',userpatient.patient.height,'indice de masa corporal:',(W/M2)]
-
+    global profileFitUsr
+    if(not profileFitUsr.empty):
+        print("no es vacio")
+        datasA= getAnomaly(profileFitUsr)
+    datas =['peso',userpatient.patient.weight,'altura',userpatient.patient.height,'indice de masa corporal:',(W/M2),"Cantidad de anomalías detectadas: ",datasA[0],"Porcentaje de precisión: ",datasA[1],"Porcentaje de éxito de anomalías encontradas: ",datasA[2]]        
     return JsonResponse(datas,safe=False)   
 
 def getDataFitbitFoods(request):
@@ -524,7 +522,7 @@ def getAnomaly( DataFrame):
     data.append(dato3)
     print("esto es el data")
     print(data)
-    return JsonResponse(data,safe=False) 
+    return data
     
 
 def dataClean(DataFrame):
@@ -553,8 +551,8 @@ def dataSetTrain():
     resultDF=dataClean(profileFitUsr)
     print("LLAMADO EN EL DATATRAIN")
     for i in range(math.floor(len(resultDF.heart_Rate)/2)):
-        if (resultDF.heart_Rate[i]<=94 and resultDF.step_Count[i]<=100):
-            heart1.insert(len(heart1),[resultDF.heart_Rate[i],resultDF.step_Count[i]])
+        if (int(resultDF.heart_Rate[i])<=94 and int(resultDF.step_Count[i])<=100):
+            heart1.insert(len(heart1),[int(resultDF.heart_Rate[i]),int(resultDF.step_Count[i])])
     print("np.array de datatrain")
     a1=np.array(heart1)
    
@@ -563,6 +561,7 @@ def dataSetTrain():
     print("este es el dataTRAIN")
  
     return a_train
+
 def dataSetTest():
     print("INICIO DATATEST metodo")
     heart2=[]
@@ -669,8 +668,7 @@ def plot_oneclass_svm(svm):
     print("Accuracy del training set: "+str(1-n_error_train/len(dataSetTrain() )))
     print("Recall (normales) del test set: "+str(1-n_error_test/len(dataSetTest())))
     print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(dataSetOutliers())))
-    print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers()))))
-    
+    print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers()))))   
 
 def accuracyDataTraining():
     print("INICIO ACCURACYTRAINING")
@@ -685,6 +683,7 @@ def accuracyDataTraining():
     accuracyTrainingSet= str(1-n_error_train/len(dataSetTrain() ))
    # print("Accuracy del training set: "+str(1-n_error_train/len(a_train ))),print("Recall (normales) del test set: "+str(1-n_error_test/len(a2_test))),print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(X_outliers2))),print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(a2_test)+len(X_outliers2))))
     return accuracyTrainingSet
+
 def recallDataTestNormales():
     print("INICIO RECALL")
     clf=getCLF()
@@ -719,6 +718,7 @@ def accuracyGlobalDataTest():
     n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
     accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers())))
     return accuracyTestGlobal
+
 def modelOneClassSVM():
     print("INICIO MODELONC")
     clf=getCLF()
