@@ -30,9 +30,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-STATICFILES_DIRS=["/Users/croos/OneDrive/Escritorio/DTFINALFINALISIMO/cs-dt-healthcare-pdg/static",]
+#STATICFILES_DIRS=["/Users/croos/OneDrive/Escritorio/DTFINALFINALISIMO/cs-dt-healthcare-pdg/static",]
   
-#STATICFILES_DIRS=[     "/Users/ASUS/ICESI/PDG/PDG2/cs-dt-healthcare-plataform/Platform/cs-dt-healthcare-pdg/static", ] 
+STATICFILES_DIRS=[     "/Users/ASUS/ICESI/PDG/PDG2/cs-dt-healthcare-plataform/Platform/cs-dt-healthcare-pdg/static", ] 
 
 
 

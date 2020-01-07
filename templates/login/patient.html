@@ -61,7 +61,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil de {{user.weight}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Perfil de {{user.username}}</span>
                                 <img class="img-profile fa fa-user rounded-circle">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -371,6 +371,7 @@
                         foodsFitbit.id = datas[i][0] + i; //name
                         foodsFitbit.textContent = datas[i][0] + ": " + datas[i][1]; //name: quantity  
                         foodsFitbit.className = "card bg-primary text-white shadow";
+                        valueFoodsFitbit.style.fontSize = "1vw"; 
                         if (i%2 == 0) {                                    
                             foodsFitbit.style.cssFloat = "left";
                             foodsFitbit.style.clear = "left";                                    

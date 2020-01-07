@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="no-js" id="principalDoctor" lang="es">
+<html class="no-js" id="principal" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
-<body id="page-top-doctor" onload="showPatient(13)">
+<body id="page-top" onload="showPatient(13)">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -106,7 +106,7 @@
 
 
                 <!-- Begin Page Content -->
-                <div class="container-fluidDoctor">
+                <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -114,18 +114,17 @@
                         <div>
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                                 onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generar reporte CSV</a>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                onclick="raise()"  ><i class="fas fa-download fa-sm text-white-100" style="color: #8FC1E3 ;"></i> Generar reporte PDF</a>
+                            
                         </div>
                     </div>
 
                     <!-- Content Row -->
 
-                    <div class="row my-rowDoctor">
+                    <div class="row my-row">
 
                         <!-- Area Chart -->
-                        <div class="col col-chatAreaDoctor">
-                            <div class="card shadow" id="cardShadow-doctor" style="background-color: #7FB1D3 ;">
+                        <div class="col col-chatArea">
+                            <div class="card shadow" id="cardShadow" style="background-color: #7FB1D3 ;">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header align-items-center justify-content-between">
@@ -133,7 +132,7 @@
 
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body" id="body-chartAreaDoctor>
+                                <div class="card-body" id="body-chartArea>
                                     <div class="chart-area" >
                                         <div id="loadingScheme"></div>
                                         <canvas id="HRate" style="display: none;"></canvas>
@@ -147,9 +146,9 @@
                             </div>
                         </div>
                         <!-- Color System -->
-                        <div class="col col-optionsDoctor">
+                        <div class="col col-options">
                             
-                                <div class="card text-white shadow" id="item-weightDoctor" onclick="showWeight();" style="background-color: #8FC1E3 ;">
+                                <div class="card text-white shadow" id="item-weight" onclick="showWeight();" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Peso:
                                         <div class="text-white-50 small">Ideal</div>
@@ -157,7 +156,7 @@
                                 </div>
                             
                             
-                                <div class="card  text-white shadow" id="item-HRDoctor" style="background-color: #8FC1E3 ;">
+                                <div class="card  text-white shadow" id="item-HR" style="background-color: #8FC1E3 ;">
                                     <div class="card-body"  >
                                         Actividad Cardiaca
                                         <div class="text-white-50 small">Saludable</div>
@@ -183,7 +182,7 @@
                                 </div>
                             
                             
-                                <div class="card text-white shadow" id="item-stepsDoctor" style="background-color: #8FC1E3 ;">
+                                <div class="card text-white shadow" id="item-steps" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Actividad Fisica
                                         <div class="text-white-50 small">En riesgo</div>
@@ -209,7 +208,7 @@
                                 </div>
                             
                             
-                                <div class="card text-white shadow"  id="item-foodsDoctor" style="background-color: #8FC1E3 ;">
+                                <div class="card text-white shadow"  id="item-foods" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Comidas
                                         <div class="text-white-50 small">Normal</div>
@@ -373,9 +372,11 @@
                         foodsFitbit.id = datas[i][0] + i; //name
                         foodsFitbit.textContent = datas[i][0] + ": " + datas[i][1]; //name: quantity  
                         foodsFitbit.className = "card bg-primary text-white shadow";
+                        valueFoodsFitbit.style.fontSize = "1vw"; 
                         if (i%2 == 0) {                                    
                             foodsFitbit.style.cssFloat = "left";
-                            foodsFitbit.style.clear = "left";                                    
+                            foodsFitbit.style.clear = "left";   
+                                                           
                             } else {
                             foodsFitbit.style.cssFloat = "right";
                             foodsFitbit.style.clear = "right";

@@ -374,24 +374,24 @@ background-size: cover;
          .col-options{
             position: relative;
             left: -36%;
-            top:50  1%;
+            top:49%;
            
         }
         #item-weight{
             margin-top: 2%;
             position: relative;
             left: -35%;
-            width: 50%;
-            height: 25%;
+            width: 51%;
+            height: 24%;
          
         }
         #item-HR{
             margin-top: 2%;
             position: relative;
             left: 20%;
-            top:-26%;
-            width:50%;
-            height: 25%;
+            top:-25%;
+            width:51%;
+            height: 24%;
             
         }
         #item-steps{
@@ -399,17 +399,17 @@ background-size: cover;
             position: relative;
             left: -35%;
             top:-25%;
-            width: 50%;
-            height: 25%;
+            width: 51%;
+            height: 24%;
             
         }
         #item-foods{
             margin-top: 2%;
             position: relative;
             left: 20%;
-            top: -50.8%;
-            width: 50%;
-            height: 25%;
+            top: -50%;
+            width: 51%;
+            height: 24%;
             
         }
     }
@@ -437,7 +437,7 @@ background-size: cover;
         .col-chatArea{
        
             position: relative;
-             left: 25%;
+             left: 26%;
              top: 0%; 
             padding-right: 0%;
             
@@ -447,7 +447,7 @@ background-size: cover;
              height: 45%;
              position: relative;
              left: -58%;
-             top: 200%;
+             top: 230%;
              background-color: #7FB1D3;
          }
          #body-chartArea{
@@ -592,11 +592,11 @@ background-size: cover;
     
     }
     
-    @media screen and (min-width:410px) and (max-width:780px){
+    @media screen and (min-width:410px) and (max-width:825px){
         .container-fluid{
             display: grid;
             
-            grid-template-columns: 180% ;
+            grid-template-columns: 200% ;
             height: 100%;
            
         }
@@ -615,48 +615,48 @@ background-size: cover;
         .col-chatArea{
        
             position: relative;
-            left: 25%;
+            left: 21.5%;
             top: 0%; 
            padding-right: 0%;
         
          }
          #cardShadow{
             width: 120%;
-             height: 43%;
+             height: 47%;
              position: relative;
              left: -50%;
-             top: 210%;
+             top: 277%;
              background-color: #7FB1D3;
          }
          #body-chartArea{
              width: 110%;
              height: 65%;
              position: relative;
-             left: -3%;
+             left: -5%;
              top: -8%;
          }
 
          .col-options{
             position: relative;
-            left: -35%;
-            top:65%;
+            left: -38.8%;
+            top:69%;
             
         }
         #item-weight{
             margin-top: 2%;
             position: relative;
             left: -35%;
-            width: 48%;
-            height: 25%;
+            width: 47%;
+            height: 23%;
          
         }
         #item-HR{
             margin-top: 2%;
             position: relative;
             left: 20%;
-            top:-26%;
-            width:48%;
-            height: 25%;
+            top:-24.8%;
+            width:47%;
+            height: 23%;
             
         }
         #item-steps{
@@ -664,23 +664,23 @@ background-size: cover;
             position: relative;
             left: -35%;
             top:-25%;
-            width: 48%;
-            height: 25%;
+            width: 47%;
+            height: 23%;
             
         }
         #item-foods{
             margin-top: 2%;
             position: relative;
             left: 20%;
-            top: -50.8%;
-            width: 48%;
-            height: 25%;
+            top: -49.6%;
+            width: 47%;
+            height: 23%;
             
         }
        
     }
     
-    @media screen and (min-width:760px) and (max-width:1024px){
+    @media screen and (min-width:760px) and (max-width:1030px){
         .container-fluid{
             display: grid;
             
@@ -861,7 +861,7 @@ background-size: cover;
 
 /* Media query para pagina-doctor */
 
-.container-fluidDoctor{
+/* .container-fluidDoctor{
     display: grid;
     
     grid-template-columns: 120% ;
@@ -1467,7 +1467,7 @@ background-size: cover;
     }
 }
 
-
+ */
 
 
 
