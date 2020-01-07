@@ -282,7 +282,21 @@
                 url: '{{ 'show-anomaly/ ' }}',
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}'},
                 success: function callback(response) {
-                    alert("Su ritmo cardiaco es de "+response[0]+"y la cantidad de pasos que ha realizado es de "+response[1]);
+                    divAnomaly= document.createElement("div");
+                    divAnomaly.id = "anomalyID";
+                    valueAnomaly1Fitbit=document.createElement("div")
+                    valueAnomaly1Fitbit.textContent = "Cantidad de anomalías detectadas: "+response[0];
+                    valueAnomaly2Fitbit=document.createElement("div")
+                    valueAnomaly2Fitbit.textContent = "Porcentaje de precisión: "+response[1];
+                    valueAnomaly3Fitbit=document.createElement("div")
+                    valueAnomaly3Fitbit.textContent = "Porcentaje de éxito de anomalías encontradas: "+response[2];
+                   
+                    divAnomaly.appendChild(valueAnomaly1Fitbit);
+                    divAnomaly.appendChild(valueAnomaly2Fitbit);
+                    divAnomaly.appendChild(valueAnomaly3Fitbit);
+                    document.getElementById("weght").appendChild(divAnomaly);
+
+
                 }});}
   
 

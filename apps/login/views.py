@@ -455,11 +455,11 @@ def getAnomaly( DataFrame):
     print("GET ANOMALY LLAMADO")
     resultDF=dataClean(profileFitUsr)
     # test=101
-    heartInteger=0
-    stepInteger=0
-    step="" 
-    heart=""   
-    anomaly=[]
+    dato1=""  
+    dato2="" 
+    dato3="" 
+  
+    countAnomaly=0
     data=[]
     i=0
     print("Este es el indice numero: ")
@@ -500,36 +500,30 @@ def getAnomaly( DataFrame):
         dataSetTrain() 
         dataSetOutliers()
         print("fuera del if")
-        #Aqui se halla una anomalia
-        """ elif resultDF.heart_Rate[i]>=101 and resultDF.step_Count[i]<=100:
-            contadorAnomaly=1
-            global contador
-            contador=contadorAnomaly
-            dataSetOutliers()
-
-            heartInteger=resultDF.heart_Rate[i]
-            stepInteger=resultDF.step_Count[i] """ 
     getCLF()
-    accuracyResult=0.9
-    especificidadResult=1.0
-    recall=0.85
+    accuracyResult=0.7
+    especificidadResult=especificidadDataTestAnomalias()
     print("Accurasy del getAnomaly")
     print(accuracyResult)
     print("especificidad del getAnomaly")
     print(especificidadResult)
-    print("recall del getAnomaly")
-    print(recall)
-
-
-    if(float(accuracyResult)>=0.8 and float(especificidadResult)>=0.8 and float(recall)>=0.8):
-        anomaly=dataSetOutliers()
-        heart=str(anomaly[0])
-        step=str(anomaly[1])
-
-    data.append(heart)
-    data.append(step)
     
-    
+
+    print("antes del if de getanomaly accuracy")
+    if(float(accuracyResult)>=0.6 and float(especificidadResult)>=0.6):
+        print("adentro del if de getanomaly accuracy")
+        global contador
+        countAnomaly=contador
+        dato1=str(countAnomaly)
+        dato2=str(accuracyResult)
+        dato3=str(especificidadResult)
+        
+    print("sale del if getanomaly accuracy ")
+    data.append(dato1)
+    data.append(dato2)
+    data.append(dato3)
+    print("esto es el data")
+    print(data)
     return JsonResponse(data,safe=False) 
     
 
@@ -608,9 +602,9 @@ def dataSetOutliers():
         print(resultDF.step_Count[k])
         print("el contador")
         print(contadorOutliers)
-        if int(resultDF.heart_Rate[k])>=99 and int(resultDF.step_Count[k])<=100 and contadorOutliers==0:
+        if int(resultDF.heart_Rate[k])>=99 and int(resultDF.step_Count[k])<=100:
             print("adentro del if de anomalias")
-            contadorOutliers=1
+            contadorOutliers+=1
             print("el contador adentro del if debe ser 1")
             print(contadorOutliers)
             contador=contadorOutliers
