@@ -139,7 +139,16 @@
                                         <canvas id="HBigD" style="display: none;"></canvas>
                                         <canvas id="fdChr" style="display: none;"></canvas>
                                         <canvas id="nrStp" style="display: none;"></canvas>
-                                           <div id="weght" style="display: none;"></div>
+                                        <div id="weght" style="display: none;">
+                                            <h3 id="loadingInfoWeght">Cargando información del usuario...</h3>
+                                            <h3 id="subDicv1"></h3>
+                                            <h3 id="subDicv2"></h3>
+                                            <h3 id="subDicv3"></h3>
+                                            <h3 id="subDicv4"></h3>
+                                            <h3 id="subDicv5"></h3>
+                                            <h3 id="subDicv6"></h3>
+                                            <img src="{% static 'img/person-silhouette-outline-2.png' %}" style="display: none;" id="image-weight" alt="Responsive image" class="img-thumbnail">
+                                            </div>
                                            <div id="foods" style="display: none;"></div>
                                     </div>
                                 </div>
@@ -151,7 +160,7 @@
                                 <div class="card text-white shadow" id="item-weight" onclick="showWeight();" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Peso:
-                                        <div class="text-white-50 small">Ideal</div>
+                                        <div class="text-white-50 small">Oprimir botón</div>
                                     </div>
                                 </div>
                             
@@ -431,34 +440,27 @@
                     ChartsFd.update();
                 }});}
 
-        function getDataFitbitWeight(stra) {
+        function getDataFitbitInfo(stra) {
             $.ajax({
                 type: "POST",
                 url: '{{ 'get-data-fitbit-weight/ ' }}',
                 data: { csrfmiddlewaretoken: '{{ csrf_token }}', text: stra },
                 success: function callback(response) {
                     datas = response;
-                    document.getElementById("weght").remove();
-                    divWeight = document.createElement("div");
-                    divWeight.id = "weght";
-                    var imgWeight = document.createElement("img");
-                    imgWeight.id = "image-weight"; //name                    
-                    imgWeight.style.width = "25%";
-                    imgWeight.src = "{% static 'img/person-silhouette-outline-2.png' %}";
-                    imgWeight.style.cssFloat = "left";
-                    imgWeight.style.margin = "1%";
-                    imgWeight.style.padding = "1%";
-                    divWeight.appendChild(imgWeight)
+                    document.getElementById("loadingInfoWeght").remove();
+                    document.getElementById("image-weight").style.display="block";
+                    divWeight = document.getElementById("weght");       
+                    z=1
                     for (i = 1; i < datas.length; i+=2) {
-                                var valueWeightFitbit = document.createElement("div");
-                                valueWeightFitbit.id = datas[i] + i;//name
-                                valueWeightFitbit.textContent = datas[i - 1] + ": " + datas[i];
+                                var valueWeightFitbit = document.getElementById("subDicv"+z);
+                                // valueWeightFitbit.id = "subDicv"  + i;//name
+                                valueWeightFitbit.textContent = datas[i - 1] + " " + datas[i];
                                 valueWeightFitbit.style.width = "25%";
                                 valueWeightFitbit.style.cssFloat = "right";
-                                valueWeightFitbit.style.margin = "4%";
+                               
                                 valueWeightFitbit.style.strokeWidth = "1%";
-                                valueWeightFitbit.className = "cardbg-info text-white shadow";
                                 divWeight.appendChild(valueWeightFitbit);
+                                z++;
 
                     }
                     document.getElementsByClassName("chart-area")[0].appendChild(divWeight);

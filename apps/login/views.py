@@ -148,7 +148,7 @@ def Patient(request):
                 userpatient = request.user
                 print("COMIENZO")
                 yesterday  = str((datetime.datetime.now() - datetime.timedelta(days=2)).strftime("%Y%m%d"))
-                yesterday2 = str((datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
+                yesterday2 = str((datetime.datetime.now() - datetime.timedelta(days=2)).strftime("%Y-%m-%d"))
                 today = str(datetime.datetime.now().strftime("%Y%m%d"))
 
                 time_listHR =[]
@@ -273,9 +273,9 @@ def getDataFitbitCharts(request):
     if(labels == "day" or labels =="yesterday"):
         day= ""
         if labels =="yesterday":
-            day = str((datetime.datetime.now() - datetime.timedelta(days=(1))).strftime("%Y-%m-%d"))
+            day = str((datetime.datetime.now() - datetime.timedelta(days=(2))).strftime("%Y-%m-%d"))
         else:
-            day  = 'today'
+            day = str((datetime.datetime.now() - datetime.timedelta(days=(1))).strftime("%Y-%m-%d"))
         roomie =[]
         if   types== "HR":
             fit_statsHrate =auth2_client.intraday_time_series('activities/heart', base_date=day, detail_level='15min',start_time='00:00',end_time='23:59')
@@ -285,7 +285,6 @@ def getDataFitbitCharts(request):
             roomie = fit_statsnrStp['activities-steps-intraday']
 
         for i in roomie['dataset']:
-            if i['value'] != 0:  
                 datashet.append(i['value'])
                 datalabel.append(str(i['time'])  )
         pass        
@@ -318,7 +317,7 @@ def getDataFitbitCharts(request):
                 DayHeart = []
                 try:
                     for j in range(len(i['value']['heartRateZones'])):
-                        DayHeart.append(i['value']['heartRateZones'][j]['minutes'])
+                        DayHeart.append((i['value']['heartRateZones'][j]['minutes'])/60)
                     datashet.append(DayHeart)
                     datalabel.append(i['dateTime'])
                 except Exception as e:
@@ -347,7 +346,7 @@ def getDataFitbitInfo(request):
     if(not profileFitUsr.empty):
         print("no es vacio")
         datasA= getAnomaly(profileFitUsr)
-    datas =['peso',userpatient.patient.weight,'altura',userpatient.patient.height,'indice de masa corporal:',(W/M2),"Cantidad de anomalías detectadas: ",datasA[0],"Porcentaje de precisión: ",datasA[1],"Porcentaje de éxito de anomalías encontradas: ",datasA[2]]        
+    datas =['Peso:',userpatient.patient.weight,'Altura:',userpatient.patient.height,'Índice de masa corporal:',int(W/M2),"Cantidad de anomalías detectadas: ",datasA[0],"Porcentaje de precisión: ",datasA[1],"Porcentaje de éxito de anomalías encontradas: ",datasA[2]]        
     return JsonResponse(datas,safe=False)   
 
 def getDataFitbitFoods(request):
@@ -380,7 +379,7 @@ def getDataFitbitFoods(request):
             fib  = i['nutritionalValues']['fiber']
             pro  = i['nutritionalValues']['protein']
             sod  = i['nutritionalValues']['sodium']
-            foodi= [name,qty,"fecha",date,"calorias",cal,"carbohidratos",car,"grasa",fat,"fibra",fib,"proteina",pro,"sodio",sod]
+            foodi= [name,qty,"Fecha",date,"Calorías",cal,"Carbohidratos",car,"Grasa",fat,"Fibra",fib,"Proteina",pro,"Sodio",sod]
             datas.append(foodi)
     return JsonResponse(datas,safe=False) 
 
