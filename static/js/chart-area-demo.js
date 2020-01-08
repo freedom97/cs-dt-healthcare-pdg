@@ -75,6 +75,9 @@ var ChartsHR = new Chart(ctxHR, {
         },
         ticks: {
           maxTicksLimit: 7
+        }, scaleLabel: {
+          display: true, fontColor: '#000',
+          labelString: 'actividad cardiaca horaria'
         }
       }],
       yAxes: [{
@@ -82,6 +85,8 @@ var ChartsHR = new Chart(ctxHR, {
           maxTicksLimit: 5,
           padding: 10,
           fontColor: '#000',
+          min:0,
+          max:200,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
             return number_format(value)+"";
@@ -93,7 +98,9 @@ var ChartsHR = new Chart(ctxHR, {
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
-        }
+        }, scaleLabel: {
+          display: true,fontColor: '#000',
+          labelString: 'promedio de pulso cardiaco'}
       }],
     },
     legend: {
@@ -165,7 +172,9 @@ var ChartsNS = new Chart(ctxNS, {
         ticks: {
           maxTicksLimit: 7,
           fontColor: '#000'      
-        }
+        }, scaleLabel: {
+          display: true,fontColor: '#000',
+          labelString: 'tiempo'}
       }],
       yAxes: [{
         ticks: {
@@ -183,7 +192,9 @@ var ChartsNS = new Chart(ctxNS, {
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
-        }
+        }, scaleLabel: {
+          display: true,fontColor: '#000',
+          labelString: 'cantidad de pasos'}
       }],
     },
     legend: {
@@ -255,7 +266,9 @@ var ChartsFd = new Chart(ctxFd, {
         },
         ticks: {
           maxTicksLimit: 7
-        }
+        }, scaleLabel: {
+          display: true,fontColor: '#000',
+          labelString: 'dia de consumo de calorias'}
       }],
       yAxes: [{
         ticks: {
@@ -273,7 +286,9 @@ var ChartsFd = new Chart(ctxFd, {
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
-        }
+        }, scaleLabel: {
+          display: true,fontColor: '#000',
+          labelString: 'cantidad de calorias por dia'}
       }],
     },
     legend: {
@@ -393,7 +408,9 @@ var ChartsHB = new Chart(ctxHB, {
         },
         ticks: {
           maxTicksLimit: 7
-        }
+        }, scaleLabel: {
+          display: true,fontColor: '#000',
+          labelString: 'actividad cardiaca diaria '}
       }],
       yAxes: [{
         ticks: {
@@ -411,7 +428,9 @@ var ChartsHB = new Chart(ctxHB, {
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
-        }
+        }, scaleLabel: {
+          display: true,fontColor: '#000',
+          labelString: 'cantidad de tiempo (en horas)'}
       }],
     },
     legend: {

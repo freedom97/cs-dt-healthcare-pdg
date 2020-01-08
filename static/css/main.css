@@ -116,10 +116,22 @@ background-size: cover;
 }
 #btn_register{
     margin-top:1%;
-    margin-left:12%;
-    width:50%;
+    margin-left:10%;
+    width:100%;
     align-self: center;
 } 
+#btn_guardar{
+    margin-top:1%;
+    margin-left:10%;
+    width:25%;
+    align-self: center;
+} 
+#btn_backProfile{
+    margin-top:1%;
+    margin-left:5%;
+    width:25%;
+    align-self: center;
+}
 
 @media screen and (min-width:310px) and (max-width:580px){
     .register{
@@ -142,6 +154,16 @@ background-size: cover;
     #btn_register{
         width:70%;
         margin-left:2%;
+    } 
+    #btn_guardar{
+        width:37%;
+        margin-left:2%;
+    }
+    #btn_backProfile{
+        margin-top:1%;
+        margin-left:5%;
+        width:30%;
+        align-self: center;
     }
     
 
@@ -167,9 +189,19 @@ background-size: cover;
     } 
     #btn_register{
         width:70%;
-        margin-left:2%;
+        
+    } 
+    #btn_guardar{
+        width:40%;
+        
+        margin-left:-2%;
     }
-    
+    #btn_backProfile{
+        margin-top:1%;
+        margin-left:2%;
+        width:30%;
+        align-self: center;
+    }
 
 }
 
@@ -195,6 +227,16 @@ background-size: cover;
     #btn_register{
         width:70%;
         margin-left:1.5%;
+    } 
+    #btn_guardar{
+        width:35%;
+        margin-left:1.5%;
+    }
+    #btn_backProfile{
+        margin-top:1%;
+        margin-left:5%;
+        width:30%;
+        align-self: center;
     }
    
 }
@@ -218,6 +260,16 @@ background-size: cover;
     #btn_register{
         width:70%;
         margin-left:1.5%;
+    } 
+    #btn_guardar{
+        width:25%;
+        margin-left:1.5%;
+    }
+    #btn_backProfile{
+        margin-top:1%;
+        margin-left:5%;
+        width:25%;
+        align-self: center;
     }
    
 
@@ -244,17 +296,30 @@ background-size: cover;
         width:70%;
         margin-left:1.5%;
     }
+    #btn_guardar{
+        width:25%;
+        margin-left:1.5%;
+    } 
+    #btn_backProfile{
+        margin-top:1%;
+        margin-left:5%;
+        width:25%;
+        align-self: center;
+    }
    
 }
 /* Media query para pagina-paciente */
     .container-fluid{
         display: grid;
         
-        grid-template-columns: 120% ;
+        grid-template-columns: 160% ;
         height: 100%;
       
     }
-
+    #principal{
+        width: 120%;
+        height: 100%;
+    }
     #page-top{
         width: 100%;
         height: 150%;
@@ -273,29 +338,119 @@ background-size: cover;
     .col-chatArea{
        
        position: relative;
-        left: 5%;
+        left: -8%;
         top: 5%; 
        padding-right: 0%;
       
     }
     #cardShadow{
         width: 80%;
-        height: 70%;
+        height: 85%;
         background-color: #7FB1D3;
     }
     #body-chartArea{
         width: 100%;
-        height: 60%;
+        height: 45%;
         position: relative;
         left: -3%;
-        top: 10%;
+        top: 5%;
     }
+    #loadingInfoWeght{
+        width: 50%;
+        position: relative;
+        left: 30%;
+        top:80%;
+        font-family: Helvetica, sans-serif;
+        font-weight:bold; 
+        font-size: 120%; 
+        text-align: left;
+    }
+    #subDicv1{
+        /* Text-wegth */
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -45%;
+        
+        margin-top: -65%;
+
+
+        
+    }
+    #subDicv2{
+        /* Text-height */
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -27%;
+        
+        margin-top: -65%;
+    }
+    #subDicv3{
+        /* Text-indiceMasaCorporal */
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -5%;
+        
+        margin-top: -65%;
+       
+    }
+    #subDicv4{
+        /* Text-cantidadAnomalias*/
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -45%;
+        margin-top:-43%;
+    }
+    #subDicv5{
+        /* Text-Porcentaje de precision*/
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -18%;
+        margin-top:-43%;
+    }
+    #subDicv6{
+        /* Text-Porcentaje de exito*/
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: 7%;
+        margin-top:-43%;
+    }
+ 
+    #weght{
+        width: 70%;
+        height: 40%;
+        position: relative;
+        left: 15%;
+        top: 25%;
+    }
+    #image-weight{
+        width:25% ;
+        height: 10%;
+        background-color: #7FB1D3;
+        border: 0px solid #7FB1D3;
+        position: relative;
+        left: -1%;
+        top: 100%;
+    }
+   
     .col-options{
         width: 50%;
+        position: relative;
+        left: -15%;
         
     }
     #item-weight{
-        margin-top: 2%;
         position: relative;
         left: -26%;
         width: 28%;
@@ -371,6 +526,94 @@ background-size: cover;
             left: -8%;
             top: -8%;
          }
+         #loadingInfoWeght{
+            width: 50%;
+            position: relative;
+            left: 30%;
+            top:80%;
+            font-family: Helvetica, sans-serif;
+            font-weight:bold; 
+            font-size: 120%; 
+            text-align: left;
+        }
+        #subDicv1{
+            /* Text-wegth */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            
+            margin-top: -65%;
+    
+    
+            
+        }
+        #subDicv2{
+            /* Text-height */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -27%;
+            
+            margin-top: -65%;
+        }
+        #subDicv3{
+            /* Text-indiceMasaCorporal */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -5%;
+            
+            margin-top: -65%;
+           
+        }
+        #subDicv4{
+            /* Text-cantidadAnomalias*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            margin-top:-43%;
+        }
+        #subDicv5{
+            /* Text-Porcentaje de precision*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -18%;
+            margin-top:-43%;
+        }
+        #subDicv6{
+            /* Text-Porcentaje de exito*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: 5%;
+            margin-top:-43%;
+        }
+     
+        #weght{
+            width: 70%;
+            height: 40%;
+            position: relative;
+            left: 15%;
+            top: 25%;
+        }
+        #image-weight{
+            width:25% ;
+            height: 10%;
+            background-color: #7FB1D3;
+            border: 0px solid #7FB1D3;
+            position: relative;
+            left: -1%;
+            top: 100%;
+        }
          .col-options{
             position: relative;
             left: -36%;
@@ -444,7 +687,7 @@ background-size: cover;
          }
          #cardShadow{
              width: 110%;
-             height: 45%;
+             height: 48%;
              position: relative;
              left: -58%;
              top: 230%;
@@ -458,6 +701,96 @@ background-size: cover;
              top: -8%;
          }
         
+         #loadingInfoWeght{
+            width: 85%;
+            position: relative;
+            left: 6%;
+            top:80%;
+            font-family: Helvetica, sans-serif;
+            font-weight:bold; 
+            font-size: 80%; 
+            text-align: left;
+        }
+        #subDicv1{
+            /* Text-wegth */
+            font-family: Helvetica, sans-serif;
+            font-size: 75%; 
+            text-align: left;
+            position: relative;
+            left: -65%;
+            
+            margin-top: -35%;
+    
+    
+            
+        }
+        #subDicv2{
+            /* Text-height */
+            font-family: Helvetica, sans-serif;
+            font-size: 75%; 
+            text-align: left;
+            position: relative;
+            left: -41%;
+            
+            margin-top: -35%;
+    
+        }
+        #subDicv3{
+            /* Text-indiceMasaCorporal */
+            font-family: Helvetica, sans-serif;
+            font-size: 75%; 
+            text-align: left;
+            position: relative;
+            left: -20%;
+            
+            margin-top: -35%;
+    ;
+           
+        }
+        #subDicv4{
+            /* Text-cantidadAnomalias*/
+            font-family: Helvetica, sans-serif;
+            font-size: 75%; 
+            text-align: left;
+            position: relative;
+            left: -68%;
+            margin-top:-1%;
+        }
+        #subDicv5{
+            /* Text-Porcentaje de precision*/
+            font-family: Helvetica, sans-serif;
+            font-size: 75%; 
+            text-align: left;
+            position: relative;
+            left: -12%;
+            margin-top:-1%;
+        }
+        #subDicv6{
+            /* Text-Porcentaje de exito*/
+            font-family: Helvetica, sans-serif;
+            font-size: 75%; 
+            text-align: left;
+            position: relative;
+            left: 32%;
+            margin-top:-1%;
+        }
+     
+        #weght{
+            width: 100%;
+            height: 40%;
+            position: relative;
+            left: 15%;
+            top: 25%;
+        }
+        #image-weight{
+            width:15% ;
+            height: 10%;
+            background-color: #7FB1D3;
+            border: 0px solid #7FB1D3;
+            position: relative;
+            left: -10%;
+            top: 160%;
+        }
          .col-options{
             
             position: relative;
@@ -546,7 +879,94 @@ background-size: cover;
              left: -8%;
              top: -8%;
          }
-        
+         #loadingInfoWeght{
+            width: 50%;
+            position: relative;
+            left: 30%;
+            top:80%;
+            font-family: Helvetica, sans-serif;
+            font-weight:bold; 
+            font-size: 120%; 
+            text-align: left;
+        }
+        #subDicv1{
+            /* Text-wegth */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            
+            margin-top: -65%;
+    
+    
+            
+        }
+        #subDicv2{
+            /* Text-height */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -27%;
+            
+            margin-top: -65%;
+        }
+        #subDicv3{
+            /* Text-indiceMasaCorporal */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -5%;
+            
+            margin-top: -65%;
+           
+        }
+        #subDicv4{
+            /* Text-cantidadAnomalias*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            margin-top:-43%;
+        }
+        #subDicv5{
+            /* Text-Porcentaje de precision*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -18%;
+            margin-top:-43%;
+        }
+        #subDicv6{
+            /* Text-Porcentaje de exito*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: 5%;
+            margin-top:-43%;
+        }
+     
+        #weght{
+            width: 70%;
+            height: 40%;
+            position: relative;
+            left: 15%;
+            top: 25%;
+        }
+        #image-weight{
+            width:25% ;
+            height: 10%;
+            background-color: #7FB1D3;
+            border: 0px solid #7FB1D3;
+            position: relative;
+            left: -1%;
+            top: 100%;
+        }
          .col-options{
             
             position: relative;
@@ -635,7 +1055,94 @@ background-size: cover;
              left: -5%;
              top: -8%;
          }
-
+         #loadingInfoWeght{
+            width: 50%;
+            position: relative;
+            left: 30%;
+            top:80%;
+            font-family: Helvetica, sans-serif;
+            font-weight:bold; 
+            font-size: 120%; 
+            text-align: left;
+        }
+        #subDicv1{
+            /* Text-wegth */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            
+            margin-top: -65%;
+    
+    
+            
+        }
+        #subDicv2{
+            /* Text-height */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -27%;
+            
+            margin-top: -65%;
+        }
+        #subDicv3{
+            /* Text-indiceMasaCorporal */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -5%;
+            
+            margin-top: -65%;
+           
+        }
+        #subDicv4{
+            /* Text-cantidadAnomalias*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            margin-top:-43%;
+        }
+        #subDicv5{
+            /* Text-Porcentaje de precision*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -18%;
+            margin-top:-43%;
+        }
+        #subDicv6{
+            /* Text-Porcentaje de exito*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: 5%;
+            margin-top:-43%;
+        }
+     
+        #weght{
+            width: 70%;
+            height: 40%;
+            position: relative;
+            left: 15%;
+            top: 25%;
+        }
+        #image-weight{
+            width:25% ;
+            height: 10%;
+            background-color: #7FB1D3;
+            border: 0px solid #7FB1D3;
+            position: relative;
+            left: -1%;
+            top: 100%;
+        }
          .col-options{
             position: relative;
             left: -38.8%;
@@ -723,7 +1230,94 @@ background-size: cover;
              left: -3%;
              top: -8%;
          }
-
+         #loadingInfoWeght{
+            width: 50%;
+            position: relative;
+            left: 30%;
+            top:80%;
+            font-family: Helvetica, sans-serif;
+            font-weight:bold; 
+            font-size: 120%; 
+            text-align: left;
+        }
+        #subDicv1{
+            /* Text-wegth */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            
+            margin-top: -65%;
+    
+    
+            
+        }
+        #subDicv2{
+            /* Text-height */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -27%;
+            
+            margin-top: -65%;
+        }
+        #subDicv3{
+            /* Text-indiceMasaCorporal */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -5%;
+            
+            margin-top: -65%;
+           
+        }
+        #subDicv4{
+            /* Text-cantidadAnomalias*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            margin-top:-43%;
+        }
+        #subDicv5{
+            /* Text-Porcentaje de precision*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -18%;
+            margin-top:-43%;
+        }
+        #subDicv6{
+            /* Text-Porcentaje de exito*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: 5%;
+            margin-top:-43%;
+        }
+     
+        #weght{
+            width: 70%;
+            height: 40%;
+            position: relative;
+            left: 15%;
+            top: 25%;
+        }
+        #image-weight{
+            width:25% ;
+            height: 10%;
+            background-color: #7FB1D3;
+            border: 0px solid #7FB1D3;
+            position: relative;
+            left: -1%;
+            top: 100%;
+        }
          .col-options{
             width: 50%;
             position: relative;
@@ -812,7 +1406,94 @@ background-size: cover;
              left: -3%;
              top: -8%;
          }
-
+         #loadingInfoWeght{
+            width: 50%;
+            position: relative;
+            left: 30%;
+            top:80%;
+            font-family: Helvetica, sans-serif;
+            font-weight:bold; 
+            font-size: 120%; 
+            text-align: left;
+        }
+        #subDicv1{
+            /* Text-wegth */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            
+            margin-top: -65%;
+    
+    
+            
+        }
+        #subDicv2{
+            /* Text-height */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -27%;
+            
+            margin-top: -65%;
+        }
+        #subDicv3{
+            /* Text-indiceMasaCorporal */
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -5%;
+            
+            margin-top: -65%;
+           
+        }
+        #subDicv4{
+            /* Text-cantidadAnomalias*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -45%;
+            margin-top:-43%;
+        }
+        #subDicv5{
+            /* Text-Porcentaje de precision*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: -18%;
+            margin-top:-43%;
+        }
+        #subDicv6{
+            /* Text-Porcentaje de exito*/
+            font-family: Helvetica, sans-serif;
+            font-size: 100%; 
+            text-align: left;
+            position: relative;
+            left: 5%;
+            margin-top:-43%;
+        }
+     
+        #weght{
+            width: 70%;
+            height: 40%;
+            position: relative;
+            left: 15%;
+            top: 25%;
+        }
+        #image-weight{
+            width:25% ;
+            height: 10%;
+            background-color: #7FB1D3;
+            border: 0px solid #7FB1D3;
+            position: relative;
+            left: -1%;
+            top: 100%;
+        }
          .col-options{
             width: 50%;
             position: relative;
