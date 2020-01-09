@@ -293,8 +293,9 @@ background-size: cover;
         display: flex; 
     } 
     #btn_register{
-        width:70%;
-        margin-left:1.5%;
+        width:5
+        0%;
+        margin-left:0%;
     }
     #btn_guardar{
         width:25%;
@@ -307,12 +308,12 @@ background-size: cover;
         align-self: center;
     }
    
-}
+}|
 /* Media query para pagina-paciente */
     .container-fluid{
         display: grid;
         
-        grid-template-columns: 160% ;
+        grid-template-columns: 170% ;
         height: 100%;
       
     }
@@ -345,8 +346,9 @@ background-size: cover;
     }
     #cardShadow{
         width: 80%;
-        height: 85%;
+        height: 105%;
         background-color: #7FB1D3;
+        
     }
     #body-chartArea{
         width: 100%;
@@ -373,7 +375,7 @@ background-size: cover;
         position: relative;
         left: -45%;
         
-        margin-top: -65%;
+        margin-top: -55%;
 
 
         
@@ -386,7 +388,7 @@ background-size: cover;
         position: relative;
         left: -27%;
         
-        margin-top: -65%;
+        margin-top: -55%;
     }
     #subDicv3{
         /* Text-indiceMasaCorporal */
@@ -396,7 +398,7 @@ background-size: cover;
         position: relative;
         left: -5%;
         
-        margin-top: -65%;
+        margin-top: -55%;
        
     }
     #subDicv4{
@@ -406,7 +408,7 @@ background-size: cover;
         text-align: left;
         position: relative;
         left: -45%;
-        margin-top:-43%;
+        margin-top:-40%;
     }
     #subDicv5{
         /* Text-Porcentaje de precision*/
@@ -414,8 +416,8 @@ background-size: cover;
         font-size: 100%; 
         text-align: left;
         position: relative;
-        left: -18%;
-        margin-top:-43%;
+        left: -20%;
+        margin-top:-40%;
     }
     #subDicv6{
         /* Text-Porcentaje de exito*/
@@ -424,9 +426,53 @@ background-size: cover;
         text-align: left;
         position: relative;
         left: 7%;
-        margin-top:-43%;
+        margin-top:-40%;
     }
  
+    #subDicv7{
+        /* Text-indiceMasaCorporal */
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -45%;
+        
+        margin-top: -17%;
+       
+    }
+    #subDicv8{
+        /* Text-especificidad */
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: 5%;
+        
+        margin-top: -17%;
+       
+    }
+    #subDicv9{
+        /* Text-Especificidad1 */
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -19%;
+        
+        margin-top: -17%;
+       
+    }
+    #subDicv10{
+        /* Text- */
+        font-family: Helvetica, sans-serif;
+        font-size: 100%; 
+        text-align: left;
+        position: relative;
+        left: -5%;
+        
+        margin-top: -65%;
+       
+    }
     #weght{
         width: 70%;
         height: 40%;
@@ -435,13 +481,13 @@ background-size: cover;
         top: 25%;
     }
     #image-weight{
-        width:25% ;
+        width:17% ;
         height: 10%;
-        background-color: #7FB1D3;
-        border: 0px solid #7FB1D3;
+        background-color: #ffff;
+        border: 0px solid #ffff;
         position: relative;
         left: -1%;
-        top: 100%;
+        margin-top: 70%;
     }
    
     .col-options{

@@ -370,7 +370,7 @@ var ChartsHB = new Chart(ctxHB, {
       data: []
     },
     {
-      label: "pico maximo",
+      label: "cantidad de anomalias",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -383,7 +383,7 @@ var ChartsHB = new Chart(ctxHB, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: []
+      data: [0,0,3,5,0,0,2,9,4,2,0,2]
     },],
   },
   options: {
@@ -406,15 +406,13 @@ var ChartsHB = new Chart(ctxHB, {
           display: false,
           drawBorder: false
         },
-        ticks: {
-          maxTicksLimit: 7
+        ticks: {fontSize:20,
         }, scaleLabel: {
-          display: true,fontColor: '#000',
+          display: true,fontColor: '#000',fontSize:50,scaleLabel:300,
           labelString: 'actividad cardiaca diaria '}
       }],
       yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
+        ticks: {fontSize:20,
           padding: 10,
           fontColor: '#000',
           // Include a dollar sign in the ticks
@@ -430,7 +428,7 @@ var ChartsHB = new Chart(ctxHB, {
           zeroLineBorderDash: [2]
         }, scaleLabel: {
           display: true,fontColor: '#000',
-          labelString: 'cantidad de tiempo (en horas)'}
+          labelString: 'cantidad de tiempo (en Horas)'}
       }],
     },
     legend: {

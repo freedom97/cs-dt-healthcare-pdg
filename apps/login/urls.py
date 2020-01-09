@@ -7,8 +7,8 @@ urlpatterns = [
      path('login/',views.Patient,name='patient'),
      path('login/',views.Doctor,name='doctor'),
      path('login/',views.EditProfile,name='editprofile'),
-    path('login/authenticate-user/', views.authUser),
-    path('register/register-user/', views.registerUser),
+     path('login/authenticate-user/', views.authUser),
+     path('register/register-user/', views.registerUser),
      #  path('login/', include(('apps.login.urls','login'))),
 
     # functions from the Doctor.html
