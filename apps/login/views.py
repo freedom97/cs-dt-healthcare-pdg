@@ -19,7 +19,7 @@ from fontawesome.fields import IconField
 import datetime
 import sys
 import threading
-
+from datetime import timedelta, date
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
@@ -164,6 +164,7 @@ def Patient(request):
                 fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date="today", detail_level='1min',start_time='00:00',end_time='23:59')
                 global fit_statsSteps
                 fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date="today", detail_level='1min',start_time='00:00',end_time='23:59')
+                
                 fit_statsWater = auth2_client.water_goal()
                 fit_statsUsr = auth2_client.user_profile_get()
                 for i in fit_statsSteps['activities-steps-intraday']['dataset']:
