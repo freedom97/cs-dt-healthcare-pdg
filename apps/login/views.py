@@ -446,7 +446,7 @@ def initategatherin(request):
        
     # ANOMALY DETECTION
 
-def getAnomaly( DataFrame):
+def getAnomalyGlobal( DataFrame):
     print("INICIO ANOMALIAAAA")
     global profileFitUsr
     print("GET ANOMALY LLAMADO")
