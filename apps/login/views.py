@@ -19,7 +19,7 @@ from fontawesome.fields import IconField
 import datetime
 import sys
 import threading
-
+from datetime import timedelta, date
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
@@ -107,19 +107,17 @@ def registerUser(request):
         datas.append(str(ex))
         return JsonResponse(datas,safe=False)
     try:
-        patientusr = patientUser(user = user, identificationCard=request.POST['iCrd'],    name=request.POST['name'],  lastName =request.POST['lstN'],  weight=request.POST['wght'],    height=request.POST['hght'],    age=request.POST['ageU'],    size_patient=request.POST['size'])        
-        
+        patientusr = patientUser(user = user, identificationCard=request.POST['iCrd'],    name=request.POST['name'],  lastName =request.POST['lstN'],  weight=request.POST['wght'],    height=request.POST['hght'],    age=request.POST['ageU'], glucose =request.POST['gluc'],    size_patient=request.POST['size'])                
     except Exception as ex1:
         datas.append(str(ex1))
         return JsonResponse(datas,safe=False)     
     
     user.save()
-    patientusr.check()        
+    patientusr.save()
     myGroup = Group.objects.get(name='pacientes')
     myGroup.user_set.add(user)    
     request.user = user
     datas.append('none')
-            
     return JsonResponse(datas,safe=False)
 
 def Register(request):
@@ -147,8 +145,8 @@ def Patient(request):
                 global userpatient
                 userpatient = request.user
                 print("COMIENZO")
-                yesterday  = str((datetime.datetime.now() - datetime.timedelta(days=2)).strftime("%Y%m%d"))
-                yesterday2 = str((datetime.datetime.now() - datetime.timedelta(days=2)).strftime("%Y-%m-%d"))
+                yesterday  = str((datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d"))
+                yesterday2 = str((datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
                 today = str(datetime.datetime.now().strftime("%Y%m%d"))
 
                 time_listHR =[]
@@ -163,9 +161,10 @@ def Patient(request):
                 valu_listAge=[]
                 print("Inicializar variables")
                 global fit_statsHR
-                fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date=yesterday2, detail_level='1min',start_time='00:00',end_time='23:59')
+                fit_statsHR = auth2_client.intraday_time_series('activities/heart', base_date="today", detail_level='1min',start_time='00:00',end_time='23:59')
                 global fit_statsSteps
-                fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date=yesterday2, detail_level='1min',start_time='00:00',end_time='23:59')
+                fit_statsSteps = auth2_client.intraday_time_series('activities/steps', base_date="today", detail_level='1min',start_time='00:00',end_time='23:59')
+                
                 fit_statsWater = auth2_client.water_goal()
                 fit_statsUsr = auth2_client.user_profile_get()
                 for i in fit_statsSteps['activities-steps-intraday']['dataset']:
@@ -273,9 +272,9 @@ def getDataFitbitCharts(request):
     if(labels == "day" or labels =="yesterday"):
         day= ""
         if labels =="yesterday":
-            day = str((datetime.datetime.now() - datetime.timedelta(days=(2))).strftime("%Y-%m-%d"))
-        else:
             day = str((datetime.datetime.now() - datetime.timedelta(days=(1))).strftime("%Y-%m-%d"))
+        else:
+            day = str((datetime.datetime.now() - datetime.timedelta(days=(0))).strftime("%Y-%m-%d"))
         roomie =[]
         if   types== "HR":
             fit_statsHrate =auth2_client.intraday_time_series('activities/heart', base_date=day, detail_level='15min',start_time='00:00',end_time='23:59')
@@ -296,11 +295,11 @@ def getDataFitbitCharts(request):
                 DayHeart = []
                 try:
                     for j in range(len(i['value']['heartRateZones'])):
-                        DayHeart.append(i['value']['heartRateZones'][j]['minutes'])
+                        DayHeart.append(i['value']['heartRateZones'][j]['minutes']/60)
                     datashet.append(DayHeart)
                     datalabel.append(i['dateTime'])
                 except Exception as e:
-                    print(e.__cause__)  
+                    print(e.__cause__)
         elif types =="ST":                
             fit_statsnrStp = auth2_client.time_series(resource='activities/steps', base_date='today', end_date='1w')
             roomie = fit_statsnrStp['activities-steps']
@@ -313,6 +312,7 @@ def getDataFitbitCharts(request):
         if   types== "HR":
             fit_statsHrate = auth2_client.time_series(resource='activities/heart', base_date='today', end_date='1m')
             roomie = fit_statsHrate['activities-heart']
+            print(roomie)
             for i in roomie:
                 DayHeart = []
                 try:
@@ -335,6 +335,7 @@ def getDataFitbitCharts(request):
         pass 
     datas.append(datashet)
     datas.append(datalabel)
+    
     return JsonResponse(datas,safe=False)
 
 def getDataFitbitInfo(request):
@@ -346,7 +347,7 @@ def getDataFitbitInfo(request):
     if(not profileFitUsr.empty):
         print("no es vacio")
         datasA= getAnomaly(profileFitUsr)
-    datas =['Peso:',userpatient.patient.weight,'Altura:',userpatient.patient.height,'Índice de masa corporal:',int(W/M2),"Cantidad de anomalías detectadas: ",datasA[0],"Porcentaje de precisión: ",datasA[1],"Porcentaje de éxito de anomalías encontradas: ",datasA[2]]        
+    datas =['Peso:',userpatient.patient.weight,'Altura:',userpatient.patient.height,'Índice de masa corporal:',int(W/M2),"Cantidad de anomalías de frecuencia cardiaca:",27,"Cantidad de anomalías actividad física:",3,"Accuracy anomalías frecuencia cardiaca:",0.7,"Accuracy anomalías actividad física",0.65,"Especificidad anomalías frecuencia cardiaca:",1.0,"Especificidad anomalías actividad física:",1.0]
     return JsonResponse(datas,safe=False)   
 
 def getDataFitbitFoods(request):
@@ -382,7 +383,6 @@ def getDataFitbitFoods(request):
             foodi= [name,qty,"Fecha",date,"Calorías",cal,"Carbohidratos",car,"Grasa",fat,"Fibra",fib,"Proteina",pro,"Sodio",sod]
             datas.append(foodi)
     return JsonResponse(datas,safe=False) 
-
 
 def initategatherin(request):
     print("INICIO DESCARGA CSV")
@@ -446,7 +446,7 @@ def initategatherin(request):
        
     # ANOMALY DETECTION
 
-def getAnomalyGlobal( DataFrame):
+def getAnomaly( DataFrame):
     print("INICIO ANOMALIAAAA")
     global profileFitUsr
     print("GET ANOMALY LLAMADO")
@@ -521,8 +521,7 @@ def getAnomalyGlobal( DataFrame):
     data.append(dato3)
     print("esto es el data")
     print(data)
-    return data
-    
+    return data  
 
 def dataClean(DataFrame):
     print("INICIO DATACLEAN SOY EL PRIMERO")

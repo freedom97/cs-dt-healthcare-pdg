@@ -96,7 +96,7 @@
 
                         <!-- Area Chart -->
                         <div class="col col-chatArea">
-                            <div class="card shadow" id="cardShadow" style="background-color: #7FB1D3;">
+                            <div class="card shadow" id="cardShadow" style="background-color: #ffff;">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header align-items-center justify-content-between">
@@ -119,6 +119,10 @@
                                         <h3 id="subDicv4"></h3>
                                         <h3 id="subDicv5"></h3>
                                         <h3 id="subDicv6"></h3>
+                                        <h3 id="subDicv7"></h3>
+                                        <h3 id="subDicv8"></h3>
+                                        <h3 id="subDicv9"></h3>
+                                        <h3 id="subDicv10"></h3>
                                         <img src="{% static 'img/person-silhouette-outline-2.png' %}" style="display: none;" id="image-weight" alt="Responsive image" class="img-thumbnail">
                                         </div>
                                         <div id="foods" style="display: none;"></div>
@@ -140,7 +144,7 @@
                                 <div class="card  text-white shadow" id="item-HR" style="background-color: #8FC1E3 ;">
                                     <div class="card-body"  >
                                         Actividad Cardíaca
-                                        <div class="text-white-50 small">Saludable</div>
+                                        <div class="text-white-50 small"></div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -166,7 +170,7 @@
                                 <div class="card text-white shadow" id="item-steps" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Actividad Física
-                                        <div class="text-white-50 small">En riesgo</div>
+                                        <div class="text-white-50 small"></div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -192,7 +196,7 @@
                                 <div class="card text-white shadow" id="item-foods" style="background-color: #8FC1E3 ;">
                                     <div class="card-body">
                                         Comidas
-                                        <div class="text-white-50 small">Normal</div>
+                                        <div class="text-white-50 small"></div>
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -352,6 +356,7 @@
                                     datus.push(response[0][j][i])
                                 }
                                 ChartsHB.data.datasets[i].data = datus
+                            
                             }
                             ChartsHB.update()
                         }else{                                    

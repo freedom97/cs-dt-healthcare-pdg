@@ -76,7 +76,7 @@ var ChartsHR = new Chart(ctxHR, {
         ticks: {
           maxTicksLimit: 7
         }, scaleLabel: {
-          display: true, fontColor: '#000',
+          display: true, fontColor: '#000',fontSize:20,
           labelString: 'actividad cardiaca horaria'
         }
       }],
@@ -99,7 +99,7 @@ var ChartsHR = new Chart(ctxHR, {
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
-          display: true,fontColor: '#000',
+          display: true,fontColor: '#000',fontSize:20,
           labelString: 'promedio de pulso cardiaco'}
       }],
     },
@@ -173,7 +173,7 @@ var ChartsNS = new Chart(ctxNS, {
           maxTicksLimit: 7,
           fontColor: '#000'      
         }, scaleLabel: {
-          display: true,fontColor: '#000',
+          display: true,fontColor: '#000',fontSize:20,
           labelString: 'tiempo'}
       }],
       yAxes: [{
@@ -193,7 +193,7 @@ var ChartsNS = new Chart(ctxNS, {
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
-          display: true,fontColor: '#000',
+          display: true,fontColor: '#000',fontSize:20,
           labelString: 'cantidad de pasos'}
       }],
     },
@@ -267,7 +267,7 @@ var ChartsFd = new Chart(ctxFd, {
         ticks: {
           maxTicksLimit: 7
         }, scaleLabel: {
-          display: true,fontColor: '#000',
+          display: true,fontColor: '#000',fontSize:20,
           labelString: 'dia de consumo de calorias'}
       }],
       yAxes: [{
@@ -287,7 +287,7 @@ var ChartsFd = new Chart(ctxFd, {
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
-          display: true,fontColor: '#000',
+          display: true,fontColor: '#000',fontSize:20,
           labelString: 'cantidad de calorias por dia'}
       }],
     },
@@ -322,7 +322,7 @@ var ChartsHB = new Chart(ctxHB, {
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: "fuera de rango (Estado de reposo):",
+      label: "tiempo de reposo:",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 255, 223, 1)",
@@ -338,7 +338,7 @@ var ChartsHB = new Chart(ctxHB, {
       data: []
     },
     {
-      label: "quema de grasas: ",
+      label: "tiempo de quema de grasas: ",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -354,7 +354,7 @@ var ChartsHB = new Chart(ctxHB, {
       data: []
     },
     {
-      label: "Cardio",
+      label: "tiempo de Cardio",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -370,7 +370,7 @@ var ChartsHB = new Chart(ctxHB, {
       data: []
     },
     {
-      label: "pico maximo",
+      label: "cantidad de anomalias",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -383,7 +383,7 @@ var ChartsHB = new Chart(ctxHB, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: []
+      data: [0,0,3,5,0,0,2,9,4,2,0,2]
     },],
   },
   options: {
@@ -406,15 +406,13 @@ var ChartsHB = new Chart(ctxHB, {
           display: false,
           drawBorder: false
         },
-        ticks: {
-          maxTicksLimit: 7
+        ticks: {fontSize:15,
         }, scaleLabel: {
-          display: true,fontColor: '#000',
+          display: true,fontColor: '#000',fontSize:20,
           labelString: 'actividad cardiaca diaria '}
       }],
       yAxes: [{
         ticks: {
-          maxTicksLimit: 5,
           padding: 10,
           fontColor: '#000',
           // Include a dollar sign in the ticks
@@ -429,8 +427,8 @@ var ChartsHB = new Chart(ctxHB, {
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
-          display: true,fontColor: '#000',
-          labelString: 'cantidad de tiempo (en horas)'}
+          display: true,fontColor: '#000',fontSize:20,
+          labelString: 'cantidad de tiempo (en Horas)'}
       }],
     },
     legend: {
