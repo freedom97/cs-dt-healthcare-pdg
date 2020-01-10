@@ -37,7 +37,7 @@ var ChartsHR = new Chart(ctxHR, {
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: "promedio pulso cardiaco",
+      label: "Promedio pulso cardiaco",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -77,7 +77,7 @@ var ChartsHR = new Chart(ctxHR, {
           maxTicksLimit: 7
         }, scaleLabel: {
           display: true, fontColor: '#000',fontSize:20,
-          labelString: 'actividad cardiaca horaria'
+          labelString: 'Actividad cardiaca horaria'
         }
       }],
       yAxes: [{
@@ -93,14 +93,14 @@ var ChartsHR = new Chart(ctxHR, {
           }
         },
         gridLines: {
-          color: "rgb(234, 236, 244)",
+          color: "#000",
           zeroLineColor: "rgb(234, 236, 244)",
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
           display: true,fontColor: '#000',fontSize:20,
-          labelString: 'promedio de pulso cardiaco'}
+          labelString: 'Promedio de pulso cardiaco'}
       }],
     },
     legend: {
@@ -108,7 +108,7 @@ var ChartsHR = new Chart(ctxHR, {
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#303030",
+      bodyFontColor: "#000",
       titleMarginBottom: 10,
       titleFontColor: '#303030',
       titleFontSize: 14,
@@ -134,7 +134,7 @@ var ChartsNS = new Chart(ctxNS, {
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: "promedio de pasos",
+      label: "Promedio de pasos",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -187,14 +187,14 @@ var ChartsNS = new Chart(ctxNS, {
           }
         },
         gridLines: {
-          color: "rgb(30, 30, )",
+          color: "#000",
           zeroLineColor: "rgb(234, 236, 244)",
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
           display: true,fontColor: '#000',fontSize:20,
-          labelString: 'cantidad de pasos'}
+          labelString: 'Cantidad de pasos'}
       }],
     },
     legend: {
@@ -202,7 +202,7 @@ var ChartsNS = new Chart(ctxNS, {
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#303030",
+      bodyFontColor: "#000",
       titleMarginBottom: 10,
       titleFontColor: '#303030',
       titleFontSize: 14,
@@ -228,7 +228,7 @@ var ChartsFd = new Chart(ctxFd, {
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: "promedio  calorias por dia: ",
+      label: "Promedio  calorias por día: ",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -268,7 +268,7 @@ var ChartsFd = new Chart(ctxFd, {
           maxTicksLimit: 7
         }, scaleLabel: {
           display: true,fontColor: '#000',fontSize:20,
-          labelString: 'dia de consumo de calorias'}
+          labelString: 'Día de consumo de calorias'}
       }],
       yAxes: [{
         ticks: {
@@ -281,14 +281,14 @@ var ChartsFd = new Chart(ctxFd, {
           }
         },
         gridLines: {
-          color: "rgb(234, 236, 244)",
+          color: "#000",
           zeroLineColor: "rgb(234, 236, 244)",
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
           display: true,fontColor: '#000',fontSize:20,
-          labelString: 'cantidad de calorias por dia'}
+          labelString: 'Cantidad de calorias por día'}
       }],
     },
     legend: {
@@ -296,7 +296,7 @@ var ChartsFd = new Chart(ctxFd, {
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#303030",
+      bodyFontColor: "#000",
       titleMarginBottom: 10,
       titleFontColor: '#303030',
       titleFontSize: 14,
@@ -322,7 +322,7 @@ var ChartsHB = new Chart(ctxHB, {
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
-      label: "tiempo de reposo:",
+      label: "Tiempo de reposo:",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 255, 223, 1)",
@@ -338,7 +338,7 @@ var ChartsHB = new Chart(ctxHB, {
       data: []
     },
     {
-      label: "tiempo de quema de grasas: ",
+      label: "Tiempo de quema de grasas: ",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -354,7 +354,7 @@ var ChartsHB = new Chart(ctxHB, {
       data: []
     },
     {
-      label: "tiempo de Cardio",
+      label: "Tiempo de Cardio",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -370,7 +370,7 @@ var ChartsHB = new Chart(ctxHB, {
       data: []
     },
     {
-      label: "cantidad de anomalias",
+      label: "Cantidad de anomalías",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -409,7 +409,7 @@ var ChartsHB = new Chart(ctxHB, {
         ticks: {fontSize:15,
         }, scaleLabel: {
           display: true,fontColor: '#000',fontSize:20,
-          labelString: 'actividad cardiaca diaria '}
+          labelString: 'Actividad cardíaca diaria '}
       }],
       yAxes: [{
         ticks: {
@@ -421,14 +421,14 @@ var ChartsHB = new Chart(ctxHB, {
           }
         },
         gridLines: {
-          color: "rgb(234, 236, 244)",
+          color: "#000",
           zeroLineColor: "rgb(234, 236, 244)",
           drawBorder: false,
           borderDash: [2],
           zeroLineBorderDash: [2]
         }, scaleLabel: {
           display: true,fontColor: '#000',fontSize:20,
-          labelString: 'cantidad de tiempo (en Horas)'}
+          labelString: 'Cantidad de tiempo (en horas)'}
       }],
     },
     legend: {

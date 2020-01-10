@@ -132,7 +132,7 @@
 
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body" id="body-chartArea>
+                                <div class="card-body" id="body-chartArea">
                                     <div class="chart-area" >
                                         <div id="loadingScheme"></div>
                                         <canvas id="HRate" style="display: none;"></canvas>
@@ -141,13 +141,24 @@
                                         <canvas id="nrStp" style="display: none;"></canvas>
                                         <div id="weght" style="display: none;">
                                             <h3 id="loadingInfoWeght">Cargando información del usuario...</h3>
-                                            <h3 id="subDicv1"></h3>
-                                            <h3 id="subDicv2"></h3>
-                                            <h3 id="subDicv3"></h3>
-                                            <h3 id="subDicv4"></h3>
-                                            <h3 id="subDicv5"></h3>
-                                            <h3 id="subDicv6"></h3>
+                                            
+                                            <select class="custom-select" id="select-info" style="display: none;">
+                                                <option selected>Seleccione la información</option>
+                                                <option id="subDicv1"></option>
+                                                <option id="subDicv2"></option>
+                                                <option id="subDicv3"></option>
+                                                <option id="subDicv4"></option>
+                                                <option id="subDicv5"></option>
+                                                <option id="subDicv6"></option>
+                                                <option id="subDicv7"></option>
+                                                <option id="subDicv8"></option>
+                                                <option id="subDicv9"></option>
+                                                <option id="subDicv10"></option>
+                                                <option id="subDicv11"></option>
+                                            </select>
                                             <img src="{% static 'img/person-silhouette-outline-2.png' %}" style="display: none;" id="image-weight" alt="Responsive image" class="img-thumbnail">
+                                            <h3 style="display: none;" id="msginfo">*Frecuencia cardíaca y actividad física ideal según:</h3>
+                                            <h3 class="link" style="display: none;" id="linkinfo">https://www.mayoclinic.org/es-es/healthy-lifestyle/fitness/in-depth/fitness/art-20046433</h3>
                                             </div>
                                            <div id="foods" style="display: none;"></div>
                                     </div>
@@ -165,7 +176,7 @@
                                 </div>
                             
                             
-                                <div class="card  text-white shadow" id="item-HR" style="background-color: #8FC1E3 ;">
+                                <div class="card  text-white shadow" id="item-HR" style="background-color: #ffff ;">
                                     <div class="card-body"  >
                                         Actividad Cardiaca
                                         <div class="text-white-50 small">Saludable</div>
@@ -449,7 +460,12 @@
                     datas = response;
                     document.getElementById("loadingInfoWeght").remove();
                     document.getElementById("image-weight").style.display="block";
-                    divWeight = document.getElementById("weght");       
+                    document.getElementById("select-info").style.display="block";
+                    document.getElementById("msginfo").style.display="block";
+                    document.getElementById("linkinfo").style.display="block";
+                    divWeight = document.getElementById("select-info"); 
+                   
+                        
                     z=1
                     for (i = 1; i < datas.length; i+=2) {
                                 var valueWeightFitbit = document.getElementById("subDicv"+z);
@@ -463,7 +479,7 @@
                                 z++;
 
                     }
-                    document.getElementsByClassName("chart-area")[0].appendChild(divWeight);
+                    document.getElementsByClassName("custom-select")[0].appendChild(divWeight);
                 }});}
    </script>
 </body>

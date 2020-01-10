@@ -42,7 +42,16 @@ userpatient = User
 urlCSV =""
 fit_statsHR=[]
 fit_statsSteps=[]
-contador=0
+contadorHR=0
+contadorAnomaliasHRreposo=0
+contadorAnomaliasHRejercicio=0
+contadorAnomaliasStesp=0
+accuracyHRreposo=False
+accuracyHRejercicio=False
+accuracyActividadFisica=False
+especificidadHRreposo=False
+especificidadHRejercicio=False
+especificidadActividadFisica=False
 
 profileFitUsr=pd.DataFrame({}) 
 
@@ -347,7 +356,7 @@ def getDataFitbitInfo(request):
     if(not profileFitUsr.empty):
         print("no es vacio")
         datasA= getAnomaly(profileFitUsr)
-    datas =['Peso:',userpatient.patient.weight,'Altura:',userpatient.patient.height,'Índice de masa corporal:',int(W/M2),"Cantidad de anomalías de frecuencia cardiaca:",27,"Cantidad de anomalías actividad física:",3,"Accuracy anomalías frecuencia cardiaca:",0.7,"Accuracy anomalías actividad física",0.65,"Especificidad anomalías frecuencia cardiaca:",1.0,"Especificidad anomalías actividad física:",1.0]
+    datas =['Peso:',userpatient.patient.weight,'Altura:',userpatient.patient.height,'Índice de masa corporal:',int(W/M2),"Cantidad de anomalías de frecuencia cardiaca:",datasA[0],"Cantidad de anomalías actividad física:",datasA[5],"Accuracy anomalías frecuencia cardiaca:",datasA[1],"Accuracy anomalías actividad física:",datasA[3],"Especificidad anomalías frecuencia cardiaca:",datasA[2],"Especificidad anomalías actividad física:",datasA[4],"Sexo:",datasA[6]]
     return JsonResponse(datas,safe=False)   
 
 def getDataFitbitFoods(request):
@@ -455,70 +464,87 @@ def getAnomaly( DataFrame):
     dato1=""  
     dato2="" 
     dato3="" 
+    dato4="" 
+    dato5="" 
+    dato6="" 
+    dato7=""
   
-    countAnomaly=0
+    countAnomalyHR=0
+    countAnomalySteps=0
     data=[]
     i=0
-    print("Este es el indice numero: ")
-    print(i)
-    print("tamaño del dataframe: ")
-    print(range(10))
-    print("Tamaño:")
-    print(len(resultDF.heart_Rate))
-    print("*****__")
-
-    print(list(range(len(resultDF.heart_Rate))))
-    print("*****")
-    i=len(resultDF.heart_Rate)
-    print("Este es el indice numero: ")
-    print(i)
-    print("*****-")
-    print("RESULTDF: ")
-    print(resultDF.heart_Rate)
-    # while contadorAnomaly<1:
-    print("RANGO")
-    print(range(i))
-    # for x in range(i):
-        #Esta parte es para hallar un dato normal
-        # print("indice de for getAnomaly")
-        # print(x)
-        # if resultDF.heart_Rate[x]<101 and resultDF.step_Count[x]<=100:
     print("antes del if")
-    if(len(resultDF)>=2):
+    if(len(resultDF)<=500):
         print("adentro del if tamaño>2")
-        dataSetTrain()
-        print("RECIBE DATATRAIN")
-        print(dataSetTrain())
+        dataSetTrainHRreposo()
+        dataSetTrainHRejericio()
+        dataSetTrainActividadFisica()
+    elif(len(resultDF)>500):
         print("INICIO DATATEST")
-        dataSetTest()
-        print("resultado DATATEST")
-        dataSetOutliers()
-    else:
-        dataSetTrain() 
-        dataSetOutliers()
-        print("fuera del if")
+        dataSetTrainHRreposo()
+        dataSetTrainHRejericio()
+        dataSetTrainActividadFisica()
+        dataSetTestHRreposo()
+        dataSetTestHRrejercicio()
+        dataSetTestSteps()
+        dataSetOutliersHR()
+        dataSetOutliersSteps()
+
     getCLF()
-    accuracyResult=0.7
-    especificidadResult=especificidadDataTestAnomalias()
-    print("Accurasy del getAnomaly")
-    print(accuracyResult)
-    print("especificidad del getAnomaly")
-    print(especificidadResult)
+    accuracyResultHR=accuracyGlobalDataTestHR()
+    global accuracyHRreposo
+    accuracyHRreposo=False
+    global accuracyHRejercicio
+    accuracyHRejercicio=False
+    especificidadResultHR=especificidadDataTestAnomaliasHR()
+    global especificidadHRreposo
+    especificidadHRreposo=False
+    global especificidadHRejercicio
+    especificidadHRejercicio=False
+    accuracyResultSteps=accuracyGlobalDataTestSteps()
+    global accuracyActividadFisica
+    accuracyActividadFisica=False
+    
+    especificidadResultSteps=especificidadDataTestAnomaliasSteps()
+    global especificidadActividadFisica
+    especificidadActividadFisica=False
+    print("AccuracyResultHR")
+    print(accuracyResultHR)
+    print("especificidadResultHR")
+    print(especificidadResultHR)
+    print("AccuracyResultSteps")
+    print(accuracyResultSteps)
+    print("especificidadResultSteps")
+    print(especificidadResultSteps)
     
 
     print("antes del if de getanomaly accuracy")
-    if(float(accuracyResult)>=0.6 and float(especificidadResult)>=0.6):
-        print("adentro del if de getanomaly accuracy")
-        global contador
-        countAnomaly=contador
-        dato1=str(countAnomaly)
-        dato2=str(accuracyResult)
-        dato3=str(especificidadResult)
+    # if(float(accuracyResultHR)!=0 and float(especificidadResultHR)!=0 and float(accuracyResultSteps)!=0 and float(especificidadResultSteps)!=0 ):
+    print("adentro del if de getanomaly accuracy")
+    global contadorAnomaliasHRejercicio
+    global contadorAnomaliasHRreposo
+    countAnomalyHR=contadorAnomaliasHRreposo+contadorAnomaliasHRejercicio
+    countAnomalySteps=contadorAnomaliasStesp
+    dato1=str(countAnomalyHR)
+    dato2=str(accuracyResultHR)
+    dato3=str(especificidadResultHR)
+    dato4=str(accuracyResultSteps)
+    dato5=str(especificidadResultSteps)
+    dato6=str(countAnomalySteps)
+    if(resultDF.gender[0]=="MALE"):
+        dato7="Masculino"
+    elif(reresultDF.gender[0]=="FEMALE"):
+        dato7="Femenino"
         
     print("sale del if getanomaly accuracy ")
     data.append(dato1)
     data.append(dato2)
     data.append(dato3)
+    data.append(dato4)
+    data.append(dato5)
+    data.append(dato6)
+    data.append(dato7)
+    
     print("esto es el data")
     print(data)
     return data  
@@ -528,12 +554,12 @@ def dataClean(DataFrame):
     data=profileFitUsr
     print("DATACLEAN sin borrar")
     print(profileFitUsr)
-    data=data.drop(['full Name', 'waterLvl', 'weight','height','age','gender'], axis=1)
+    data=data.drop(['full Name', 'waterLvl', 'weight','height'], axis=1)
     print("dataclean luego de borrar")
     print(data)
     df=data
     print("creo df")
-    df=df.drop(['time', 'timeHR'], axis=1)
+    df=df.drop(['timeHR'], axis=1)
     print("borrar columnas en el df")
     print(df)
     df=df[df.heart_Rate!=0]
@@ -541,183 +567,401 @@ def dataClean(DataFrame):
     print(df)
     return df
 
-def dataSetTrain():
-    print("INICIO DATATRAIN")
+def dataSetTrainHRreposo():
+    print("INICIO DATATRAINHRenreposo")
     heart1=[]
+    flag=False
     global profileFitUsr
-   
     resultDF=dataClean(profileFitUsr)
     print("LLAMADO EN EL DATATRAIN")
-    for i in range(math.floor(len(resultDF.heart_Rate)/2)):
-        if (int(resultDF.heart_Rate[i])<=94 and int(resultDF.step_Count[i])<=100):
-            heart1.insert(len(heart1),[int(resultDF.heart_Rate[i]),int(resultDF.step_Count[i])])
-    print("np.array de datatrain")
+    #PULSO CARDIACO EN REPOSO
+    if(flag!=True):
+        flag=True
+        if(len(resultDF.heart_Rate)<=500):
+            for i in range(len(resultDF.heart_Rate)):
+                if (int(resultDF.heart_Rate[i])<=98 and int(resultDF.step_Count[i])==0):
+                    heart1.insert(len(heart1),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+    elif(resultDF.time=="00:00:00"):
+        flag=False
+        
     a1=np.array(heart1)
-   
-    a_train = np.r_[a1+4, a1+2]
+    a_train = np.r_[a1+2, a1+0]
     a_train[0:3]
     print("este es el dataTRAIN")
- 
     return a_train
+def dataSetTrainHRejericio():
+    print("INICIO DATATRAINHRejercicio")
+    global profileFitUsr
+    resultDF=dataClean(profileFitUsr)
+    print("LLAMADO EN EL DATATRAINHRejercicio")
+    heart5=[]
+    #PULSO CARDIACO EN ACTIVIDAD FISICA
+    if(len(resultDF.heart_Rate)<=500):
+        for i in range(len(resultDF.heart_Rate)):
+            if (int(resultDF.heart_Rate[i])>=98 and int(resultDF.heart_Rate[i])<=195 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])<=25):
+                heart5.insert(len(heart5),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+            elif(int(resultDF.heart_Rate[i])>=93 and int(resultDF.heart_Rate[i])<=185 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=35):
+                heart5.insert(len(heart5),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+            elif(int(resultDF.heart_Rate[i])>=88 and int(resultDF.heart_Rate[i])<=175 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=45):
+                heart5.insert(len(heart5),[resultDF.heart_Rate[i],resultDF.age[i]])
+            elif(int(resultDF.heart_Rate[i])>=83 and int(resultDF.heart_Rate[i])<=165 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=55):
+                heart5.insert(len(heart5),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+            elif(int(resultDF.heart_Rate[i])>=78 and int(resultDF.heart_Rate[i])<=156 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=65):
+                heart5.insert(len(heart5),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])  
+    a5=np.array(heart5)
+    a_trainHRactivadFisica = np.r_[a5+2, a5+0]
+    a_trainHRactivadFisica[0:3]
+    print("este es el dataTRAIN")
+    return a_trainHRactivadFisica
 
-def dataSetTest():
+
+#Metodo para convertir str en int
+def getNumbers():
+    numeros=[]
+    global profileFitUsr
+    resultDF=dataClean(profileFitUsr)
+    for i in range(0,18):
+        if(resultDF.time[i]=="00:01:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:02:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:03:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:04:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:05:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:06:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:07:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:08:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:09:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:10:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:11:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:12:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:13:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:14:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:15:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:16:00"):
+            numeros.insert(len(numeros),i)
+        elif(resultDF.time[i]=="00:17:00"):
+            numeros.insert(len(numeros),i)
+    return numeros
+
+
+def dataSetTrainActividadFisica():
+    #Train actividad fisica
+     print("INICIO DATATRAIN")
+     steps=[]
+     numeros=getNumbers()
+     global profileFitUsr
+     resultDF=dataClean(profileFitUsr)
+     flag=False
+     if(flag!=True):
+         flag=True
+         if(len(resultDF.heart_Rate)<=500):
+             for i in range(len(resultDF.step_Count)):
+                 if (int(resultDF.age[i])<=35 and int(resultDF.step_Count[i])==3429):
+                     if(resultDF.gender=="MALE" and resultDF.time[i]=="00:11:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+                     elif (resultDF.gender=="FEMALE" and resultDF.time[i]=="00:13:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+                 elif (int(resultDF.age[i])<=45 and int(resultDF.step_Count[i])==3429):
+                     if(resultDF.gender=="MALE" and resultDF.time[i]=="00:12:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+                     elif (resultDF.gender=="FEMALE" and resultDF.time[i]=="00:14:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+                 elif (int(resultDF.age[i])<=55 and int(resultDF.step_Count[i])==3429):
+                     if(resultDF.gender=="MALE" and resultDF.time[i]=="00:13:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+                     elif (resultDF.gender=="FEMALE" and resultDF.time[i]=="00:16:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+                 elif (int(resultDF.age[i])<=65 and int(resultDF.step_Count[i])==3429):
+                     if(resultDF.gender=="MALE" and resultDF.time[i]=="00:14:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+                     elif (resultDF.gender=="FEMALE" and resultDF.time[i]=="00:17:00"):
+                         steps.insert(len(steps),[numeros[i],int(resultDF.age[i])])
+         elif(len(resultDF.heart_Rate)==1):
+             flag=False
+     aSteps1=np.array(steps)
+     a_trainSteps = np.r_[aSteps1+2, aSteps1+0]
+     a_trainSteps[0:3]
+     return a_trainSteps
+
+def dataSetTestHRreposo():
     print("INICIO DATATEST metodo")
-    heart2=[]
     print("crear h2")
     global profileFitUsr
     resultDF=dataClean(profileFitUsr)
-    print("aqui ya limpio tabla")
-  
-    print("tamaño del for datatest")
-    print(math.floor(len(resultDF.heart_Rate)/2))
-    for i in range(math.floor(len(resultDF.heart_Rate)/2)):
-        print("for datatest")
-        if (int(resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i])<=94 and int(resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i])<=100):
-            heart2.insert(len(heart2),[int(resultDF.heart_Rate[(math.floor(len(resultDF.heart_Rate)/2))+i]),int(resultDF.step_Count[(math.floor(len(resultDF.heart_Rate)/2))+i])])  
-    
-    a2 =np.array(heart2)
-    a2_test = np.r_[a2+4, a2+2]
-    a2_test[0:3]
+    heart6=[]
+    #TEST PULSO CARDIACO
+    print("antes del if testHRreposo")
+    if(len(resultDF.heart_Rate)>500):
+        print("adentro del if testHRreposo")
+        for i in range(len(resultDF.heart_Rate)-500):
+            print("adentro del for testHRreposo")
+            print("HR 500+i")
+           
+            if (int(resultDF.heart_Rate[500+i])<=98 and int(resultDF.step_Count[500+i])==0):
+                print("adentro del 2do if testHRreposo")
+                heart6.insert(len(heart6),[int(resultDF.heart_Rate[500+i]),int(resultDF.age[500+i])])
+    a6=np.array(heart6)
+    a6_testHRreposo = np.r_[a6+2, a6+0]
+    a6_testHRreposo[0:3]
     print("este es el dataTest")
-    print(a2_test)
-    return a2_test
+    print(a6_testHRreposo)
+    return a6_testHRreposo
+def dataSetTestHRrejercicio():
+    print("INICIO DATATEST metodo")
+    print("crear h2")
+    global profileFitUsr
+    resultDF=dataClean(profileFitUsr)
+    heart7=[]
+
+    #TEST PULSO CARDIACO EN ACTIVIDAD FISICA
+    if(len(resultDF.heart_Rate)>500):
+        for i in range(len(resultDF.heart_Rate)-500):
+            if (int(resultDF.heart_Rate[500+i])>=98 and int(resultDF.heart_Rate[500+i])<=195 and int(resultDF.step_Count[500+i])>=3429 and int(resultDF.age[500+i])<=25):
+                heart7.insert(len(heart7),[resultDF.heart_Rate[500+i],int(resultDF.age[500+i])])
+            elif(int(resultDF.heart_Rate[500+i])>=93 and int(resultDF.heart_Rate[500+i])<=185 and int(resultDF.step_Count[500+i])>=3429 and int(resultDF.age[500+i])>=35):
+                heart7.insert(len(heart7),[int(resultDF.heart_Rate[500+i]),int(resultDF.age[500+i])])
+            elif(int(resultDF.heart_Rate[500+i])>=88 and int(resultDF.heart_Rate[500+i])<=175 and int(resultDF.step_Count[500+i])>=3429 and int(resultDF.age[500+i])>=45):
+                heart7.insert(len(heart7),[int(resultDF.heart_Rate[500+i]),int(resultDF.age[500+i])])
+            elif(int(resultDF.heart_Rate[500+i])>=83 and int(resultDF.heart_Rate[500+i])<=165 and int(resultDF.step_Count[500+i])>=3429 and int(resultDF.age[500+i])>=55):
+                heart7.insert(len(heart7),[int(resultDF.heart_Rate[500+i]),int(resultDF.age[500+i])])
+            elif(int(resultDF.heart_Rate[500+i])>=78 and int(resultDF.heart_Rate[500+i])<=156 and int(resultDF.step_Count[500+i])>=3429 and int(resultDF.age[500+i])>=65):
+                heart7.insert(len(heart7),[int(resultDF.heart_Rate[500+i]),int(resultDF.age[500+i])])
+    a7 =np.array(heart7)
+    a7_test = np.r_[a7 + 2, a7 + 0]
+    a7_test[0:3]
+    return a7_test
+
+def dataSetTestSteps():
+    print("INICIO DATATEST metodo")
+    print("crear h2")
+    global profileFitUsr
+    numeros=getNumbers()
+    resultDF=dataClean(profileFitUsr)
+    steps2=[]
+    #TEST actividad fisica
+    if(len(resultDF.heart_Rate)>500):
+        for i in range(len(resultDF.step_Count)-500):
+            if (int(resultDF.age[500+i])<=35 and int(resultDF.step_Count[500+i])==3429):
+                if(resultDF.gender=="MALE" and resultDF.time[500+i]=="00:11:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+                elif (resultDF.gender=="FEMALE" and resultDF.time[500+i]=="00:13:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+            elif (int(resultDF.age[500+i])<=45 and int(resultDF.step_Count[500+i])==3429):
+                if(resultDF.gender=="MALE" and resultDF.time[500+i]=="00:12:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+                elif (resultDF.gender=="FEMALE" and resultDF.time[500+i]=="00:14:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+            elif (int(resultDF.age[500+i])<=55 and int(resultDF.step_Count[500+i])==3429):
+                if(resultDF.gender=="MALE" and resultDF.time[500+i]=="00:13:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+                elif (resultDF.gender=="FEMALE" and resultDF.time[500+i]=="00:16:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+            elif (int(resultDF.age[500+i])<=65 and int(resultDF.step_Count[500+i])==3429 ):
+                if(resultDF.gender=="MALE" and resultDF.time[500+i]=="00:14:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+                elif (resultDF.gender=="FEMALE" and resultDF.time[500+i]=="00:17:00"):
+                    steps2.insert(len(steps2),[numeros[500+i],int(resultDF.age[500+i])])
+                    
+    aSteps2=np.array(steps2)
+    a_testSteps = np.r_[aSteps2 + 2, aSteps2 + 0]
+    a_testSteps[0:3]
+    return a_testSteps
     
-def dataSetOutliers():
+def dataSetOutliersHR():
     print("INICIO DATANOMALIAS")
     global profileFitUsr
     resultDF=dataClean(profileFitUsr)
-    global contador
-    contador=0
-    contadorOutliers=contador
-    heart3=[]
-    print("antes del for de anomalias")
-    for k in range(len(resultDF.heart_Rate)):
-        print("adentro del for anomalias")
-        print("antes del if de anomalias")
-        print(resultDF.heart_Rate[k])
-        print("pasos anomalias")
-        print(resultDF.step_Count[k])
-        print("el contador")
-        print(contadorOutliers)
-        if int(resultDF.heart_Rate[k])>=99 and int(resultDF.step_Count[k])<=100:
-            print("adentro del if de anomalias")
-            contadorOutliers+=1
-            print("el contador adentro del if debe ser 1")
-            print(contadorOutliers)
-            contador=contadorOutliers
-            heart3.insert(len(heart3),[int(resultDF.heart_Rate[k]),int(resultDF.step_Count[k])])
-            
-            print("como queda heart3 en dttest")
-            print(heart3) 
+    heart8=[]
+    global contadorAnomaliasHRreposo
+    contadorAnomaliasHRreposo=0
+    global contadorAnomaliasHRejercicio
+    contadorAnomaliasHRejercicio=0
+    for i in range(len(resultDF.heart_Rate)):
+            if (int(resultDF.heart_Rate[i])>=98 and int(resultDF.step_Count[i])==0):
+                heart8.insert(len(heart8),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+                contadorAnomaliasHRreposo+=1
+            if (int(resultDF.heart_Rate[i])>=196 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])<=25):
+                heart8.insert(len(heart8),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+                contadorAnomaliasHRejercicio+=1
+            elif(int(resultDF.heart_Rate[i])>=186 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=35):
+                heart8.insert(len(heart8),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+                contadorAnomaliasHRejercicio+=1
+            elif(int(resultDF.heart_Rate[i])>=176 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=45):
+                heart8.insert(len(heart8),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+                contadorAnomaliasHRejercicio+=1
+            elif(int(resultDF.heart_Rate[i])>=166 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=55):
+                heart8.insert(len(heart8),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+                contadorAnomaliasHRejercicio+=1
+            elif(int(resultDF.heart_Rate[i])>=157 and int(resultDF.step_Count[i])>=3429 and int(resultDF.age[i])>=65):
+                heart8.insert(len(heart8),[int(resultDF.heart_Rate[i]),int(resultDF.age[i])])
+                contadorAnomaliasHRejercicio+=1
+    X_outliers5=np.array(heart8)
+    X_outliers6=np.r_[X_outliers5 + 2, X_outliers5 + 0]
+    return X_outliers6
+def dataSetOutliersSteps():
+    print("INICIO DATANOMALIAS")
+    numeros=getNumbers()
+    global profileFitUsr
+    resultDF=dataClean(profileFitUsr)
+    steps3=[]
+    contadorAnomaliasStesp=0
+    #ANOMALIAS STEPS
+    for i in range(len(resultDF.step_Count)):
+        if (int(resultDF.age[i])<=35 and int(resultDF.step_Count[i])==3429):
+            if(resultDF.gender=="MALE" and numeros[i]>11):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+        elif (int(resultDF.age[i])<=35 and int(resultDF.step_Count[i])==3429):
+            if(resultDF.gender=="FEMALE" and numeros[i]>13):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+        elif (int(resultDF.age[i])<=45 and int(resultDF.step_Count[i])==3429): 
+            if(resultDF.gender=="MALE" and numeros[i]==12):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+        elif (int(resultDF.age[i])<=45 and int(resultDF.step_Count[i])==3429):
+            if(resultDF.gender=="FEMALE" and numeros[i]>14):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+        elif (int(resultDF.age[i])<=55 and int(resultDF.step_Count[i])==3429):
+            if(resultDF.gender=="MALE" and numeros[i]>13):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+        elif (int(resultDF.age[i])<=55 and int(resultDF.step_Count[i])==3429):
+            if(resultDF.gender=="FEMALE" and numeros[i]>16):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+        elif (int(resultDF.age[i])<=65 and int(resultDF.step_Count[i])==3429):
+            if(resultDF.gender=="MALE" and numeros[i]>14):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+        elif (int(resultDF.age[i])<=65 and int(resultDF.step_Count[i])==3429):
+            if(resultDF.gender=="FEMALE" and numeros[i]>17):
+                steps3.insert(len(steps3),[numeros[i],int(resultDF.age[i])])
+                contadorAnomaliasStesp+=1
+    X_outliersSteps=np.array(steps3)
+    X_outliersSteps=np.r_[X_outliersSteps + 2, X_outliersSteps + 0]
+    return X_outliersSteps
 
-    print("arrayOutliers")
-    X_outliers=np.array(heart3)
-    print(X_outliers)
-    X_outliers2=np.r_[X_outliers + 4, X_outliers + 2]
-    return X_outliers2
 
 def getCLF():
     print("INICIO CLF")
     clf = OneClassSVM()
-    clf.fit(dataSetTrain())
-    print(clf.fit(dataSetTrain()))
+    if(len(dataSetTrainHRreposo())!=0):
+        clf.fit(dataSetTrainHRreposo())
+    elif(len(dataSetTrainHRejericio())!=0):
+        clf.fit(dataSetTrainHRejericio())
+    elif(len(dataSetTrainActividadFisica())!=0):
+        clf.fit(dataSetTrainActividadFisica())
     return clf
+ 
 
-def plot_oneclass_svm(svm):
-    print("INICIO ONCSVM")
+def especificidadDataTestAnomaliasHR():
     clf=getCLF()
-    # Definimos una grilla de puntos sobre la cual vamos a determinar la frontera de detección de anomalías:
-    xx, yy = np.meshgrid(np.linspace(-200, 200, 500), np.linspace(-200, 200, 500))
-
-    # Obtenemos la distancia con la frontera de decisión para cada punto
-    Z = svm.decision_function(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
-    plt.title("Fronteras de detección de anomalías (en rojo)")
-    
-    # Ploteamos fronteras y pintamos regiones interna y externa a la frontera
-    plt.contourf(xx, yy, Z, levels=[Z.min(), 0], colors="gray") # Región anómala
-    a = plt.contour(xx, yy, Z, levels=[0], linewidths=4, colors='red') # Fronteras de decisión
-    plt.contourf(xx, yy, Z, levels=[0, Z.max()], colors='palevioletred') # Región de tipicidad
-    
-    # Ploteamos los puntos de entrenamiento, test y anomalías
-    s = 250
-    b1 = plt.scatter(dataSetTrain() [:, 0],dataSetTrain()[:, 1], s=s, edgecolors='k', c="g") # Puntos de entrenamiento
-    b2 = plt.scatter(dataSetTest()[:, 0],dataSetTest()[:, 1], s=s, edgecolors='k', c="y") # Puntos de Test
-    c = plt.scatter(dataSetOutliers()[:, 0], dataSetOutliers()[:, 1], s=s, edgecolors='k', c="r") # Puntos excepcionales
-    
-    #Leyenda
-    plt.axis('tight') # Solo el espacio necesario
-    plt.xlim((-121, 121))
-    plt.ylim((-121, 121))
-    plt.legend([a.collections[0], b1, b2, c],
-               ["Frontera de anomalías", "Training", "Test normales", "Test anómalos"],
-               loc="upper left",
-               prop=matplotlib.font_manager.FontProperties(size=11))
-    plt.show()
-    
-    # Calculamos accuracy del training, test positivos y negativos
-    y_pred_train = clf.predict(dataSetTrain())
-    y_pred_test = clf.predict(dataSetTest())
-    y_pred_outliers = clf.predict(dataSetOutliers())
-    n_error_train = y_pred_train[y_pred_train == -1].size
-    n_error_test = y_pred_test[y_pred_test == -1].size
-    n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    
-    print("Accuracy del training set: "+str(1-n_error_train/len(dataSetTrain() )))
-    print("Recall (normales) del test set: "+str(1-n_error_test/len(dataSetTest())))
-    print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(dataSetOutliers())))
-    print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers()))))   
-
-def accuracyDataTraining():
-    print("INICIO ACCURACYTRAINING")
+    especificidadAnomaliasTestSet=0
+    if(len(dataSetTrainHRreposo())!=0 and len(dataSetTestHRreposo())!=0 and len(dataSetOutliersHR())!=0):
+        global especificidadHRreposo
+        especificidadHRreposo=True
+        y_pred_train = clf.predict(dataSetTrainHRreposo())
+        y_pred_test = clf.predict(dataSetTestHRreposo())
+        y_pred_outliers = clf.predict(dataSetOutliersHR())
+        n_error_train = y_pred_train[y_pred_train == -1].size
+        n_error_test = y_pred_test[y_pred_test == -1].size
+        n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+        especificidadAnomaliasTestSet=str(1-n_error_outliers/len(dataSetOutliersHR()))
+    elif(len(dataSetTrainHRejericio())!=0 and len(dataSetTestHRrejercicio())!=0 and len(dataSetOutliersHR())!=0):
+        global especificidadHRejercicio
+        especificidadHRejercicio=True
+        y_pred_train = clf.predict(dataSetTestHRreposo())
+        y_pred_test = clf.predict(dataSetTestHRrejercicio())
+        y_pred_outliers = clf.predict(dataSetOutliersHR())
+        n_error_train = y_pred_train[y_pred_train == -1].size
+        n_error_test = y_pred_test[y_pred_test == -1].size
+        n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+        especificidadAnomaliasTestSet=str(1-n_error_outliers/len(dataSetOutliersHR()))
+    return especificidadAnomaliasTestSet
+def especificidadDataTestAnomaliasSteps():
+    especificidadAnomaliasTestSet=0
     clf=getCLF()
-     # Calculamos accuracy del training, test positivos y negativos
-    y_pred_train = clf.predict(dataSetTrain())
-    y_pred_test = clf.predict(dataSetTest())
-    y_pred_outliers = clf.predict(dataSetOutliers())
-    n_error_train = y_pred_train[y_pred_train == -1].size
-    n_error_test = y_pred_test[y_pred_test == -1].size
-    n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    accuracyTrainingSet= str(1-n_error_train/len(dataSetTrain() ))
-   # print("Accuracy del training set: "+str(1-n_error_train/len(a_train ))),print("Recall (normales) del test set: "+str(1-n_error_test/len(a2_test))),print("Especificidad (anomalías) del test set: "+str(1-n_error_outliers/len(X_outliers2))),print("Accuracy del test set entero: "+ str(1-(n_error_test+n_error_outliers)/(len(a2_test)+len(X_outliers2))))
-    return accuracyTrainingSet
-
-def recallDataTestNormales():
-    print("INICIO RECALL")
-    clf=getCLF()
-    y_pred_train = clf.predict(dataSetTrain())
-    y_pred_test = clf.predict(dataSetTest())
-    y_pred_outliers = clf.predict(dataSetOutliers())
-    n_error_train = y_pred_train[y_pred_train == -1].size
-    n_error_test = y_pred_test[y_pred_test == -1].size
-    n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    recallNormalesTestSet=str(1-n_error_test/len(dataSetTest()))
-    return recallDataTestNormales
-
-def especificidadDataTestAnomalias():
-    clf=getCLF()
-    y_pred_train = clf.predict(dataSetTrain())
-    y_pred_test = clf.predict(dataSetTest())
-    y_pred_outliers = clf.predict(dataSetOutliers())
-    n_error_train = y_pred_train[y_pred_train == -1].size
-    n_error_test = y_pred_test[y_pred_test == -1].size
-    n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    especificidadAnomaliasTestSet=str(1-n_error_outliers/len(dataSetOutliers()))
+    if(len(dataSetTrainActividadFisica())!=0 and len(dataSetTestSteps())!=0 and len(dataSetOutliersSteps())!=0):
+        global especificidadHRejercicio
+        especificidadHRejercicio=True
+        y_pred_train = clf.predict(dataSetTrainActividadFisica())
+        y_pred_test = clf.predict(dataSetTestSteps())
+        y_pred_outliers = clf.predict(dataSetOutliersSteps())
+        n_error_train = y_pred_train[y_pred_train == -1].size
+        n_error_test = y_pred_test[y_pred_test == -1].size
+        n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+        especificidadAnomaliasTestSet=str(1-n_error_outliers/len(dataSetOutliersSteps()))
     return especificidadAnomaliasTestSet
 
-def accuracyGlobalDataTest():
+def accuracyGlobalDataTestHR():
     print("INICIO ACCURACYGLOBAL")
     clf=getCLF()
-    y_pred_train = clf.predict(dataSetTrain())
-    y_pred_test = clf.predict(dataSetTest())
-    y_pred_outliers = clf.predict(dataSetOutliers())
-    n_error_train = y_pred_train[y_pred_train == -1].size
-    n_error_test = y_pred_test[y_pred_test == -1].size
-    n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
-    accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTest())+len(dataSetOutliers())))
+    accuracyTestGlobal=0
+    if(len(dataSetTrainHRreposo())!=0 and len(dataSetTestHRreposo())!=0 and len(dataSetOutliersHR())!=0):
+        global accuracyHRreposo
+        accuracyHRreposo=True
+        y_pred_train = clf.predict(dataSetTrainHRreposo())
+        y_pred_test = clf.predict(dataSetTestHRreposo())
+        y_pred_outliers = clf.predict(dataSetOutliersHR())
+        n_error_train = y_pred_train[y_pred_train == -1].size
+        n_error_test = y_pred_test[y_pred_test == -1].size
+        n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+        accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTestHRreposo())+len(dataSetOutliersHR())))
+    elif(len(dataSetTrainHRejericio())!=0 and len(dataSetTestHRrejercicio())!=0 and len(dataSetOutliersHR())!=0):
+        global accuracyHRejercicio
+        accuracyHRejercicio=True
+        y_pred_train = clf.predict(dataSetTrainHRejericio())
+        y_pred_test = clf.predict(dataSetTestHRrejercicio())
+        y_pred_outliers = clf.predict(dataSetOutliersHR())
+        n_error_train = y_pred_train[y_pred_train == -1].size
+        n_error_test = y_pred_test[y_pred_test == -1].size
+        n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+        accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTestHRrejercicio())+len(dataSetOutliersHR())))
+    elif(len(dataSetTrainActividadFisica())!=0 and len(dataSetTestSteps())!=0 and len(dataSetOutliersSteps())!=0):
+        global accuracyActividadFisica
+        accuracyActividadFisica=True
+        y_pred_train = clf.predict(dataSetTrainActividadFisica())
+        y_pred_test = clf.predict(dataSetTestSteps())
+        y_pred_outliers = clf.predict(dataSetOutliersSteps())
+        n_error_train = y_pred_train[y_pred_train == -1].size
+        n_error_test = y_pred_test[y_pred_test == -1].size
+        n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+        accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTestSteps())+len(dataSetOutliersSteps())))    
     return accuracyTestGlobal
 
-def modelOneClassSVM():
+def accuracyGlobalDataTestSteps():
+    print("INICIO ACCURACYGLOBAL")
+    accuracyTestGlobal=0
+    clf=getCLF()
+    if(len(dataSetTrainActividadFisica())!=0 and len(dataSetTestSteps())!=0 and len(dataSetOutliersSteps())!=0):
+        global accuracyActividadFisica
+        accuracyActividadFisica=True
+        y_pred_train = clf.predict(dataSetTrainActividadFisica())
+        y_pred_test = clf.predict(dataSetTestSteps())
+        y_pred_outliers = clf.predict(dataSetOutliersSteps())
+        n_error_train = y_pred_train[y_pred_train == -1].size
+        n_error_test = y_pred_test[y_pred_test == -1].size
+        n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+        accuracyTestGlobal=str(1-(n_error_test+n_error_outliers)/(len(dataSetTestSteps())+len(dataSetOutliersSteps())))    
+    return accuracyTestGlobal
+
+""" def modelOneClassSVM():
     print("INICIO MODELONC")
     clf=getCLF()
     nu=random.uniform(0,1)
@@ -729,6 +973,6 @@ def modelOneClassSVM():
     clf = OneClassSVM(nu,gamma)
     if(accuracyTraining>=0.99 and recal>=0.99 and especificidad>=0.99 and accuracyGlobal>=0.99):
         clf.fit(dataSetTrain())
-    return clf.fit(dataSetTrain())
+    return clf.fit(dataSetTrain()) """
     # plot_oneclass_svm(modelOneClassSVM())  
  

@@ -12,7 +12,7 @@ function showWeight(){
     document.getElementById("foods").style.display = "none";
     document.getElementById("fdChr").style.display = "none";
     document.getElementById("HBigD").style.display = "none";
-    title.textContent ="Peso";
+    title.textContent ="Información general";
     title.style.color = "#fff";
     getDataFitbitInfo("sum text Weight");
 }
@@ -29,7 +29,7 @@ function showHR(spectrum){
     document.getElementById("weght").style.display = "none";
     document.getElementById("foods").style.display = "none";
     document.getElementById("fdChr").style.display = "none";
-    title.textContent ="Actividad Cardiaca";
+    title.textContent ="Actividad Cardíaca";
     getDataFitbitCharts("HR",spectrum);
 }
 function showSteps(spectrum){
@@ -41,7 +41,7 @@ function showSteps(spectrum){
     document.getElementById("foods").style.display = "none";
     document.getElementById("fdChr").style.display = "none";
     document.getElementById("HBigD").style.display = "none";
-    title.textContent ="Pasos";
+    title.textContent ="Actividad física";
     getDataFitbitCharts("ST",spectrum);
 }
 function showFood(spectrum){
